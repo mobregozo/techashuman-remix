@@ -1,20 +1,30 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { PostPreview } from "~/components/post-preview";
+import { HOME_OG_IMAGE_URL, SEO_DESCRIPTION } from "~/utilities/constants";
 import type { BlogMetaData } from "~/utilities/read-posts.server";
 import { getAllArticles } from "~/utilities/read-posts.server";
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
 
 export async function loader() {
   const posts = await getAllArticles();
   return posts;
 }
+
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "ÏArticles | TechAsHuman",
+    },
+    {
+      property: "og:title",
+      content: "Articles | TechAsHuman",
+    },
+    { name: "description", description: SEO_DESCRIPTION },
+    { "twitter:card": "summary_large_image" },
+    { "og:description": SEO_DESCRIPTION },
+    { "og:image": HOME_OG_IMAGE_URL },
+  ];
+};
 
 export default function Index() {
   const files: BlogMetaData[] = useLoaderData();
