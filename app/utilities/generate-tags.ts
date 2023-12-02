@@ -22,9 +22,10 @@ export const generateTags = (
     { "og:description": description },
     { "og:image": img },
     { "og:type": "article" },
-    { "twitter:card": "summary_large_image" },
-    { "twitter:site": TWITTER_USER },
-    { "twitter:creator": TWITTER_USER },
-    { "twitter:creator:id": TWITTER_ID },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: TWITTER_USER },
+    { name: "twitter:creator", content: TWITTER_USER },
+    { name: "twitter:creator:id", content: TWITTER_ID },
+    { name: "twitter:image", content: img },
   ];
 };
