@@ -32,7 +32,9 @@ export default function Index() {
           Opinions are my own!
         </strong>
       </p>
-      If you would like to stay up to date with my latest posts, please
+      <span className="text-gray-700 dark:text-white">
+        If you would like to stay up to date with my latest posts, please
+      </span>
       <a
         href="https://techashuman.substack.com/"
         className="pl-1 font-bold underline md:no-underline hover:underline text-primary-700 dark:text-primary-500"
