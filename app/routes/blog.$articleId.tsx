@@ -9,7 +9,7 @@ import {
 } from "~/utilities/read-posts.server";
 import logoTwitter from "../../public/assets/logo-twitter.svg";
 import { PostPreview } from "~/components/post-preview";
-import { HOME_OG_IMAGE_URL } from "~/utilities/constants";
+import { generateTags } from "~/utilities/generate-tags";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   let post = null;
@@ -23,19 +23,13 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   const post = data?.post;
-  return [
-    {
-      title: `${post?.data.title} | TechAsHuman`,
-    },
-    {
-      property: "og:title",
-      content: post?.data.title,
-    },
-    { name: "description", description: post?.data.subtitle },
-    { "twitter:card": "summary_large_image" },
-    { "og:description": post?.data.subtitle },
-    { "og:image": post?.photoURL ? post?.photoURL : HOME_OG_IMAGE_URL },
-  ];
+  const tags = generateTags(
+    post?.data.title,
+    post?.data.subtitle,
+    post?.photoURL ?? undefined
+  );
+
+  return tags;
 };
 
 export default function Index() {

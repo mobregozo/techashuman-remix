@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { PostPreview } from "~/components/post-preview";
-import { HOME_OG_IMAGE_URL, SEO_DESCRIPTION } from "~/utilities/constants";
+import { generateTags } from "~/utilities/generate-tags";
 import type { BlogMetaData } from "~/utilities/read-posts.server";
 import { getAllArticles } from "~/utilities/read-posts.server";
 
@@ -11,19 +11,8 @@ export async function loader() {
 }
 
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "ÏArticles | TechAsHuman",
-    },
-    {
-      property: "og:title",
-      content: "Articles | TechAsHuman",
-    },
-    { name: "description", description: SEO_DESCRIPTION },
-    { "twitter:card": "summary_large_image" },
-    { "og:description": SEO_DESCRIPTION },
-    { "og:image": HOME_OG_IMAGE_URL },
-  ];
+  const tags = generateTags("Articles");
+  return tags;
 };
 
 export default function Index() {

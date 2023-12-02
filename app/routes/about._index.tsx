@@ -1,22 +1,12 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { Loader } from "~/components/loader";
-import { PostPreview } from "~/components/post-preview";
-import type { BlogMetaData } from "~/utilities/read-posts.server";
-import { getAllArticles } from "~/utilities/read-posts.server";
 import { experience } from "~/utilities/experiences";
+import { generateTags } from "~/utilities/generate-tags";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+  const tags = generateTags("About");
+  return tags;
 };
-
-export async function loader() {
-  const posts = await getAllArticles();
-  return posts;
-}
 
 export default function Index() {
   return (
