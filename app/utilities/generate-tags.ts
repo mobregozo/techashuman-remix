@@ -18,7 +18,7 @@ export const generateTags = (
       property: "og:title",
       content: `${title} | TechAsHuman`,
     },
-    { name: "description", description },
+    { name: "description", content: description },
     { "og:description": description },
     { "og:image": img },
     { "og:type": "article" },
