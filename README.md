@@ -1,4 +1,6 @@
-# Welcome to Remix!
+# Welcome to My blog code in Remix
+
+This is the code of my blog, which I have decided to keep public.
 
 - [Remix Docs](https://remix.run/docs)
 

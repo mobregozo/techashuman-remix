@@ -45,7 +45,9 @@ export async function getLatestArticles(): Promise<BlogMetaData[]> {
     };
   });
 
-  return posts.slice(0, 4).sort((a, b) => (a.number < b.number ? 1 : -1));
+  return [
+    ...posts.sort((a, b) => (Number(a.number) < Number(b.number) ? 1 : -1)),
+  ].slice(0, 4);
 }
 
 export async function getAllArticles(): Promise<BlogMetaData[]> {

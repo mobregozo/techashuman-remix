@@ -28,7 +28,7 @@ That is just one example of phrases that can come across, other examples could b
 
 Instead of encouraging further exploration and discussion of person A's idea, the quick "I was thinking the same thing" remark might unintentionally discourage others from offering alternative viewpoints or building upon the initial proposal. This could lead to missed opportunities for valuable insights and creative solutions that could enhance the project.
 
-In a similar scenario, another pattern that I have seen is trying to be supportive by saying “I have suggested this before and nobody follow-me“, this doesn't help because you are inferring that the other didn't understand but maybe you were the one who didn't explain your idea in a way that everyone understands. Similarly saying “I told you so” with the benefit of hindsight, it doesn't bring anything useful\***\*.\*\***
+In a similar scenario, another pattern that I have seen is trying to be supportive by saying “I have suggested this before and nobody follow-me“, this doesn't help because you are inferring that the other didn't understand but maybe you were the one who didn't explain your idea in a way that everyone understands. Similarly saying “I told you so” with the benefit of hindsight, it doesn't bring anything useful.
 
 Some alternatives that might embrace better collaboration could be something like "Let's explore this idea further together”, "You've brought up a unique perspective” or “I hadn't thought of that before, great contribution!”, just to name a few.
 

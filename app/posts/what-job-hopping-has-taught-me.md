@@ -8,8 +8,6 @@ photoId: "ABsM51NLUjM"
 photoAuthor: "@kaip"
 ---
 
-# What job hopping has taught me
-
 This post is not intended to be used as a promotion campaign about the benefits of job hopping; it's just a reflection on the valuable lessons my journey has taught me over the years.
 
 In my particular case, rather than a decision was a consequence of different circumstances of the time I was in my career. What I am trying to say is that it was not initially planned to be like so I'd like to explore the advantages and disadvantages that emerged from this scenario.
