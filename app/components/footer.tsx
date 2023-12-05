@@ -23,11 +23,15 @@ export const Footer = () => {
         </div>
       </div>
       <div className="mt-8 text-sm">
+        <h2 className="text-lg font-semibold">Stay up to date</h2>
+        {/* <p className="text-sm mt-2">
+          Stay up to date with the latest articles.
+        </p> */}
         <button
           type="button"
-          className="text-gray-700 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+          className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-3 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
         >
-          <a href="https://techashuman.substack.com/">
+          <a href="https://techashuman.substack.com/" target="blank">
             Subscribe to newsletter
           </a>
         </button>

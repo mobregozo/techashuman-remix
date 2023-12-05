@@ -182,7 +182,7 @@ export default function Index() {
       </div>
       <hr className="border-gray-300 dark:border-gray-700 border-t-1" />
       <Footer />
-      <h2 className="text-primary-700 text-2xl md:text-4xl mt-16 mb-4 font-semibold dark:text-white tracking-tighter">
+      <h2 className="text-primary-700 text-2xl md:text-4xl mt-8 md:mt-10 mb-4 font-semibold dark:text-white tracking-tighter">
         Other articles
       </h2>
       {postPreviews}
