@@ -11,6 +11,7 @@ const Intro = () => {
           <h1 className="font-medium text-4xl mb-4 ">
             Hola! Welcome to
             <span className=" font-extrabold tracking-tighter">
+              {" "}
               TechAsHuman
             </span>
           </h1>
