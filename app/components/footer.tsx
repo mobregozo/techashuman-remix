@@ -2,7 +2,7 @@ export const Footer = () => {
   return (
     <div className="text-gray-600 dark:text-gray-400 py-10">
       <div className="grid lg:grid-cols-3 gap-6">
-        <div className="col-span-2">
+        <div className="lg:col-span-2">
           <h2 className="text-lg font-semibold">Written by Manu</h2>
           <p className="text-sm mt-2">
             I'm a full-stack developer with a passion for sharing my experience
@@ -12,21 +12,19 @@ export const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold">Follow Me</h2>
           <div className="mt-2">
-            <a
-              href="https://www.linkedin.com/in/manuelobregozo/?locale=en_US"
-              target="blank"
-            >
-              <IconLinkedIn className="h-6 w-6 hover:opacity-80" />
-              <span className="sr-only">LinkedIn Profile Link</span>
-            </a>
+            <button className="h-6 w-6">
+              <a
+                href="https://www.linkedin.com/in/manuelobregozo/?locale=en_US"
+                target="blank"
+              >
+                <IconLinkedIn className="h-6 w-6 hover:opacity-80 text-gray-800 dark:text-gray-500" />
+              </a>
+            </button>
           </div>
         </div>
       </div>
       <div className="mt-8 text-sm">
         <h2 className="text-lg font-semibold">Stay up to date</h2>
-        {/* <p className="text-sm mt-2">
-          Stay up to date with the latest articles.
-        </p> */}
         <button
           type="button"
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-3 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"

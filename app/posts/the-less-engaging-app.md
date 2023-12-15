@@ -2,7 +2,7 @@
 number: 41
 title: "The less engaging app"
 slug: "the-less-engaging-app"
-date: 09-15-2023"
+date: 09-15-2023
 subtitle: 'In the world of digital product design, the prevailing wisdom often revolves around creating more user engagement. It''s a common goal: the longer users stay, the more they engage, and the more valuable they become. But what if I told you about a time when I, along with a group of friends, took an unconventional path? We set out to build what we affectionately called "the less engaging app."'
 photoId: "ePAL0f6jjr0"
 photoAuthor: "@fakurian"

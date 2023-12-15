@@ -59,7 +59,7 @@ function App() {
         <PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
       </head>
       <body suppressHydrationWarning={true}>
-        <div className={`h-full flex-col flex w-full`}>
+        <div className="h-full flex-col flex w-full">
           <Header />
           <div
             id="main-view"
