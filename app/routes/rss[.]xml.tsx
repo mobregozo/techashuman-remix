@@ -18,9 +18,8 @@ const renderXML = (articles: BlogMetaData[]) => {
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>
   <rss version="2.0">
     <channel>
-        <title>Tech as Huma</title>
+        <title>Tech as Human</title>
         <link>${MAIN_URL}</link>
-        <atom:link href="${MAIN_URL}/rss.xml" rel="self" type="application/rss+xml" />
         <description>Welcome to Tech as Human! A blog where I uncover the often overlooked human aspect of the IT world.</description>
         ${articles.filter(Boolean).map(renderItem).join("")}
     </channel>

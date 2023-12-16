@@ -22,23 +22,17 @@ export default function Index() {
           </p>
           <div>
             <p className="mb-2">
-              With over a decade of experience in the tech industry, I&apos;ve
-              had the privilege of working with diverse companies, exploring
-              various domains, assuming different roles, and mastering a wide
-              range of technologies.
+              I've been in the tech game for over a decade, working with all
+              sorts of companies and wearing many hats. From coding to managing,
+              I still love the thrill of it.
             </p>
             <p className="mb-2">
-              The journey has been enriching, and I continue to thrive on the
-              excitement and challenges that come with it.
-            </p>
-            <p className="mb-2">
-              Today, my primary focus revolves around elevating products and
-              solutions to new heights, getting into the management area,
-              bringing together the realms of product and engineering.
+              Now, my main gig is taking products to the next level and diving
+              into the management world, bridging the gap between product and
+              engineering.
             </p>
           </div>
         </div>
-
         <div>
           <div className="mt-10 flex items-center">
             <a
