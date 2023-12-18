@@ -18,7 +18,7 @@ Among various workplace strategies, the term "feedback" has transformed into a m
 
 It's crucial to distinguish between sharing an opinion and providing feedback. While expressing opinions is valid, presenting them as indisputable facts can't be expected to be received as constructive feedback. For instance, telling someone, "Your public speaking abilities are bad" without context is not feedback but a subjective observation presented as an absolute.
 
-To give perspective, and a reasonable understanding, I like to emphasize **how things are making me feel**, providing that observation can help the receiver to understand why I am bringing this up.
+To give perspective, and a reasonable understanding, I like to emphasize **how things are making me feel**, and providing that observation can help the receiver to understand why I am bringing this up.
 
 For instance, stating, "I felt a disconnect during the presentation due to the heavy text on the slides" provides a clearer understanding. The analogy of observing feedback as if it were recorded by an unbiased camera encourages objectivity and discourages unnecessary personalization.
 
