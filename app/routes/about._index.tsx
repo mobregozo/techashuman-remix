@@ -22,9 +22,9 @@ export default function Index() {
           </p>
           <div>
             <p className="mb-2">
-              I've been in the tech game for over a decade, working with all
-              sorts of companies and wearing many hats. From coding to managing,
-              I still love the thrill of it.
+              I've been in the tech game for over a decade, working with
+              different sorts of companies and wearing many hats. From coding to
+              managing, I still love the thrill of it.
             </p>
             <p className="mb-2">
               Now, my main gig is taking products to the next level and diving
