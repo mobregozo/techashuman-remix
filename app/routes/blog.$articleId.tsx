@@ -17,7 +17,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   if (params.articleId) {
     post = await getArticleContent(params.articleId);
   }
-  const latestPosts = await getLatestArticles();
+  const latestPosts = await getLatestArticles(params.articleId!);
 
   return { latestPosts, post };
 }

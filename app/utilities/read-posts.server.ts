@@ -25,7 +25,9 @@ export type Article = {
   linkToshare: string;
 };
 
-export async function getLatestArticles(): Promise<BlogMetaData[]> {
+export async function getLatestArticles(
+  currentArticle?: string
+): Promise<BlogMetaData[]> {
   const folder = "./app/posts/";
   const files = fs.readdirSync(folder);
   const markdownPosts = files.filter((file) => file.endsWith(".md"));
@@ -46,7 +48,9 @@ export async function getLatestArticles(): Promise<BlogMetaData[]> {
   });
 
   return [
-    ...posts.sort((a, b) => (Number(a.number) < Number(b.number) ? 1 : -1)),
+    ...posts
+      .filter((article) => article.slug != currentArticle)
+      .sort((a, b) => (Number(a.number) < Number(b.number) ? 1 : -1)),
   ].slice(0, 4);
 }
 
@@ -98,9 +102,8 @@ export const getArticleContent = async (slug: string) => {
       ...matterResult,
       readingTime: readingTime(matterResult.content),
       formattedDate: Intl.DateTimeFormat("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "2-digit",
+        dateStyle: "long",
+        timeStyle: undefined,
       }).format(new Date(matterResult.data.date)),
       authorProfileURL: photo
         ? `https://unsplash.com/${photo.response?.user.username}?utm_source=blog&utm_medium=referral`
@@ -109,7 +112,6 @@ export const getArticleContent = async (slug: string) => {
       linkToshare: `http://twitter.com/share/?text="${matterResult.data.title}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${matterResult.data.slug}`,
     };
   } catch (error) {
-    console.log("error");
     return null;
   }
 };

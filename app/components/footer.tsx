@@ -5,8 +5,8 @@ export const Footer = () => {
         <div className="lg:col-span-2">
           <h2 className="text-lg font-semibold">Written by Manu</h2>
           <p className="text-sm mt-2">
-            I'm a full-stack developer with a passion for sharing my experience
-            in the IT world, from a human-centered perspective.
+            I am a product-driven JavaScript developer, passionate about sharing
+            experiences in the IT world, from a human-centric perspective.
           </p>
         </div>
         <div>
