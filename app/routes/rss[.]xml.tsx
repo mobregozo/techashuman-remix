@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { MAIN_URL } from "~/utilities/constants";
-import type { BlogMetaData } from "~/utilities/read-posts.server";
+import type { PostProperties } from "~/utilities/read-posts.server";
 import { getAllArticles } from "~/utilities/read-posts.server";
 
 export const loader: LoaderFunction = async () => {
@@ -14,7 +14,7 @@ export const loader: LoaderFunction = async () => {
   });
 };
 
-const renderXML = (articles: BlogMetaData[]) => {
+const renderXML = (articles: PostProperties[]) => {
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>
   <rss version="2.0">
     <channel>
@@ -28,7 +28,7 @@ const renderXML = (articles: BlogMetaData[]) => {
   return sourceXML;
 };
 
-const renderItem = (article: BlogMetaData) => {
+const renderItem = (article: PostProperties) => {
   const link = `${MAIN_URL}/blog/${article.slug}`;
   return `
         <item>

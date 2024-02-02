@@ -129,7 +129,7 @@ export default function Index() {
             </a>
           </div>
         </div>
-        <h2 className="text-primary-700 text-xl md:text-4xl mt-10 mb-4 font-semibold dark:text-secondary-500 tracking-tighter">
+        <h2 className="text-primary-700 text-xl md:text-5xl mt-16 mb-8 font-semibold dark:text-secondary-500 tracking-tighter">
           Working Experience
         </h2>
         {experience.map((job) => (

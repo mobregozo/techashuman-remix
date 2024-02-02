@@ -1,117 +1,166 @@
-import fs from "fs";
-import matter from "gray-matter";
-import path from "path";
 import { createApi } from "unsplash-js";
 import { TWITTER_USER, MAIN_URL, POST_PATH } from "./constants";
-import { readingTime } from "./reading-time";
+import { Client } from "@notionhq/client";
+import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-export type BlogMetaData = {
+const notion = new Client({
+  auth: process.env.NOTION_TOKEN,
+});
+
+export type PostProperties = {
   slug: string;
   title: string;
   date: string;
-  photoId: string;
-  photoAuthor: string;
+  photoId?: string;
   subtitle: string;
   number: string;
 };
 
-export type Article = {
-  data: BlogMetaData;
+export type PostGeneratedProps = {
+  number: number;
+  slug: string;
+  title: string;
+  subtitle: string;
   readingTime: string;
   formattedDate: string;
   photoURL: string;
   authorProfileURL: string;
   content: string;
   linkToshare: string;
+  photoAuthor: string;
 };
 
-export async function getLatestArticles(
-  currentArticle?: string
-): Promise<BlogMetaData[]> {
-  const folder = "./app/posts/";
-  const files = fs.readdirSync(folder);
-  const markdownPosts = files.filter((file) => file.endsWith(".md"));
+export type PostContent = {
+  content: PostGeneratedProps;
+  blocks: BlockObjectResponse[];
+};
 
-  // Get gray-matter data from each file.
-  const posts = markdownPosts.map((fileName) => {
-    const fileContents = fs.readFileSync(`./app/posts/${fileName}`, "utf8");
-    const matterResult = matter(fileContents);
-    return {
-      slug: fileName.replace(".md", ""),
-      title: matterResult.data.title,
-      date: matterResult.data.date,
-      photoId: matterResult.data.photoId,
-      photoAuthor: matterResult.data.photoAuthor,
-      subtitle: matterResult.data.subtitle,
-      number: matterResult.data.number,
-    };
+export async function getArticleContent(slug: string) {
+  const page = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE as string,
+    filter: {
+      property: "slug",
+      rich_text: {
+        equals: slug,
+      },
+    },
   });
 
-  return [
-    ...posts
-      .filter((article) => article.slug != currentArticle)
-      .sort((a, b) => (Number(a.number) < Number(b.number) ? 1 : -1)),
-  ].slice(0, 4);
-}
+  if (page) {
+    const pageId = page.results[0].id;
+    const pageData: any = await notion.pages.retrieve({
+      page_id: pageId,
+    });
 
-export async function getAllArticles(): Promise<BlogMetaData[]> {
-  const folder = "./app/posts/";
-  const files = fs.readdirSync(folder);
-  const markdownPosts = files.filter((file) => file.endsWith(".md"));
+    const content = await notion.blocks.children.list({
+      block_id: pageId,
+    });
 
-  // Get gray-matter data from each file.
-  const posts = markdownPosts.map((fileName) => {
-    const fileContents = fs.readFileSync(`./app/posts/${fileName}`, "utf8");
-    const matterResult = matter(fileContents);
-    return {
-      slug: fileName.replace(".md", ""),
-      title: matterResult.data.title,
-      date: matterResult.data.date,
-      photoId: matterResult.data.photoId,
-      photoAuthor: matterResult.data.photoAuthor,
-      subtitle: matterResult.data.subtitle,
-      number: matterResult.data.number,
-    };
-  });
+    const photoId =
+      pageData.properties.photoId?.rich_text[0]?.plain_text ?? null;
 
-  return posts.sort((a, b) => (a.number < b.number ? 1 : -1));
-}
+    try {
+      let photo = null;
 
-export const getArticleContent = async (slug: string) => {
-  const folder = path.join(process.cwd(), "./app/posts/");
-  const file = `${folder}${slug}.md`;
-  let content = null;
+      if (photoId) {
+        const serverApi = createApi({
+          accessKey: process.env.UNSPLASH_KEY as string,
+        });
 
-  try {
-    content = fs.readFileSync(file, "utf8");
-    const matterResult = matter(content);
+        photo = await serverApi.photos.get({
+          photoId,
+        });
+      }
 
-    let photo = null;
-
-    if (matterResult.data.photoId) {
-      const serverApi = createApi({
-        accessKey: process.env.UNSPLASH_KEY as string,
-      });
-
-      photo = await serverApi.photos.get({
-        photoId: matterResult.data.photoId,
-      });
+      return {
+        content: {
+          readingTime: pageData.properties.readingTime.formula.number,
+          formattedDate: Intl.DateTimeFormat("en-US", {
+            dateStyle: "long",
+            timeStyle: undefined,
+          }).format(new Date(pageData.properties.date.date.start)),
+          authorProfileURL: photo
+            ? `https://unsplash.com/${photo.response?.user.username}?utm_source=blog&utm_medium=referral`
+            : null,
+          photoAuthor: photo ? photo.response?.user.username : null,
+          title: pageData.properties.title.title[0].plain_text,
+          slug: pageData.properties.slug.rich_text[0].plain_text,
+          subtitle: pageData.properties.subtitle.rich_text[0].plain_text,
+          number: pageData.properties.number.number,
+          photoURL: photo ? photo.response?.urls.regular : null,
+          linkToshare: `http://twitter.com/share/?text="${pageData.properties.title.title[0].plain_text}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,
+        },
+        blocks: content.results,
+      };
+    } catch (error) {
+      return null;
     }
-
-    return {
-      ...matterResult,
-      readingTime: readingTime(matterResult.content),
-      formattedDate: Intl.DateTimeFormat("en-US", {
-        dateStyle: "long",
-        timeStyle: undefined,
-      }).format(new Date(matterResult.data.date)),
-      authorProfileURL: photo
-        ? `https://unsplash.com/${photo.response?.user.username}?utm_source=blog&utm_medium=referral`
-        : null,
-      photoURL: photo ? photo.response?.urls.regular : null,
-      linkToshare: `http://twitter.com/share/?text="${matterResult.data.title}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${matterResult.data.slug}`,
-    };
-  } catch (error) {
-    return null;
   }
-};
+}
+
+export async function getLatestArticles(slug?: string) {
+  const response: any = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE as string,
+    page_size: 5,
+    filter: {
+      and: [
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
+          },
+        },
+        {
+          property: "slug",
+          rich_text: {
+            does_not_equal: slug ?? "",
+          },
+        },
+      ],
+    },
+    sorts: [
+      {
+        property: "date",
+        direction: "descending",
+      },
+    ],
+  });
+
+  return response.results.map((blog: any) => {
+    return {
+      title: blog.properties.title.title[0].plain_text,
+      slug: blog.properties.slug.rich_text[0].plain_text,
+      date: blog.properties.date.date.start,
+      subtitle: blog.properties.subtitle.rich_text[0].plain_text,
+      number: blog.properties.number.number,
+    };
+  });
+}
+
+export async function getAllArticles() {
+  const response: any = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE as string,
+    filter: {
+      property: "published",
+      checkbox: {
+        equals: true,
+      },
+    },
+    sorts: [
+      {
+        property: "date",
+        direction: "descending",
+      },
+    ],
+  });
+
+  return response.results.map((blog: any) => {
+    return {
+      title: blog.properties.title.title[0].plain_text,
+      slug: blog.properties.slug.rich_text[0].plain_text,
+      date: blog.properties.date.date.start,
+      subtitle: blog.properties.subtitle.rich_text[0].plain_text,
+      number: blog.properties.number.number,
+    };
+  });
+}

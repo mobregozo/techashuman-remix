@@ -1,8 +1,10 @@
 import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Loader } from "~/components/loader";
-import Markdown from "markdown-to-jsx";
-import type { Article, BlogMetaData } from "~/utilities/read-posts.server";
+import type {
+  PostContent,
+  PostProperties,
+} from "~/utilities/read-posts.server";
 import {
   getArticleContent,
   getLatestArticles,
@@ -11,6 +13,7 @@ import { PostPreview } from "~/components/post-preview";
 import { generateTags } from "~/utilities/generate-tags";
 import NotFound from "~/utilities/not-found";
 import { Footer } from "~/components/footer";
+import { Block } from "~/components/post-block";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   let post = null;
@@ -23,11 +26,10 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  const post = data?.post;
   const tags = generateTags(
-    post?.data.title,
-    post?.data.subtitle,
-    post?.photoURL ?? undefined
+    data?.post?.content.title,
+    data?.post?.content.subtitle,
+    data?.post?.content.photoURL ?? undefined
   );
 
   return tags;
@@ -35,12 +37,14 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Index() {
   const { post, latestPosts } = useLoaderData<{
-    post: Article;
-    latestPosts: BlogMetaData[];
+    post: PostContent;
+    latestPosts: PostProperties[];
   }>();
 
   const postPreviews = latestPosts.map((post) => (
-    <PostPreview key={post.slug} {...post} />
+    <div key={post.slug} className="my-8">
+      <PostPreview {...post} />
+    </div>
   ));
 
   if (!post) {
@@ -52,18 +56,21 @@ export default function Index() {
       <Loader />
       <article>
         <h1 className="text-4xl md:text-6xl mb-8 font-bold tracking-tighter text-secondary-700 dark:text-secondary-500">
-          {post.data.title}
+          {post.content.title}
         </h1>
         <div className="flex font-bold text-gray-700 dark:text-gray-500">
-          <span>{post.readingTime} min read</span>
+          <span>{post.content.readingTime} min read</span>
           <span className="px-2">&bull;</span>
-          <span className="text-primary-700 uppercase dark:text-primary-500">
-            {post.formattedDate}
-          </span>
+          <time
+            dateTime={post.content.formattedDate}
+            className="text-primary-700 uppercase dark:text-primary-500"
+          >
+            {post.content.formattedDate}
+          </time>
         </div>
         <a
           type="button"
-          href={post.linkToshare}
+          href={post.content.linkToshare}
           className="text-white mt-4 bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"
         >
           <svg
@@ -81,11 +88,11 @@ export default function Index() {
           </svg>
           Share on Twitter
         </a>
-        {post.photoURL && post.authorProfileURL ? (
+        {post.content.photoURL && post.content.authorProfileURL ? (
           <div className="my-4">
             <img
               className="rounded-m object-center object-cover w-full h-56 sm:h-96"
-              src={post.photoURL}
+              src={post.content.photoURL}
               alt="fix me"
               width={400}
               height={300}
@@ -95,9 +102,9 @@ export default function Index() {
                 Photo by{" "}
                 <a
                   className="text-primary-600 hover:underline"
-                  href={post.authorProfileURL}
+                  href={post.content.authorProfileURL}
                 >
-                  {post.data.photoAuthor}
+                  {post.content.photoAuthor}
                 </a>{" "}
                 on{" "}
                 <a
@@ -111,70 +118,9 @@ export default function Index() {
           </div>
         ) : null}
         <div className="prose dark:prose-invert container max-w-3xl mx-auto mb-8">
-          <Markdown
-            options={{
-              overrides: {
-                a: {
-                  props: {
-                    className:
-                      "text-primary-700 font-semibold hover:underline dark:text-primary-500",
-                  },
-                },
-                pre: {
-                  props: {
-                    className:
-                      "bg-gray-100 dark:bg-gray-800 p-4 rounded-md whitespace-pre-line",
-                  },
-                },
-                h3: {
-                  props: {
-                    className:
-                      "text-2xl text-gray-700 dark:text-white tracking-tighter",
-                  },
-                },
-                h2: {
-                  props: {
-                    className:
-                      "text-3xl text-primary-700 dark:text-secondary-400 tracking-tighter",
-                  },
-                },
-                h1: {
-                  props: {
-                    className:
-                      "mt-12 text-5xl tracking-wide text-primary-700 dark:text-white font-semibold",
-                  },
-                },
-                p: {
-                  props: {
-                    className: "my-2",
-                  },
-                },
-                blockquote: {
-                  props: {
-                    className:
-                      "border-l-4 border-primary-700 dark:border-primary-500 pl-4 text-gray-700 dark:text-gray-400",
-                  },
-                },
-                strong: {
-                  props: {
-                    className: "text-gray-700 dark:text-gray-400 font-bold",
-                  },
-                },
-                ul: {
-                  props: {
-                    className: "list-disc list-inside my-4",
-                  },
-                },
-                li: {
-                  props: {
-                    className: "mb-2",
-                  },
-                },
-              },
-            }}
-          >
-            {post.content}
-          </Markdown>
+          {post.blocks.map((block) => (
+            <Block block={block} key={block.id} />
+          ))}
         </div>
         <div className="font-semibold text-gray-600 dark:text-gray-400 my-12">
           Thanks for reading ❤️
@@ -185,7 +131,7 @@ export default function Index() {
           <h2 className="text-primary-700 text-2xl md:text-4xl mt-8 md:mt-10 mb-4 font-semibold dark:text-white tracking-tighter">
             Other articles
           </h2>
-          {postPreviews}
+          <div className="mt-12">{postPreviews}</div>
           <div className="mt-8">
             <a
               href="/blog"
