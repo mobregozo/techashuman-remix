@@ -12,6 +12,7 @@ export type PostProperties = {
   title: string;
   date: string;
   photoId?: string;
+  photoURL?: string;
   subtitle: string;
   number: string;
 };
@@ -126,15 +127,36 @@ export async function getLatestArticles(slug?: string) {
     ],
   });
 
-  return response.results.map((blog: any) => {
-    return {
-      title: blog.properties.title.title[0].plain_text,
-      slug: blog.properties.slug.rich_text[0].plain_text,
-      date: blog.properties.date.date.start,
-      subtitle: blog.properties.subtitle.rich_text[0].plain_text,
-      number: blog.properties.number.number,
-    };
-  });
+  return await Promise.all(
+    response.results.map(async (blog: any) => {
+      const photoId = blog.properties.photoId?.rich_text[0]?.plain_text ?? null;
+
+      let photo = null;
+
+      try {
+        if (photoId) {
+          const serverApi = createApi({
+            accessKey: process.env.UNSPLASH_KEY as string,
+          });
+
+          photo = await serverApi.photos.get({
+            photoId,
+          });
+        }
+      } catch {
+        photo = null;
+      }
+
+      return {
+        photoURL: photo ? photo.response?.urls.small : null,
+        title: blog.properties.title.title[0].plain_text,
+        slug: blog.properties.slug.rich_text[0].plain_text,
+        date: blog.properties.date.date.start,
+        subtitle: blog.properties.subtitle.rich_text[0].plain_text,
+        number: blog.properties.number.number,
+      };
+    })
+  );
 }
 
 export async function getAllArticles() {

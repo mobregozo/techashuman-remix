@@ -42,7 +42,7 @@ export default function Index() {
   }>();
 
   const postPreviews = latestPosts.map((post) => (
-    <div key={post.slug} className="my-8">
+    <div key={post.slug}>
       <PostPreview {...post} />
     </div>
   ));
@@ -122,16 +122,18 @@ export default function Index() {
             <Block block={block} key={block.id} />
           ))}
         </div>
-        <div className="font-semibold text-gray-600 dark:text-gray-400 my-12">
+        <div className="text-gray-600 dark:text-gray-400 my-12">
           Thanks for reading ❤️
         </div>
         <div>
           <hr className="border-gray-300 dark:border-gray-700 border-t-1" />
           <Footer />
-          <h2 className="text-primary-700 text-2xl md:text-4xl mt-8 md:mt-10 mb-4 font-semibold dark:text-white tracking-tighter">
+          <h2 className="text-primary-600 text-3xl md:text-5xl mt-8 font-bold dark:text-white tracking-tighter">
             Other articles
           </h2>
-          <div className="mt-12">{postPreviews}</div>
+          <div className="md:mt-12 divide-y divide-gray-300 dark:divide-gray-800 md:divide-y-0">
+            {postPreviews}
+          </div>
           <div className="mt-8">
             <a
               href="/blog"
