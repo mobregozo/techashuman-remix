@@ -40,7 +40,12 @@ const Header = () => {
               ABOUT
             </a>
           </div>
-          <div className="text-white flex items-center space-x-2">
+          <div className="text-white flex items-center space-x-4">
+            <button className="hover:opacity-60">
+              <a href="/rss.xml">
+                <img className="h-5 w-5" alt="rss" src="/assets/logo-rss.svg" />
+              </a>
+            </button>
             <button
               className="hover:opacity-60"
               hidden={theme === "light"}

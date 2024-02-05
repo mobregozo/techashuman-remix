@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { MAIN_URL } from "~/utilities/constants";
-import type { BlogMetaData } from "~/utilities/read-posts.server";
+import type { PostProperties } from "~/utilities/read-posts.server";
 import { getAllArticles } from "~/utilities/read-posts.server";
 
 export const loader: LoaderFunction = async () => {
@@ -15,13 +15,15 @@ export const loader: LoaderFunction = async () => {
   });
 };
 
-const renderXML = (slugs: BlogMetaData[]) => {
+const renderXML = (slugs: PostProperties[]) => {
   const url = `${MAIN_URL}/blog`;
 
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${slugs.filter(Boolean).map(
-      (item) => `<url>
+    ${slugs
+      .filter(Boolean)
+      .map(
+        (item) => `<url>
       <loc>${url}/${item.slug}</loc>
       <lastmod>${new Date(
         Intl.DateTimeFormat("en-US", {
@@ -31,7 +33,8 @@ const renderXML = (slugs: BlogMetaData[]) => {
         }).format(new Date(item.date))
       ).toISOString()}</lastmod>
     </url>`
-    ).join("")}
+      )
+      .join("")}
   </urlset>`;
 
   return sourceXML;

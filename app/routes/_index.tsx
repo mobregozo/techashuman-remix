@@ -1,9 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import Intro from "~/components/intro";
+import { Intro } from "~/components/intro";
 import { PostPreview } from "~/components/post-preview";
 import { generateTags } from "~/utilities/generate-tags";
-import type { BlogMetaData } from "~/utilities/read-posts.server";
+import type { PostProperties } from "~/utilities/read-posts.server";
 import { getLatestArticles } from "~/utilities/read-posts.server";
 
 export const meta: MetaFunction = () => {
@@ -17,23 +17,27 @@ export async function loader() {
 }
 
 export default function Index() {
-  const files: BlogMetaData[] = useLoaderData();
+  const files: PostProperties[] = useLoaderData();
 
   const postPreviews = files.map((post) => (
-    <PostPreview key={post.slug} {...post} />
+    <div key={post.slug} className="mb-4">
+      <PostPreview {...post} />
+    </div>
   ));
 
   return (
     <>
       <Intro />
-      <h2 className="text-primary-700 text-2xl md:text-4xl mt-8 mb-4 font-semibold dark:text-white tracking-tighter">
+      <h2 className="text-primary-600 text-3xl md:text-5xl mt-8 font-bold dark:text-white tracking-tighter">
         Latest articles
       </h2>
-      <div className="mb-8">{postPreviews}</div>
+      <div className="md:mt-8 mb-20 divide-y divide-gray-300 dark:divide-gray-800 md:divide-y-0">
+        {postPreviews}
+      </div>
       <div>
         <a
           href="/blog"
-          className="text-primary-700 dark:text-primary-600 text-center block hover:opacity-70 font-bold hover:underline"
+          className="text-xl text-primary-700 dark:text-primary-600 text-center block hover:opacity-70 font-bold hover:underline"
         >
           VIEW ALL ARTICLES
         </a>
