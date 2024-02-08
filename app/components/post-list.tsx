@@ -26,12 +26,15 @@ export const PostList = ({ block }: PostListProps) => {
   }
 
   return (
-    <ul className="list-disc list-inside my-4 pl-0">
-      <li className="mb-1 marker:m-0 dark:marker:text-white">
-        {list_item.rich_text.map((item, index) => (
-          <PostText key={`${block.id}-${index}`} text={item} />
-        ))}
-      </li>
+    <ul className="list-disc list-inside my-2 pl-0">
+      {list_item.rich_text.map((item, index) => (
+        <li
+          className="m-0 marker:m-0 dark:marker:text-white"
+          key={`${block.id}-${index}`}
+        >
+          <PostText text={item} />
+        </li>
+      ))}
     </ul>
   );
 };

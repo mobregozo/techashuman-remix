@@ -7,6 +7,8 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+const isProduction = process.env.NODE_ENV !== "development";
+
 export type PostProperties = {
   slug: string;
   title: string;
@@ -105,16 +107,24 @@ export async function getLatestArticles(slug?: string) {
     page_size: 5,
     filter: {
       and: [
-        {
-          property: "published",
-          checkbox: {
-            equals: true,
-          },
-        },
+        ...(isProduction
+          ? {
+              property: "published",
+              checkbox: {
+                equals: true,
+              },
+            }
+          : ([] as any)),
         {
           property: "slug",
           rich_text: {
             does_not_equal: slug ?? "",
+          },
+        },
+        {
+          property: "number",
+          number: {
+            is_not_empty: true,
           },
         },
       ],
@@ -163,10 +173,22 @@ export async function getAllArticles() {
   const response: any = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE as string,
     filter: {
-      property: "published",
-      checkbox: {
-        equals: true,
-      },
+      and: [
+        ...(isProduction
+          ? {
+              property: "published",
+              checkbox: {
+                equals: true,
+              },
+            }
+          : ([] as any)),
+        {
+          property: "number",
+          number: {
+            is_not_empty: true,
+          },
+        },
+      ],
     },
     sorts: [
       {
