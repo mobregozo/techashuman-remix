@@ -7,8 +7,6 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-const isProduction = process.env.NODE_ENV !== "development";
-
 export type PostProperties = {
   slug: string;
   title: string;
@@ -107,14 +105,12 @@ export async function getLatestArticles(slug?: string) {
     page_size: 5,
     filter: {
       and: [
-        ...(isProduction
-          ? {
-              property: "published",
-              checkbox: {
-                equals: true,
-              },
-            }
-          : ([] as any)),
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
+          },
+        },
         {
           property: "slug",
           rich_text: {
@@ -174,14 +170,12 @@ export async function getAllArticles() {
     database_id: process.env.NOTION_DATABASE as string,
     filter: {
       and: [
-        ...(isProduction
-          ? {
-              property: "published",
-              checkbox: {
-                equals: true,
-              },
-            }
-          : ([] as any)),
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
+          },
+        },
         {
           property: "number",
           number: {
