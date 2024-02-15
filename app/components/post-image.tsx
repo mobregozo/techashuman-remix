@@ -5,7 +5,6 @@ type PostVideoProps = {
 };
 
 export const PostImage = ({ block }: PostVideoProps) => {
-  console.log(block.image.caption);
   const imageType = block.image.type;
   if (imageType === "file") {
     const captionText = block.image.caption[0].plain_text ?? "blog image";
