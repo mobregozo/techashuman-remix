@@ -9,6 +9,7 @@ import { PostList } from "./post-list";
 import { PostCode } from "./post-code";
 import { PostVideo } from "./post-video";
 import { PostEmbed } from "./post-embed";
+import { PostImage } from "./post-image";
 
 export const Block = ({
   block,
@@ -35,6 +36,8 @@ export const Block = ({
         return <PostCode block={blockObject} />;
       case "embed":
         return <PostEmbed block={blockObject} />;
+      case "image":
+        return <PostImage block={blockObject} />;
       default:
         return <></>;
     }
