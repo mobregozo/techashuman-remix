@@ -1,7 +1,10 @@
 import { createApi } from "unsplash-js";
 import { TWITTER_USER, MAIN_URL, POST_PATH } from "./constants";
 import { Client } from "@notionhq/client";
-import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import type {
+  BlockObjectResponse,
+  QueryDatabaseResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -35,6 +38,41 @@ export type PostContent = {
   content: PostGeneratedProps;
   blocks: BlockObjectResponse[];
 };
+
+type QueryResult = Pick<QueryDatabaseResponse, "results">;
+
+async function getArticlesMetaData(articles: QueryResult[]) {
+  return Promise.all(
+    articles.map(async (blog: any) => {
+      const photoId = blog.properties.photoId?.rich_text[0]?.plain_text ?? null;
+
+      let photo = null;
+
+      try {
+        if (photoId) {
+          const serverApi = createApi({
+            accessKey: process.env.UNSPLASH_KEY as string,
+          });
+
+          photo = await serverApi.photos.get({
+            photoId,
+          });
+        }
+      } catch {
+        photo = null;
+      }
+
+      return {
+        photoURL: photo ? photo.response?.urls.small : null,
+        title: blog.properties.title.title[0].plain_text,
+        slug: blog.properties.slug.rich_text[0].plain_text,
+        date: blog.properties.date.date.start,
+        subtitle: blog.properties.subtitle.rich_text[0].plain_text,
+        number: blog.properties.number.number,
+      };
+    })
+  );
+}
 
 export async function getArticleContent(slug: string) {
   const page = await notion.databases.query({
@@ -133,36 +171,7 @@ export async function getLatestArticles(slug?: string) {
     ],
   });
 
-  return await Promise.all(
-    response.results.map(async (blog: any) => {
-      const photoId = blog.properties.photoId?.rich_text[0]?.plain_text ?? null;
-
-      let photo = null;
-
-      try {
-        if (photoId) {
-          const serverApi = createApi({
-            accessKey: process.env.UNSPLASH_KEY as string,
-          });
-
-          photo = await serverApi.photos.get({
-            photoId,
-          });
-        }
-      } catch {
-        photo = null;
-      }
-
-      return {
-        photoURL: photo ? photo.response?.urls.small : null,
-        title: blog.properties.title.title[0].plain_text,
-        slug: blog.properties.slug.rich_text[0].plain_text,
-        date: blog.properties.date.date.start,
-        subtitle: blog.properties.subtitle.rich_text[0].plain_text,
-        number: blog.properties.number.number,
-      };
-    })
-  );
+  return getArticlesMetaData(response.results);
 }
 
 export async function getAllArticles() {
@@ -192,13 +201,5 @@ export async function getAllArticles() {
     ],
   });
 
-  return response.results.map((blog: any) => {
-    return {
-      title: blog.properties.title.title[0].plain_text,
-      slug: blog.properties.slug.rich_text[0].plain_text,
-      date: blog.properties.date.date.start,
-      subtitle: blog.properties.subtitle.rich_text[0].plain_text,
-      number: blog.properties.number.number,
-    };
-  });
+  return getArticlesMetaData(response.results);
 }
