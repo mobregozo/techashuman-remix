@@ -30,7 +30,8 @@ export type PostGeneratedProps = {
   photoURL: string;
   authorProfileURL: string;
   content: string;
-  linkToshare: string;
+  linkToShareTwitter: string;
+  linkToShareLinkedin: string;
   photoAuthor: string;
 };
 
@@ -127,7 +128,8 @@ export async function getArticleContent(slug: string) {
           subtitle: pageData.properties.subtitle.rich_text[0].plain_text,
           number: pageData.properties.number.number,
           photoURL: photo ? photo.response?.urls.regular : null,
-          linkToshare: `http://twitter.com/share/?text="${pageData.properties.title.title[0].plain_text}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,
+          linkToShareLinkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}&text="${pageData.properties.title.title[0].plain_text}"`,
+          linkToShareTwitter: `http://twitter.com/share/?text="${pageData.properties.title.title[0].plain_text}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,
         },
         blocks: content.results,
       };
