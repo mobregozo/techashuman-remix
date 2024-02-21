@@ -28,7 +28,7 @@ export default function Index() {
   return (
     <>
       <Intro />
-      <h2 className="text-primary-600 text-3xl md:text-5xl mt-8 font-bold dark:text-white tracking-tighter">
+      <h2 className="text-primary-600 text-2xl md:text-3xl mt-10 font-bold dark:text-white tracking-tighter">
         Latest articles
       </h2>
       <div className="md:mt-8 mb-20 divide-y divide-gray-300 dark:divide-gray-800 md:divide-y-0">
