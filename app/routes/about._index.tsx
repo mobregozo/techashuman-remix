@@ -18,19 +18,20 @@ export default function Index() {
         </h1>
         <div className="mb-8 text-gray-700 dark:text-white flex space-x-20 w-full">
           <div>
-            <p className="mb-4 font-semibold text-2xl tracking-tighter">
+            <p className="mb-4 font-bold text-2xl tracking-tighter">
               Hola, I’m Manu 👋
             </p>
             <div className="dark:text-zinc-400">
+              <p className="mb-2">I am product-driven JavaScript engineer.</p>
               <p className="mb-2">
                 I've been in the tech game for over a decade, working with
                 different sorts of companies and wearing many hats. From coding
-                to managing, I still love the thrill of it.
+                to managing, I still enjoy the thrill of it.
               </p>
-              <p className="mb-2">
-                Now, my main gig is taking products to the next level and diving
-                into the management world, bridging the gap between product and
-                engineering.
+              <p>
+                This blog idea popped up during a chat with my therapist about
+                overthinking. I started turning those thoughts into articles,
+                and being a web dev, bingo, it became a blog.
               </p>
             </div>
             <div className="mt-12">

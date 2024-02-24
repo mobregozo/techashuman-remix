@@ -5,6 +5,8 @@ const Header = () => {
   const { pathname } = useLocation();
   const [theme, setTheme] = useTheme();
 
+  const resolvedTheme = theme ? theme : "dark";
+
   return (
     <div className="px-4 py-3 bg-primary-700 dark:bg-primary-900">
       <div className="container max-w-3xl mx-auto px-5">
@@ -48,7 +50,7 @@ const Header = () => {
             </button>
             <button
               className="hover:opacity-60"
-              hidden={theme === "light"}
+              hidden={resolvedTheme === "light"}
               onClick={() => setTheme(Theme.LIGHT)}
               aria-label="Switch to light mode"
             >
@@ -70,7 +72,7 @@ const Header = () => {
               className="hover:opacity-60 "
               onClick={() => setTheme(Theme.DARK)}
               aria-label="Switch to dark mode"
-              hidden={theme === "dark"}
+              hidden={resolvedTheme === "dark"}
             >
               <svg
                 className="h-6 w-6"

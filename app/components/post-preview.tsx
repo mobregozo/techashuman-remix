@@ -6,8 +6,6 @@ export const PostPreview = (props: PostProperties) => {
     timeStyle: undefined,
   }).format(new Date(props.date));
   return (
-    // <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
-    // {posts.map((post) => (
     <article
       key={props.slug}
       className="relative isolate flex flex-col gap-8 md:flex-row py-8"
@@ -17,7 +15,7 @@ export const PostPreview = (props: PostProperties) => {
           <img
             src={props.photoURL}
             alt=""
-            className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+            className="absolute inset-0 h-full w-full rounded-2xl object-cover"
           />
           <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
         </div>
@@ -39,7 +37,7 @@ export const PostPreview = (props: PostProperties) => {
               {props.title}
             </a>
           </h3>
-          <p className="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400 flex-1 text-justify">
+          <p className="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400 flex-1">
             {props.subtitle}
           </p>
           <div className="flex items-center mt-2 tracking-tighter">
