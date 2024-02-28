@@ -95,8 +95,8 @@ export default function Index() {
                     </div>
                     <div className="my-2 text-sm text-zinc-600 dark:text-zinc-400">
                       <ul className="list-none list-inside">
-                        {project.description.map((item) => (
-                          <li key="index">{item}</li>
+                        {project.description.map((item, index) => (
+                          <li key={index}>{item}</li>
                         ))}
                       </ul>
                     </div>

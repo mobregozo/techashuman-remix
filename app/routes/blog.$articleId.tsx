@@ -112,6 +112,7 @@ export default function Index() {
               alt="fix me"
               width={400}
               height={300}
+              style={{ viewTransitionName: "blog-img" }}
             />
             <blockquote className="mt-2 text-xs border-l-4 border-primary-700">
               <p className="text-gray-700 dark:text-gray-500 mt-0 py-1 px-2">

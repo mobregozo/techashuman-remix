@@ -47,7 +47,7 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   return (
-    <html >
+    <html>
       <head>
         <title>Oops!</title>
         <Meta />
@@ -104,19 +104,20 @@ function App() {
         />
         <PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
       </head>
-      <body suppressHydrationWarning={true}>
-        <div className="h-full flex-col flex w-full">
-          <Header />
-          <div
-            id="main-view"
-            className="flex-1 z-10 justify-between w-full mx-auto overflow-y-auto bg-white dark:bg-zinc-900"
-          >
-            <main className="py-8 md:py-16 flex-1">
-              <div className="container max-w-3xl mx-auto px-5 dark:text-white">
-                <Outlet />
-              </div>
-            </main>
-          </div>
+      <body
+        suppressHydrationWarning={true}
+        className="h-full flex-col flex w-full"
+      >
+        <Header />
+        <div
+          id="main-view"
+          className="flex-1 z-10 justify-between w-full mx-auto overflow-y-auto bg-white dark:bg-zinc-900"
+        >
+          <main className="py-8 md:py-16 flex-1">
+            <div className="container max-w-3xl mx-auto px-5 dark:text-white">
+              <Outlet />
+            </div>
+          </main>
         </div>
         <ScrollRestoration />
         <Scripts />
