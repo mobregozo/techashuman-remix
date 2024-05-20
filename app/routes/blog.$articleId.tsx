@@ -68,11 +68,11 @@ export default function Index() {
             {post.content.formattedDate}
           </time>
         </div>
-        <div className="space-x-2">
+        <div className="md:space-x-2">
           <a
             type="button"
             href={post.content.linkToShareTwitter}
-            className="text-white mt-4 bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"
+            className="w-full justify-center md:w-auto text-white mt-4 bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"
           >
             <svg
               className="w-4 h-4 me-2"
@@ -92,7 +92,7 @@ export default function Index() {
           <a
             type="button"
             href={post.content.linkToShareLinkedin}
-            className="text-white mt-4 bg-[#0077B5] hover:bg-[#0077B5]/90 focus:ring-4 focus:outline-none focus:ring-[#0077B5]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#0077B5]/55 me-2 mb-2"
+            className="w-full justify-center md:w-auto text-white mt-2 md:mt-4 bg-[#0077B5] hover:bg-[#0077B5]/90 focus:ring-4 focus:outline-none focus:ring-[#0077B5]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#0077B5]/55 me-2 mb-2"
           >
             <svg
               viewBox="0 0 24 24"
