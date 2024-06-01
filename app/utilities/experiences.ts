@@ -1,5 +1,29 @@
 export const EXPERIENCE = [
   {
+    companyName: "Pleo",
+    slug: "Pleo",
+    location: "Barcelona, Spain",
+    period: "March 2024 – Present",
+    logo: "pleo.jpeg",
+    description: "",
+    projects: [
+      {
+        role: "Frontend Developer",
+        technologies: [
+          "JavaScript",
+          "Typescript",
+          "React",
+          "Storybook",
+          "Amplitude",
+        ],
+        description: [
+          "Acting as an engineer at a product team, contributing to the onboarding process of new customers.",
+          "Working closely with product managers and product designers.",
+        ],
+      },
+    ],
+  },
+  {
     companyName: "Dynatrace",
     slug: "Dynatrace",
     location: "Barcelona, Spain",
