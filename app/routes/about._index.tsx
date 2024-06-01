@@ -71,7 +71,7 @@ export default function Index() {
                       height="32"
                       decoding="async"
                       data-nimg="1"
-                      className="h-8 w-8 rounded-full"
+                      className="h-8 w-8 rounded-full object-cover"
                       src={`/assets/${job.logo}`}
                       style={{ color: "transparent" }}
                     />
@@ -101,11 +101,11 @@ export default function Index() {
                       </ul>
                     </div>
                     {project.technologies ? (
-                      <div className="mt-3 text-gray-700 dark:text-white text-sm">
+                      <div className="mt-3 text-gray-700 dark:text-white text-sm flex flex-wrap">
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300"
+                            className="bg-gray-100 text-gray-800 text-xs font-medium my-1 me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300"
                           >
                             {tech}
                           </span>
