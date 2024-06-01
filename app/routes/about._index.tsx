@@ -84,10 +84,13 @@ export default function Index() {
                       {job.location}
                     </div>
                   </div>
-                  <div className="text-primary-700 text-sm whitespace-nowrap dark:text-white">
+                  <div className="hidden md:block text-primary-700 text-sm whitespace-nowrap dark:text-white">
                     {job.period}
                   </div>
                 </div>
+                <div className="md:hidden mt-2 text-primary-700 text-sm whitespace-nowrap dark:text-white">
+                    {job.period}
+                  </div>
                 {job.projects.map((project) => (
                   <div key={project.role} className="mt-5">
                     <div className="w-full text-lg text-secondary-700 font-semibold dark:text-primary-500 mb-1">
