@@ -176,6 +176,39 @@ export async function getLatestArticles(slug?: string) {
   return getArticlesMetaData(response.results);
 }
 
+export async function getArticlesBySlugs(slugs: string[]) {
+  const orSlugs = slugs.map((slug) => ({
+    property: "slug",
+    rich_text: {
+      contains: slug,
+    },
+  }));
+  const response: any = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE as string,
+    filter: {
+      and: [
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
+          },
+        },
+        {
+          or: orSlugs,
+        },
+      ],
+    },
+    sorts: [
+      {
+        property: "date",
+        direction: "descending",
+      },
+    ],
+  });
+
+  return getArticlesMetaData(response.results);
+}
+
 export async function getAllArticles() {
   const response: any = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE as string,
