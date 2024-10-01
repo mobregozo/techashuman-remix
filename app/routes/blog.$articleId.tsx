@@ -135,7 +135,7 @@ export default function Index() {
             </blockquote>
           </div>
         ) : null}
-        <div className="prose dark:prose-invert container max-w-3xl mx-auto mb-8">
+        <div className="prose dark:prose-invert max-w-3xl lg:max-w-5xl mx-auto mb-8">
           {post.blocks.map((block) => (
             <Block block={block} key={block.id} />
           ))}

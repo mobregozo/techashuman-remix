@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <div className="px-4 py-3 bg-primary-700 dark:bg-primary-900">
-      <div className="container max-w-3xl mx-auto px-5">
+      <div className="container max-w-3xl lg:max-w-5xl mx-auto px-5">
         <div className="text-sm font-bold spaci mx-auto tracking-tight justify-between flex">
           <div
             id="nav-bar"

@@ -114,7 +114,7 @@ function App() {
           className="flex-1 z-10 justify-between w-full mx-auto overflow-y-auto bg-white dark:bg-zinc-900"
         >
           <main className="py-8 md:py-16 flex-1">
-            <div className="container max-w-3xl mx-auto px-5 dark:text-white">
+            <div className="container max-w-3xl lg:max-w-5xl mx-auto px-5 dark:text-white">
               <Outlet />
             </div>
           </main>

@@ -62,7 +62,7 @@ export default function Index() {
   return (
     <>
       <Intro />
-      <div className="mt-10">
+      <div className="mt-10 lg:flex lg:gap-8">
         <div>
           <h2 className="text-primary-600 text-2xl md:text-3xl font-bold dark:text-white tracking-tighter">
             Latest articles
