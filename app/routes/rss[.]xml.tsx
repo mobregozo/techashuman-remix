@@ -43,5 +43,6 @@ const renderItem = (article: PostProperties) => {
                 day: "2-digit",
               }).format(new Date(article.date))
             ).toISOString()}</pubDate>
+            <enclosure url="${article.photoURL}" type="image/jpeg" />
         </item>`;
 };

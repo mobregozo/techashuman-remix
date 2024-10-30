@@ -14,6 +14,7 @@ import { generateTags } from "~/utilities/generate-tags";
 import NotFound from "~/utilities/not-found";
 import { Footer } from "~/components/footer";
 import { Block } from "~/components/post-block";
+// import { Reactions } from "~/components/reactions";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   let post = null;
@@ -43,7 +44,7 @@ export default function Index() {
 
   const postPreviews = latestPosts.map((post) => (
     <div key={post.slug}>
-      <PostPreview {...post} />
+      <PostPreview post={post} />
     </div>
   ));
 
@@ -134,7 +135,7 @@ export default function Index() {
             </blockquote>
           </div>
         ) : null}
-        <div className="prose dark:prose-invert container max-w-3xl mx-auto mb-8">
+        <div className="prose dark:prose-invert max-w-3xl lg:max-w-5xl mx-auto mb-8">
           {post.blocks.map((block) => (
             <Block block={block} key={block.id} />
           ))}
@@ -142,6 +143,9 @@ export default function Index() {
         <div className="text-gray-600 dark:text-gray-400 my-12">
           Thanks for reading ❤️
         </div>
+        {/* <div className="my-8">
+          <Reactions />
+        </div> */}
         <div>
           <hr className="border-gray-300 dark:border-gray-700 border-t-1" />
           <Footer />

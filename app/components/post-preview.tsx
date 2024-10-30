@@ -1,27 +1,31 @@
 import { NavLink } from "@remix-run/react";
 import type { PostProperties } from "~/utilities/read-posts.server";
 
-export const PostPreview = (props: PostProperties) => {
+type PostPreviewProps = {
+  post: PostProperties;
+};
+
+export const PostPreview = ({ post }: PostPreviewProps) => {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     dateStyle: "long",
     timeStyle: undefined,
-  }).format(new Date(props.date));
+  }).format(new Date(post.date));
   return (
     <NavLink
-      to={`/blog/${props.slug}`}
+      to={`/blog/${post.slug}`}
       prefetch="intent"
       unstable_viewTransition
     >
       {({ isTransitioning }) => (
         <>
           <article
-            key={props.slug}
+            key={post.slug}
             className="relative isolate flex flex-col gap-8 md:flex-row py-8"
           >
-            {props.photoURL && (
+            {post.photoURL && (
               <div className="hidden md:block relative aspect-[16/9] md:aspect-square h-48 md:shrink-0">
                 <img
-                  src={props.photoURL}
+                  src={post.photoURL}
                   alt=""
                   style={
                     isTransitioning
@@ -45,13 +49,11 @@ export const PostPreview = (props: PostProperties) => {
               <div className="group relative flex flex-col justify-between flex-1">
                 <h3 className="mt-3 text-2xl font-semibold leading-6 text-secondary-700 dark:text-secondary-500 group-hover:opacity-70">
                   <span className="absolute inset-0" />
-                  <span className="tracking-tighter">
-                    #{props.number}&nbsp;
-                  </span>
-                  {props.title}
+                  <span className="tracking-tighter">#{post.number}&nbsp;</span>
+                  {post.title}
                 </h3>
                 <p className="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400 flex-1">
-                  {props.subtitle}
+                  {post.subtitle}
                 </p>
                 <div className="flex items-center mt-2 tracking-tighter">
                   <div className="text-sm text-primary-700 dark:text-primary-500 group-hover:underline">
