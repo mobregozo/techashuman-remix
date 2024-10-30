@@ -19,7 +19,7 @@ export default function Index() {
   const files: PostProperties[] = useLoaderData();
 
   const postPreviews = files.map((post) => (
-    <div key={post.slug}>
+    <div key={post.slug} className="mb-20">
       <PostPreview post={post} />
     </div>
   ));
@@ -29,7 +29,7 @@ export default function Index() {
       <h2 className="text-primary-700 text-4xl md:text-6xl mb-8 font-semibold dark:text-white tracking-tighter">
         Articles
       </h2>
-      <div className="mt-16 divide-y divide-gray-300 dark:divide-gray-800">
+      <div className="mt-16">
         {postPreviews}
       </div>
     </>

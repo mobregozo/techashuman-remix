@@ -1,6 +1,5 @@
 import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Loader } from "../components/loader";
 import type {
   PostContent,
   PostProperties,
@@ -54,9 +53,11 @@ export default function Index() {
 
   return (
     <>
-      <Loader />
       <article>
-        <h1 className="text-4xl md:text-6xl mb-8 font-bold tracking-tighter text-secondary-700 dark:text-secondary-500">
+        <h1
+          className="text-4xl md:text-6xl mb-8 font-bold tracking-tighter text-secondary-700 dark:text-secondary-500"
+          style={{ viewTransitionName: `${post.content.slug}-title` }}
+        >
           {post.content.title}
         </h1>
         <div className="flex font-bold text-gray-700 dark:text-gray-500">
@@ -113,7 +114,7 @@ export default function Index() {
               alt="fix me"
               width={400}
               height={300}
-              style={{ viewTransitionName: "blog-img" }}
+              style={{ viewTransitionName: post.content.slug }}
             />
             <blockquote className="mt-2 text-xs border-l-4 border-primary-700">
               <p className="text-gray-700 dark:text-gray-500 mt-0 py-1 px-2">

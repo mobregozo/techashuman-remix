@@ -105,19 +105,18 @@ function App() {
       </head>
       <body
         suppressHydrationWarning={true}
-        className="h-full flex-col flex w-full"
+        className="h-full flex-col flex w-full bg-white dark:bg-zinc-900"
       >
-        <Header />
-        <div
-          id="main-view"
-          className="flex-1 z-10 justify-between w-full mx-auto overflow-y-auto bg-white dark:bg-zinc-900"
-        >
-          <main className="py-8 md:py-16 flex-1">
-            <div className="container max-w-3xl lg:max-w-5xl mx-auto px-5 dark:text-white">
-              <Outlet />
-            </div>
-          </main>
-        </div>
+        <main>
+          <Header />
+          <div
+            className="container py-8 md:py-16 max-w-3xl lg:max-w-5xl mx-auto px-5 dark:text-white relative z-40"
+            id="main-view"
+          >
+            <Outlet />
+          </div>
+        </main>
+
         <ScrollRestoration />
         <Scripts />
       </body>

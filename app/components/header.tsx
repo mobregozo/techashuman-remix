@@ -1,5 +1,6 @@
 import { useLocation } from "@remix-run/react";
 import { Theme, useTheme } from "remix-themes";
+import { Loader } from "./loader";
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -8,8 +9,8 @@ const Header = () => {
   const resolvedTheme = theme ? theme : "dark";
 
   return (
-    <div className="px-4 py-3 bg-primary-700 dark:bg-primary-900">
-      <div className="container max-w-3xl lg:max-w-5xl mx-auto px-5">
+    <div className=" bg-primary-700 dark:bg-primary-900 sticky top-0 z-50">
+      <div className="container py-3 max-w-3xl lg:max-w-5xl mx-auto px-5">
         <div className="text-sm font-bold spaci mx-auto tracking-tight justify-between flex">
           <div
             id="nav-bar"
@@ -91,6 +92,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <Loader />
     </div>
   );
 };

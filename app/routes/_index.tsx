@@ -48,13 +48,13 @@ export default function Index() {
   const { latestArticles, popularArticles } = useLoaderData<typeof loader>();
 
   const latestArticlesPreviews = latestArticles.map((post) => (
-    <div key={post.slug} className="mb-4">
+    <div key={post.slug} className="mb-16">
       <PostPreview post={post as PostProperties} />
     </div>
   ));
 
   const popularArticlesPreviews = popularArticles.map((post) => (
-    <div key={post.slug} className="mb-4">
+    <div key={post.slug}>
       <PostLink post={post as PostProperties} />
     </div>
   ));
@@ -72,7 +72,7 @@ export default function Index() {
           </div>
         </div>
         <div>
-          <h2 className="text-primary-600 text-xl md:text-2xl font-bold dark:text-white tracking-tighter">
+          <h2 className="text-primary-600 text-2xl md:text-3xl font-bold dark:text-white tracking-tighter">
             Popular articles
           </h2>
           <div className="md:mt-8 mb-20 divide-y divide-gray-300 dark:divide-gray-800 md:divide-y-0">

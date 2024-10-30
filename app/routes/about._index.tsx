@@ -1,5 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Loader } from "../components/loader";
 import { SocialMedia } from "../components/social-media";
 import { EXPERIENCE } from "../utilities/experiences";
 import { generateTags } from "../utilities/generate-tags";
@@ -11,7 +10,6 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <>
-      <Loader />
       <article>
         <h1 className="text-primary-700 text-4xl md:text-6xl mb-8 font-semibold dark:text-white tracking-tighter">
           About

@@ -5,25 +5,23 @@ export const Loader = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const mainview = document.getElementById("main-view");
-      if (mainview) {
+      if (window) {
         seWidth(
-          (mainview.scrollTop /
-            (mainview.scrollHeight - mainview.clientHeight)) *
+          (window.scrollY /
+            (document.documentElement.scrollHeight - document.documentElement.clientHeight)) *
             100
         );
       }
     };
-    const mainview = document.getElementById("main-view");
-    mainview?.addEventListener("scroll", handleScroll.bind(this));
-    return mainview?.removeEventListener("scroll", handleScroll);
-  });
+    window.addEventListener("scroll", handleScroll.bind(this));
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div
-      className="fixed w-full left-0 z-50"
+      className="w-full"
       style={{
-        top: "47px",
+        top: "46px",
       }}
     >
       <div
