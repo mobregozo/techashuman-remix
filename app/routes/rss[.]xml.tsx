@@ -28,14 +28,33 @@ const renderXML = (articles: PostProperties[]) => {
   return sourceXML;
 };
 
+function escapeXml(unsafe: string): string {
+  return unsafe.replace(/[<>&'"]/g, function (c) {
+    switch (c) {
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case "&":
+        return "&amp;";
+      case '"':
+        return "&quot;";
+      case "'":
+        return "&apos;";
+      default:
+        return c;
+    }
+  });
+}
+
 const renderItem = (article: PostProperties) => {
   const link = `${MAIN_URL}/blog/${article.slug}`;
   return `
         <item>
-            <title>${article.title}</title>
-            <link>${link}</link>
-            <description>${article.subtitle}</description>
-            <guid isPermaLink="true">${link}</guid>
+            <title>${escapeXml(article.title)}</title>
+            <link>${escapeXml(link)}</link>
+            <description>${escapeXml(article.subtitle)}</description>
+            <guid isPermaLink="true">${escapeXml(link)}</guid>
             <pubDate>${new Date(
               Intl.DateTimeFormat("en-US", {
                 year: "numeric",
@@ -43,5 +62,12 @@ const renderItem = (article: PostProperties) => {
                 day: "2-digit",
               }).format(new Date(article.date))
             ).toISOString()}</pubDate>
+            ${
+              article.photoURL
+                ? `<enclosure url="${escapeXml(
+                    article.photoURL
+                  )}" type="image/jpeg" />`
+                : ""
+            }
         </item>`;
 };

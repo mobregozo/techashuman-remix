@@ -11,11 +11,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
     timeStyle: undefined,
   }).format(new Date(post.date));
   return (
-    <NavLink
-      to={`/blog/${post.slug}`}
-      prefetch="intent"
-      unstable_viewTransition
-    >
+    <NavLink to={`/blog/${post.slug}`} prefetch="intent" viewTransition>
       {({ isTransitioning }) => (
         <>
           <article
