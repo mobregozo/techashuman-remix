@@ -1,8 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Loader } from "~/components/loader";
-import { SocialMedia } from "~/components/social-media";
-import { EXPERIENCE } from "~/utilities/experiences";
-import { generateTags } from "~/utilities/generate-tags";
+import { Loader } from "../components/loader";
+import { SocialMedia } from "../components/social-media";
+import { EXPERIENCE } from "../utilities/experiences";
+import { generateTags } from "../utilities/generate-tags";
 
 export const meta: MetaFunction = () => {
   const tags = generateTags("About");

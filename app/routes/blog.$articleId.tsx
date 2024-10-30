@@ -1,20 +1,20 @@
 import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Loader } from "~/components/loader";
+import { Loader } from "../components/loader";
 import type {
   PostContent,
   PostProperties,
-} from "~/utilities/read-posts.server";
+} from "../utilities/read-posts.server";
 import {
   getArticleContent,
   getLatestArticles,
-} from "~/utilities/read-posts.server";
-import { PostPreview } from "~/components/post-preview";
-import { generateTags } from "~/utilities/generate-tags";
-import NotFound from "~/utilities/not-found";
-import { Footer } from "~/components/footer";
-import { Block } from "~/components/post-block";
-// import { Reactions } from "~/components/reactions";
+} from "../utilities/read-posts.server";
+import { PostPreview } from "../components/post-preview";
+import { generateTags } from "../utilities/generate-tags";
+import NotFound from "../utilities/not-found";
+import { Footer } from "../components/footer";
+import { Block } from "../components/post-block";
+// import { Reactions } from "../components/reactions";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   let post = null;

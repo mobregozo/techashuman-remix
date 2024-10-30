@@ -1,5 +1,5 @@
 import { NavLink } from "@remix-run/react";
-import type { PostProperties } from "~/utilities/read-posts.server";
+import type { PostProperties } from "../utilities/read-posts.server";
 
 type PostPreviewProps = {
   post: PostProperties;

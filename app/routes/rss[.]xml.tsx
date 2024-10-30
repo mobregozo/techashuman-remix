@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { MAIN_URL } from "~/utilities/constants";
-import type { PostProperties } from "~/utilities/read-posts.server";
-import { getAllArticles } from "~/utilities/read-posts.server";
+import { MAIN_URL } from "../utilities/constants";
+import type { PostProperties } from "../utilities/read-posts.server";
+import { getAllArticles } from "../utilities/read-posts.server";
 
 export const loader: LoaderFunction = async () => {
   const slugs = await getAllArticles();
