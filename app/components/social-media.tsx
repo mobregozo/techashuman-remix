@@ -15,5 +15,28 @@ export const SocialMedia = () => (
         <span className="ml-4">Follow on Linkedin</span>
       </a>
     </li>
+    <li className="flex">
+      <a
+        className="group items-center flex text-sm font-medium text-zinc-800 transition hover:text-primary-600 dark:text-zinc-200 dark:hover:text-primary-600"
+        href="https://techashuman.substack.com/"
+      >
+        <svg
+          role="img"
+          viewBox="0 0 16 18"
+          fill="white"
+          strokeWidth="1.8"
+          stroke="none"
+          className="h-6 w-6 p-0.5 flex-none fill-zinc-500 transition group-hover:fill-primary-700"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g>
+            <path d="M16 4H0V6H16V4Z"></path>
+            <path d="M0 8V18L7.9993 13.534L16 18V8H0Z"></path>
+            <path d="M16 0H0V2H16V0Z"></path>
+          </g>
+        </svg>
+        <span className="ml-4">Follow on Substack</span>
+      </a>
+    </li>
   </ul>
 );
