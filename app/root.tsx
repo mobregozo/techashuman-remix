@@ -3,7 +3,6 @@ import stylesheet from "~/tailwind.css";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -121,7 +120,6 @@ function App() {
         </div>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
