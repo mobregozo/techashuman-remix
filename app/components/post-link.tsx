@@ -17,7 +17,7 @@ export const PostLink = ({ post }: PostLinkProps) => {
           fill="none"
           viewBox="0 0 24 24"
           className="w-4 h-4 mr-2"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke="currentColor"
         >
           <path
