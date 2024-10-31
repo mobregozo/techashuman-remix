@@ -42,7 +42,7 @@ export default function Index() {
   }>();
 
   const postPreviews = latestPosts.map((post) => (
-    <div key={post.slug}>
+    <div key={post.slug} className="mb-12">
       <PostPreview post={post} />
     </div>
   ));
