@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { SocialMedia } from "../components/social-media";
 import { EXPERIENCE } from "../utilities/experiences";
 import { generateTags } from "../utilities/generate-tags";
+import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   const tags = generateTags("About");
@@ -26,10 +27,18 @@ export default function Index() {
                 different sorts of companies and wearing many hats. From coding
                 to managing, I still enjoy the thrill of it.
               </p>
-              <p>
+              <p className="mb-2">
                 This blog idea popped up during a chat with my therapist about
                 overthinking. I started turning those thoughts into articles,
                 and being a web dev, bingo, it became a blog.
+              </p>
+              <p>
+                This website is an open source project, in case you are
+                interested,{" "}
+                <Link to="/about/blog" className="text-secondary-500 hover:underline">
+                  here
+                </Link>{" "}
+                is more information about it.{" "}
               </p>
             </div>
             <div className="mt-12">
@@ -50,6 +59,7 @@ export default function Index() {
             ></img>
           </div>
         </div>
+
         <h2 className="text-primary-700 text-3xl md:text-4xl mt-32 mb-12 font-bold dark:text-secondary-500 tracking-tighter">
           Working Experience
         </h2>
@@ -87,8 +97,8 @@ export default function Index() {
                   </div>
                 </div>
                 <div className="md:hidden mt-2 text-primary-700 text-sm whitespace-nowrap dark:text-white">
-                    {job.period}
-                  </div>
+                  {job.period}
+                </div>
                 {job.projects.map((project) => (
                   <div key={project.role} className="mt-5">
                     <div className="w-full text-lg text-secondary-700 font-semibold dark:text-primary-500 mb-1">

@@ -11,7 +11,7 @@ export const Intro = () => {
           </span>
         </h2>
         <svg
-        className="mt-6 md:mt-0 w-28 h-auto md:w-72 "
+          className="mt-6 md:mt-0 w-28 h-auto md:w-72 "
           viewBox="0 0 343 256"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@ export const Intro = () => {
           <path
             d="M123.583 207.76L121.473 218.193L160.711 231.298L163.825 215.899L123.583 207.76Z"
             fill="#EDB98A"
-            fill-opacity="0.713726"
+            fillOpacity="0.713726"
           />
           <path
             d="M127.528 205.787L123.372 226.334L123.372 226.335C122.669 229.808 120.616 232.859 117.663 234.818C114.711 236.776 111.102 237.482 107.629 236.78L107.204 236.694L114.008 203.053L127.528 205.787Z"
@@ -60,7 +60,7 @@ export const Intro = () => {
           <path
             d="M231.36 222.653L229.957 233.205L188.591 232.817L190.661 217.244L231.36 222.653Z"
             fill="#EDB98A"
-            fill-opacity="0.984314"
+            fillOpacity="0.984314"
           />
           <path
             d="M241.946 221.321L237.424 255.344L236.993 255.287C233.481 254.82 230.299 252.977 228.145 250.164C225.992 247.351 225.044 243.797 225.51 240.285L225.511 240.284L228.272 219.504L241.946 221.321Z"
@@ -141,10 +141,15 @@ export const Intro = () => {
         </svg>
       </div>
       <div>
-        <p className="my-4 text-sm md:text-lg leading-6 md:leading-8 text-gray-600 dark:text-gray-300">
-          I'm a software engineer and tech writer passionate about the
-          intersection of technology and human experience.
-        </p>
+        <div className="mt-4 mb-8 font-medium">
+          <p className="text-sm md:text-xl leading-6 md:leading-8 text-gray-600 dark:text-gray-300">
+            Software engineer and tech writer.
+          </p>
+          <p className="text-sm md:text-xl leading-6 md:leading-8 text-gray-600 dark:text-gray-300">
+            Passionate about the intersection of technology and human
+            experience.
+          </p>
+        </div>
         <Link
           to="/about"
           className="text-sm md:text-lg text-primary-700 font-semibold hover:underline dark:text-primary-500"
