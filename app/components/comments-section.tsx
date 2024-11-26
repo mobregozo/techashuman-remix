@@ -80,7 +80,8 @@ export const CommentSection = ({ postId }: Props) => {
       <Link to={postUrl} target="_blank">
         <p className="flex items-center hover:underline gap-2 my-4">
           <span className="flex items-center">
-            <MessageCircle className="size-5" />
+            <Heart className="size-5" />
+
             <span className="ml-1">{thread.post.likeCount ?? 0} likes</span>
           </span>
           <span className="flex items-center">
@@ -88,7 +89,7 @@ export const CommentSection = ({ postId }: Props) => {
             <span className="ml-1">{thread.post.repostCount ?? 0} reposts</span>
           </span>
           <span className="flex items-center">
-            <Heart className="size-5" />
+            <MessageCircle className="size-5" />
             <span className="ml-1">{thread.post.replyCount ?? 0} replies</span>
           </span>
         </p>
