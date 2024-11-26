@@ -13,7 +13,7 @@ import { generateTags } from "../utilities/generate-tags";
 import NotFound from "../utilities/not-found";
 import { Footer } from "../components/footer";
 import { Block } from "../components/post-block";
-// import { Reactions } from "../components/reactions";
+import { CommentSection } from "../components/comments-section";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   let post = null;
@@ -144,12 +144,14 @@ export default function Index() {
         <div className="text-gray-600 dark:text-gray-400 my-12">
           Thanks for reading ❤️
         </div>
-        {/* <div className="my-8">
-          <Reactions />
-        </div> */}
         <div>
           <hr className="border-gray-300 dark:border-gray-700 border-t-1" />
           <Footer />
+
+          {post.content.blueskyId && (
+            <CommentSection postId={post.content.blueskyId} />
+          )}
+          <hr className="border-gray-300 dark:border-gray-700 border-t-1 my-12" />
           <h2 className="text-primary-600 text-3xl md:text-5xl mt-8 font-bold dark:text-white tracking-tighter">
             Other articles
           </h2>

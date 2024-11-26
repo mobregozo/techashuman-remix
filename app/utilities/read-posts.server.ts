@@ -33,6 +33,7 @@ export type PostGeneratedProps = {
   linkToShareTwitter: string;
   linkToShareLinkedin: string;
   photoAuthor: string;
+  blueskyId: string | undefined;
 };
 
 export type PostContent = {
@@ -127,6 +128,9 @@ export async function getArticleContent(slug: string) {
           slug: pageData.properties.slug.rich_text[0].plain_text,
           subtitle: pageData.properties.subtitle.rich_text[0].plain_text,
           number: pageData.properties.number.number,
+          blueskyId:
+            pageData.properties.blueskyId?.rich_text[0]?.plain_text ??
+            undefined,
           photoURL: photo ? photo.response?.urls.regular : null,
           linkToShareLinkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}&text="${pageData.properties.title.title[0].plain_text}"`,
           linkToShareTwitter: `http://twitter.com/share/?text="${pageData.properties.title.title[0].plain_text}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,

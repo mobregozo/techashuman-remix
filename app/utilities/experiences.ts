@@ -4,7 +4,7 @@ export const EXPERIENCE = [
     slug: "Pleo",
     location: "Barcelona, Spain",
     period: "March 2024 – Present",
-    logo: "pleo.jpeg",
+    logo: "pleo.png",
     description: "",
     projects: [
       {

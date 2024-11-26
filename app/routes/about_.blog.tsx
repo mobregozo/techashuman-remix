@@ -113,6 +113,16 @@ export default function AboutBlog() {
         organic traffic is valuable, Substack makes it easier to expand my reach
         and build a community around my content.
       </p>
+      <p>
+        Here's the link to follow me on{" "}
+        <a
+          href="https://techashuman.substack.com/"
+          className="text-secondary-500 hover:underline"
+        >
+          Substack
+        </a>
+        .
+      </p>
 
       <h3 className="mt-8 mb-2 font-bold text-xl">What's Next?</h3>
       <p>
@@ -120,16 +130,6 @@ export default function AboutBlog() {
         learning and sharing insights with you. This blog is not just about
         tech—it’s about how technology intersects with our human experience. I
         hope my posts help you stay informed, stay inspired, and stay curious.
-      </p>
-
-      <h2 className="text-3xl text-primary-700 dark:text-secondary-400 tracking-tighter mt-4 mb-6 font-semibold">
-        Connect with Me
-      </h2>
-      <p>
-        Tech as Human is open source, and I’m always open to feedback and
-        collaboration. If you’re interested, check out the code behind this
-        project on{" "}
-        <a href="https://www.github.com/mobregozo/techashuman-remix">GitHub</a>.
       </p>
     </div>
   );
