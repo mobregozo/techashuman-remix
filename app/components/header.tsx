@@ -1,4 +1,4 @@
-import { NavLink } from "@remix-run/react";
+import { NavLink } from "react-router";
 import { Loader } from "./loader";
 import { ThemeSwitch } from "./theme-switch";
 

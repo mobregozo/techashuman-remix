@@ -7,3 +7,4 @@ node_modules
 .vscode/
 .yarn/
 .yarnrc.yml
+.react-router/

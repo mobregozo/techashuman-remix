@@ -1,14 +1,14 @@
-import type { MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import type { MetaFunction } from "react-router";
+import { useLoaderData } from "react-router";
 import { Intro } from "../components/intro";
 import { PostLink } from "../components/post-link";
 import { PostPreview } from "../components/post-preview";
-import { generateTags } from "../utilities/generate-tags";
+import { generateTags } from "../utils/generate-tags";
 import {
   getArticlesBySlugs,
   getLatestArticles,
-} from "../utilities/read-posts.server";
-import type { PostProperties } from "../utilities/read-posts.server";
+} from "../utils/read-posts.server";
+import type { PostProperties } from "../utils/read-posts.server";
 
 export const meta: MetaFunction = () => {
   const tags = generateTags("Home");

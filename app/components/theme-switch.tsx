@@ -1,8 +1,9 @@
 import { Sun, Moon } from "lucide-react";
 import { motion } from "motion/react";
-import { Theme, useTheme } from "remix-themes";
+// import { Theme, useTheme } from "remix-themes";
 
 export function ThemeSwitch() {
+  return null
   const [theme, setTheme] = useTheme();
 
   return (

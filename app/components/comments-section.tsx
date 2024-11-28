@@ -5,7 +5,7 @@ import {
   AppBskyFeedPost,
   type AppBskyFeedGetPostThread,
 } from "@atproto/api";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Heart, MessageCircle, Repeat2 } from "lucide-react";
 
 interface Props {
@@ -31,7 +31,11 @@ type Thread = {
 };
 
 // Function to fetch the thread data
-const fetchThreadData = async (uri, setThread, setError) => {
+const fetchThreadData = async (
+  uri: string,
+  setThread: (thread: AppBskyFeedDefs.ThreadViewPost) => void,
+  setError: (error: string) => void
+) => {
   try {
     const thread = await getPostThread(uri);
     setThread(thread);

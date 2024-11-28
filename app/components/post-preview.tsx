@@ -1,5 +1,5 @@
-import { Link } from "@remix-run/react";
-import type { PostProperties } from "../utilities/read-posts.server";
+import { Link } from "react-router";
+import type { PostProperties } from "../utils/read-posts.server";
 
 type PostPreviewProps = {
   post: PostProperties;

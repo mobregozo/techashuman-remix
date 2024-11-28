@@ -1,9 +1,9 @@
-import type { MetaFunction } from "@remix-run/node";
-import { SocialMedia } from "../components/social-media";
-import { EXPERIENCE } from "../utilities/experiences";
-import { generateTags } from "../utilities/generate-tags";
-import { Link } from "@remix-run/react";
-import { ExperienceItem } from "../components/experience-item";
+import { SocialMedia } from "app/components/social-media";
+import { generateTags } from "app/utils/generate-tags";
+import { ExperienceItem } from "app/components/experience-item";
+import type { MetaFunction } from "react-router";
+import { Link } from "react-router";
+import { EXPERIENCE } from "app/utils/experiences";
 
 export const meta: MetaFunction = () => {
   const tags = generateTags("About");

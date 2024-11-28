@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "react-router";
 import { MAIN_URL } from "../utilities/constants";
 import type { PostProperties } from "../utilities/read-posts.server";
 import { getAllArticles } from "../utilities/read-posts.server";

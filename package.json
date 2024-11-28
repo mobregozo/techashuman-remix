@@ -4,19 +4,17 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "remix vite:dev",
-    "build": "remix vite:build",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "dev": "react-router dev",
+    "build": "react-router build",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
     "@atproto/api": "^0.13.18",
     "@notionhq/client": "^2.2.14",
-    "@remix-run/css-bundle": "^2.13.1",
-    "@remix-run/dev": "^2.13.1",
-    "@remix-run/node": "^2.13.1",
-    "@remix-run/react": "^2.13.1",
-    "@remix-run/serve": "^2.13.1",
+    "@react-router/dev": "^7.0.1",
+    "@react-router/node": "^7.0.1",
+    "@react-router/serve": "^7.0.1",
     "clsx": "^2.0.0",
     "highlight.js": "^11.10.0",
     "isbot": "^3.6.8",
@@ -24,7 +22,7 @@
     "motion": "^11.11.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remix-themes": "^1.2.2"
+    "react-router": "^7.0.1"
   },
   "devDependencies": {
     "@remix-run/eslint-config": "^2.13.1",
