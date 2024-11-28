@@ -1,6 +1,6 @@
 export const SocialMedia = () => (
-  <ul>
-    <li className="flex mb-3">
+  <ul className="space-y-3">
+    <li className="flex">
       <a
         className="group items-center flex text-sm font-medium text-zinc-800 transition hover:text-primary-600 dark:text-zinc-200 dark:hover:text-primary-600"
         href="https://www.linkedin.com/in/manuelobregozo/?locale=en_US"
@@ -36,6 +36,25 @@ export const SocialMedia = () => (
           </g>
         </svg>
         <span className="ml-4">Follow on Substack</span>
+      </a>
+    </li>
+    <li className="flex">
+      <a
+        className="group items-center flex text-sm font-medium text-zinc-800 transition hover:text-primary-600 dark:text-zinc-200 dark:hover:text-primary-600"
+        href="https://bsky.app/profile/techashuman.com"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          className="h-6 w-6 p-0.5 flex-none fill-zinc-500 transition group-hover:fill-primary-700"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M6.33525 3.34624C8.6282 5.3013 11.0944 9.26553 12 11.3927C12.9056 9.26553 15.3718 5.3013 17.6648 3.34624C19.3192 1.93553 22 0.844029 22 4.31729C22 5.01097 21.6498 10.1444 21.4444 10.9779C20.7305 13.8754 18.1291 14.6144 15.815 14.1671C19.8599 14.949 20.8889 17.5388 18.6667 20.1285C14.4462 25.0471 12.6007 18.8945 12.1279 17.318C12.0412 17.029 12.0006 16.8937 12 17.0087C11.9994 16.8937 11.9588 17.029 11.8721 17.318C11.3993 18.8945 9.55377 25.0471 5.33334 20.1285C3.11113 17.5388 4.14007 14.949 8.18497 14.1671C5.87088 14.6144 3.26947 13.8754 2.55556 10.9779C2.35018 10.1444 2 5.01097 2 4.31729C2 0.844029 4.68077 1.93553 6.33525 3.34624Z" />
+        </svg>
+
+        <span className="ml-4">Follow on BlueSky</span>
       </a>
     </li>
   </ul>

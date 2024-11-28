@@ -18,20 +18,23 @@ export default function Index() {
         </h1>
         <div className="mb-8 text-gray-700 dark:text-white flex space-x-20 w-full">
           <div>
-            <p className="mb-4 font-bold text-2xl tracking-tighter">
-              Hola, I’m Manu 👋
-            </p>
-            <div className="dark:text-zinc-400">
-              <p className="mb-2">I am product-driven JavaScript engineer.</p>
+            <h2 className="mb-1 font-bold text-2xl tracking-tighter">
+              Hola, I'm Manu 👋
+            </h2>
+            <h2 className="mb-3 font-bold tracking-tighter text-xl md:text-2xl text-primary-500">
+              Product-driven JavaScript engineer
+            </h2>
+            <div className="dark:text-zinc-400 space-y-2">
               <p className="mb-2">
-                I've been in the tech game for over a decade, working with
-                different sorts of companies and wearing many hats. From coding
-                to managing, I still enjoy the thrill of it.
+                I specialize in frontend technologies and have spent over a
+                decade immersed in the tech world. From crafting clean,
+                intuitive code to navigating the complexities of management,
+                I’ve worn many hats across diverse companies.
               </p>
-              <p className="mb-2">
-                This blog idea popped up during a chat with my therapist about
-                overthinking. I started turning those thoughts into articles,
-                and being a web dev, bingo, it became a blog.
+              <p>
+                Yet, after all these years, the excitement of solving problems
+                and creating something impactful never gets old—it's the kind of
+                thrill that keeps me hooked.
               </p>
               <p>
                 This website is an open source project, in case you are

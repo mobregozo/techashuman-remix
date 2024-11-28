@@ -8,3 +8,4 @@ export const MAIN_URL = "https://www.techashuman.com";
 export const POST_PATH = "blog";
 export const TWITTER_ID = "36526109";
 export const EMAIL = "obregozo.manuel@gmail.com";
+export const BLUESKY_ID = "techashuman.com";
