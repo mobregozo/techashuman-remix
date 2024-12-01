@@ -8,8 +8,9 @@ export const Loader = () => {
       if (window) {
         seWidth(
           (window.scrollY /
-            (document.documentElement.scrollHeight - document.documentElement.clientHeight)) *
-            100
+            (document.documentElement.scrollHeight -
+              document.documentElement.clientHeight)) *
+            100,
         );
       }
     };

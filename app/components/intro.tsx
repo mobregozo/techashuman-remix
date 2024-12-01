@@ -4,32 +4,32 @@ import { Link } from "react-router";
 export const Intro = () => {
   return (
     <section>
-      <div className="text-center md:text-left grid max-w-screen-xl pt-8 mb-20 mx-auto lg:gap-8 xl:gap-0 lg:py-20 lg:grid-cols-12">
+      <div className="mx-auto mb-20 grid max-w-screen-xl pt-8 text-center md:text-left lg:grid-cols-12 lg:gap-8 lg:py-20 xl:gap-0">
         <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+          <h1 className="max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
             Tech as Human
           </h1>
-          <p className="max-w-2xl font-light text-gray-500 my-8 md:text-lg lg:text-xl dark:text-gray-400">
+          <p className="my-8 max-w-2xl font-light text-gray-500 md:text-lg lg:text-xl dark:text-gray-400">
             Written by Manu - Passionate about the intersection of technology
             and human experience.
           </p>
           <Link
             to="/about"
-            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+            className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 dark:focus:ring-primary-900 mr-3 inline-flex items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white focus:ring-4"
           >
             About me
           </Link>
           <Link
             to="/blog"
-            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
             Start reading
-            <ChevronRight className="w-6 h-6 ml-2" />
+            <ChevronRight className="ml-2 h-6 w-6" />
           </Link>
         </div>
-        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex place-self-end">
+        <div className="hidden place-self-end lg:col-span-5 lg:mt-0 lg:flex">
           <svg
-            className="mt-6 md:mt-0 w-28 h-auto md:w-72 "
+            className="mt-6 h-auto w-28 md:mt-0 md:w-72"
             viewBox="0 0 343 256"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

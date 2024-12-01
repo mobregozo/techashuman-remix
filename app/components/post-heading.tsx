@@ -16,7 +16,7 @@ export const PostHeading = ({ block }: PostHeadingProps) => {
   switch (block.type) {
     case "heading_1":
       return (
-        <h1 className="mt-12 text-5xl tracking-wide text-primary-700 dark:text-white font-semibold">
+        <h1 className="text-primary-700 mt-12 text-5xl font-semibold tracking-wide dark:text-white">
           {block.heading_1.rich_text.map((item, index) => (
             <PostText key={`${block.id}-${index}`} text={item} />
           ))}
@@ -24,7 +24,7 @@ export const PostHeading = ({ block }: PostHeadingProps) => {
       );
     case "heading_2":
       return (
-        <h2 className="text-3xl text-primary-700 dark:text-secondary-400 tracking-tighter">
+        <h2 className="text-primary-700 dark:text-secondary-400 text-3xl tracking-tighter">
           {block.heading_2.rich_text.map((item, index) => (
             <PostText key={`${block.id}-${index}`} text={item} />
           ))}
@@ -33,7 +33,7 @@ export const PostHeading = ({ block }: PostHeadingProps) => {
     case "heading_3":
     default:
       return (
-        <h3 className="text-4xl text-gray-700 dark:text-white tracking-tighter mt-2 mb-4">
+        <h3 className="mt-2 mb-4 text-4xl tracking-tighter text-gray-700 dark:text-white">
           {block.heading_3.rich_text.map((item, index) => (
             <PostText key={`${block.id}-${index}`} text={item} />
           ))}

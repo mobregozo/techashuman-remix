@@ -11,7 +11,7 @@ export const PostImage = ({ block }: PostVideoProps) => {
     return (
       <div className="flex justify-center">
         <img
-          className="aspect-auto dark:bg-gray-200 h-72 rounded-sm dark:shadow-gray-800"
+          className="aspect-auto h-72 rounded-sm dark:bg-gray-200 dark:shadow-gray-800"
           alt={captionText}
           src={block.image.file.url}
         />

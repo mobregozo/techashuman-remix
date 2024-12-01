@@ -8,7 +8,7 @@ export const PostVideo = ({ block }: PostVideoProps) => {
   return block.video.type === "external" ? (
     <iframe
       title={block.id}
-      className="w-full aspect-video my-10"
+      className="my-10 aspect-video w-full"
       src={block.video.external.url}
     ></iframe>
   ) : null;

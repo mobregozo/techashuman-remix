@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <nav className="bg-primary-700 dark:bg-primary-900 sticky top-0 z-50">
-      <div className="container text-sm justify-between flex py-3 max-w-3xl lg:max-w-4xl mx-auto px-5">
+      <div className="container mx-auto flex max-w-3xl justify-between px-5 py-3 text-sm lg:max-w-4xl">
         <ul className="flex space-x-8 font-semibold text-white">
           {navLinks.map((link) => (
             <li key={link.name} className="relative">
@@ -19,7 +19,7 @@ const Header = () => {
                   <>
                     <div className="mb-1">{link.name}</div>
                     <span
-                      className={`absolute group-hover:scale-x-100 mt-2 bottom-0 left-0 w-full h-0.5 bg-gray-200 transform scale-x-0 transition-transform duration-300 ${
+                      className={`absolute bottom-0 left-0 mt-2 h-0.5 w-full scale-x-0 transform bg-gray-200 transition-transform duration-300 group-hover:scale-x-100 ${
                         isActive ? "scale-x-100" : ""
                       }`}
                     ></span>

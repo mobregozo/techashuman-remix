@@ -18,11 +18,11 @@ export default function App() {
       </head>
       <body
         suppressHydrationWarning={true}
-        className="h-full flex-col flex w-full bg-white dark:bg-zinc-900"
+        className="flex h-full w-full flex-col bg-white dark:bg-zinc-900"
       >
         <main>
           <Header />
-          <div className="container py-8 md:py-16 max-w-4xl mx-auto px-5 dark:text-white relative z-40">
+          <div className="relative z-40 container mx-auto max-w-4xl px-5 py-8 md:py-16 dark:text-white">
             <Outlet />
           </div>
         </main>

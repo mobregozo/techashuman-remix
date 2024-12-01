@@ -11,7 +11,7 @@ export const PostLink = ({ post }: PostLinkProps) => {
     <NavLink to={`/blog/${post.slug}`}>
       <h3
         key={post.slug}
-        className="sm:whitespace-pre mt-2 text-sm tracking-tighter flex items-center font-semibold leading-6 text-secondary-700 dark:text-secondary-500 hover:opacity-70 transition-transform duration-200 ease-in-out transform hover:scale-105"
+        className="text-secondary-700 dark:text-secondary-500 mt-2 flex transform items-center text-sm leading-6 font-semibold tracking-tighter transition-transform duration-200 ease-in-out hover:scale-105 hover:opacity-70 sm:whitespace-pre"
       >
         <TrendingUp size={20} className="mr-2" />
         {post.title}

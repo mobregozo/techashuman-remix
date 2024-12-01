@@ -6,19 +6,18 @@ import { EXPERIENCE } from "../../utils/experiences";
 import { DownloadIcon } from "lucide-react";
 import { Route } from "./+types/about";
 
-export const meta = ({data}: Route.MetaArgs ) => {
+export const meta = ({ data }: Route.MetaArgs) => {
   const { siteUrl } = data;
-  const tags = generateTags({title: "About Me", siteUrl});
+  const tags = generateTags({ title: "About Me", siteUrl });
   return tags;
 };
 
-export const loader = ({request}: Route.LoaderArgs) => {
+export const loader = ({ request }: Route.LoaderArgs) => {
   const requestUrl = new URL(request.url);
   const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
 
   return { siteUrl };
-}
-
+};
 
 export default function Index() {
   const topSkills = [
@@ -33,15 +32,15 @@ export default function Index() {
         <h1 className="text-primary-700 mb-24 text-4xl font-medium tracking-tight md:text-6xl dark:text-white">
           About
         </h1>
-        <div className="mb-8 text-gray-700 dark:text-white flex space-x-20 w-full">
+        <div className="mb-8 flex w-full space-x-20 text-gray-700 dark:text-white">
           <div>
-            <h2 className="mb-1 font-semibold text-2xl tracking-tight">
+            <h2 className="mb-1 text-2xl font-semibold tracking-tight">
               Hola, I&apos;m Manu 👋
             </h2>
-            <h2 className="mb-3 font-semibold tracking-tight text-xl md:text-2xl text-primary-500">
+            <h2 className="text-primary-500 mb-3 text-xl font-semibold tracking-tight md:text-2xl">
               Product-driven JavaScript engineer
             </h2>
-            <div className="dark:text-zinc-400 space-y-2">
+            <div className="space-y-2 dark:text-zinc-400">
               <p className="mb-2">
                 I specialize in frontend technologies and have spent over a
                 decade immersed in the tech world. From crafting clean,
@@ -77,34 +76,34 @@ export default function Index() {
               height="800"
               decoding="async"
               data-nimg="1"
-              className="aspect-square bg-zinc-100 dark:bg-zinc-800 object-cover rotate-3 rounded-2xl transition-transform duration-300 hover:scale-105 hover:opacity-80 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500"
+              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:opacity-80 dark:bg-zinc-800"
               sizes="(min-width: 1024px) 32rem, 20rem"
               src="/assets/about.jpeg"
             ></img>
           </div>
         </div>
-        <h2 className="text-primary-700 text-3xl md:text-4xl mt-16 mb-12 font-bold dark:text-secondary-500 tracking-tighter">
+        <h2 className="text-primary-700 dark:text-secondary-500 mt-16 mb-12 text-3xl font-bold tracking-tighter md:text-4xl">
           Top Skills
         </h2>
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="mt-4 flex flex-wrap gap-2">
           {topSkills.map((skill) => (
             <span
               key={skill}
-              className="inline-block bg-primary-800 text-white text-sm font-semibold px-3.5 py-2 rounded-full"
+              className="bg-primary-800 inline-block rounded-full px-3.5 py-2 text-sm font-semibold text-white"
             >
               {skill}
             </span>
           ))}
         </div>
-        <div className="md:flex items-center justify-between mt-20 mb-12">
-          <h2 className="text-primary-700 text-3xl md:text-4xl font-bold dark:text-secondary-500 tracking-tighter">
+        <div className="mt-20 mb-12 items-center justify-between md:flex">
+          <h2 className="text-primary-700 dark:text-secondary-500 text-3xl font-bold tracking-tighter md:text-4xl">
             Working Experience
           </h2>
           <button
-            className="mt-4 md:mt-0 inline-flex items-center justify-center px-5 py-2 md:py-3 text-sm md:text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            className="mt-4 inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 md:mt-0 md:py-3 md:text-base dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             onClick={() => window.open("/assets/resume.pdf", "_blank")}
           >
-            <DownloadIcon className="w-4 g-4 md:w-6 md:h-6 mr-2" />
+            <DownloadIcon className="g-4 mr-2 w-4 md:h-6 md:w-6" />
             Download Resume
           </button>
         </div>

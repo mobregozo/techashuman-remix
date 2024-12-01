@@ -59,12 +59,12 @@ const renderItem = (article: PostProperties) => {
                 year: "numeric",
                 month: "short",
                 day: "2-digit",
-              }).format(new Date(article.date))
+              }).format(new Date(article.date)),
             ).toISOString()}</pubDate>
             ${
               article.photoURL
                 ? `<enclosure url="${escapeXml(
-                    article.photoURL
+                    article.photoURL,
                   )}" type="image/jpeg" />`
                 : ""
             }
