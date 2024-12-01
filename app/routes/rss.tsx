@@ -1,7 +1,6 @@
 import type { LoaderFunction } from "react-router";
-import { MAIN_URL } from "../utilities/constants";
-import type { PostProperties } from "../utilities/read-posts.server";
-import { getAllArticles } from "../utilities/read-posts.server";
+import { getAllArticles, PostProperties } from "../utils/read-posts.server";
+import { MAIN_URL } from "../utils/constants";
 
 export const loader: LoaderFunction = async () => {
   const slugs = await getAllArticles();

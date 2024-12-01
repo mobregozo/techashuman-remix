@@ -5,27 +5,66 @@ import {
   TWITTER_USER,
 } from "./constants";
 
-export const generateTags = (
-  title: string,
+// export const generateTags = (
+//   title: string,
+//   description = SEO_DESCRIPTION,
+//   img = HOME_OG_IMAGE_URL
+// ) => {
+//   return [
+//     {
+//       title: `${title} | TechAsHuman`,
+//     },
+//     {
+//       property: "og:title",
+//       content: `${title} | TechAsHuman`,
+//     },
+//     { name: "description", content: description },
+//     { "og:description": description },
+//     { "og:image": img },
+//     { "og:type": "article" },
+//     { name: "twitter:card", content: "summary_large_image" },
+//     { name: "twitter:site", content: TWITTER_USER },
+//     { name: "twitter:creator", content: TWITTER_USER },
+//     { name: "twitter:creator:id", content: TWITTER_ID },
+//     { name: "twitter:image", content: img },
+//   ];
+// };
+
+import type { MetaDescriptor } from "react-router";
+
+type CustomMetaArgs = {
+  title: string;
+  description?: string;
+  siteUrl?: string;
+  image?: string;
+} & { additionalMeta?: MetaDescriptor[] };
+
+export const generateTags = ({
+  title,
   description = SEO_DESCRIPTION,
-  img = HOME_OG_IMAGE_URL
-) => {
+  siteUrl,
+  image = HOME_OG_IMAGE_URL,
+  additionalMeta,
+}: CustomMetaArgs) => {
   return [
-    {
-      title: `${title} | TechAsHuman`,
-    },
-    {
-      property: "og:title",
-      content: `${title} | TechAsHuman`,
-    },
+    { title: `${title} | TechAsHuman` },
     { name: "description", content: description },
-    { "og:description": description },
-    { "og:image": img },
-    { "og:type": "article" },
+    { property: "og:url", content: siteUrl },
+    { property: "og:title", content: `${title} | TechAsHuman` },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: TWITTER_USER },
     { name: "twitter:creator", content: TWITTER_USER },
+    { name: "twitter:site", content: TWITTER_USER },
     { name: "twitter:creator:id", content: TWITTER_ID },
-    { name: "twitter:image", content: img },
-  ];
+    { name: "twitter:title", content: `${title} | TechAsHuman` },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
+    ...(additionalMeta ?? []),
+  ].filter((v) => {
+    if ("content" in v) {
+      return !!v.content;
+    }
+    return true;
+  });
 };

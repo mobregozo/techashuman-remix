@@ -1,4 +1,4 @@
-import { MAIN_URL } from "./../utilities/constants";
+import { MAIN_URL } from "../utils/constants";
 
 export const loader = () => {
   // handle "GET" request

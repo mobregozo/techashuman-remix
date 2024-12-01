@@ -1,56 +1,42 @@
 import { NavLink } from "react-router";
 import { Loader } from "./loader";
-import { ThemeSwitch } from "./theme-switch";
 
 const Header = () => {
+  const navLinks = [
+    { name: "HOME", href: "/" },
+    { name: "ARTICLES", href: "/blog" },
+    { name: "ABOUT", href: "/about" },
+  ];
+
   return (
-    <div className=" bg-primary-700 dark:bg-primary-900 sticky top-0 z-50">
-      <div className="container py-3 max-w-3xl lg:max-w-5xl mx-auto px-5">
-        <div className="text-sm font-bold spaci mx-auto tracking-tight justify-between flex">
-          <div
-            id="nav-bar"
-            className="flex items-center justify-end space-x-4 mr-2 text-white"
-          >
-            <NavLink
-              prefetch="intent"
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "" : "hover:opacity-50 text-gray-500"
-              }
-            >
-              HOME
-            </NavLink>
-            <NavLink
-              prefetch="intent"
-              to="/blog"
-              className={({ isActive }) =>
-                isActive ? "" : "hover:opacity-50 text-gray-500"
-              }
-            >
-              ARTICLES
-            </NavLink>
-            <NavLink
-              prefetch="intent"
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? "" : "hover:opacity-50 text-gray-500"
-              }
-            >
-              ABOUT
-            </NavLink>
-          </div>
-          <div className="text-white flex items-center space-x-4">
-            <button className="hover:opacity-60">
-              <a href="/rss.xml">
-                <img className="h-5 w-5" alt="rss" src="/assets/logo-rss.svg" />
-              </a>
-            </button>
-            <ThemeSwitch />
-          </div>
-        </div>
+    <nav className="bg-primary-700 dark:bg-primary-900 sticky top-0 z-50">
+      <div className="container text-sm justify-between flex py-3 max-w-3xl lg:max-w-4xl mx-auto px-5">
+        <ul className="flex space-x-8 font-semibold text-white">
+          {navLinks.map((link) => (
+            <li key={link.name} className="relative">
+              <NavLink to={link.href} className="group">
+                {({ isActive }) => (
+                  <>
+                    <div className="mb-1">{link.name}</div>
+                    <span
+                      className={`absolute group-hover:scale-x-100 mt-2 bottom-0 left-0 w-full h-0.5 bg-gray-200 transform scale-x-0 transition-transform duration-300 ${
+                        isActive ? "scale-x-100" : ""
+                      }`}
+                    ></span>
+                  </>
+                )}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+        <button className="hover:opacity-60">
+          <a href="/rss.xml">
+            <img className="h-5 w-5" alt="rss" src="/assets/logo-rss.svg" />
+          </a>
+        </button>
       </div>
       <Loader />
-    </div>
+    </nav>
   );
 };
 

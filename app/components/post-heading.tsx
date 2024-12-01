@@ -33,7 +33,7 @@ export const PostHeading = ({ block }: PostHeadingProps) => {
     case "heading_3":
     default:
       return (
-        <h3 className="text-2xl text-gray-700 dark:text-white tracking-tighter">
+        <h3 className="text-4xl text-gray-700 dark:text-white tracking-tighter mt-2 mb-4">
           {block.heading_3.rich_text.map((item, index) => (
             <PostText key={`${block.id}-${index}`} text={item} />
           ))}

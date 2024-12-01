@@ -16,7 +16,7 @@ export const Block = ({
 }: {
   block: PartialBlockObjectResponse | BlockObjectResponse;
 }) => {
-  if (block.hasOwnProperty("type")) {
+  if ("type" in block) {
     const blockObject = block as BlockObjectResponse;
     switch (blockObject.type) {
       case "paragraph":

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect } from "react";
 import {
   AppBskyFeedDefs,
@@ -12,40 +11,23 @@ interface Props {
   postId?: string;
 }
 
-type Reply = {
-  post: {
-    uri: string;
-    likeCount?: number;
-    repostCount?: number;
-    replyCount?: number;
-  };
-};
-
-type Thread = {
-  replies: Reply[];
-  post: {
-    likeCount?: number;
-    repostCount?: number;
-    replyCount?: number;
-  };
-};
+type Thread = AppBskyFeedDefs.ThreadViewPost;
 
 // Function to fetch the thread data
 const fetchThreadData = async (
   uri: string,
   setThread: (thread: AppBskyFeedDefs.ThreadViewPost) => void,
-  setError: (error: string) => void
+  setError: (error: string) => void,
 ) => {
   try {
     const thread = await getPostThread(uri);
     setThread(thread);
-  } catch (err) {
+  } catch {
     setError("Error loading comments");
   }
 };
 
 export const CommentSection = ({ postId }: Props) => {
-  if (!postId) return <div />;
   const username = "techashuman.com";
   const uri = `at://${username}/app.bsky.feed.post/${postId}`;
   const postUrl = `https://bsky.app/profile/${username}/post/${postId}`;
@@ -59,15 +41,17 @@ export const CommentSection = ({ postId }: Props) => {
   }, [uri]);
 
   if (error) {
-    return <p className="my-4 ">{error}</p>;
+    return <p className="my-4">{error}</p>;
   }
 
+  if (!postId) return <div />;
+
   if (!thread) {
-    return <p className="my-4 ">Loading comments...</p>;
+    return <p className="my-4">Loading comments...</p>;
   }
 
   if (!thread.replies || thread.replies.length === 0) {
-    return <p className="my-4 "> No comments yet</p>;
+    return <p className="my-4"> No comments yet</p>;
   }
 
   const showMore = () => {
@@ -78,11 +62,11 @@ export const CommentSection = ({ postId }: Props) => {
 
   return (
     <div>
-      <h2 className="text-lg md:text-2xl font-semibold text-gray-700 dark:text-gray-400">
+      <h2 className="text-lg font-semibold text-gray-700 md:text-2xl dark:text-gray-400">
         Comments
       </h2>
       <Link to={postUrl} target="_blank">
-        <p className="flex items-center hover:underline gap-2 my-4">
+        <p className="my-4 flex items-center gap-2 hover:underline">
           <span className="flex items-center">
             <Heart className="size-5" />
 
@@ -170,7 +154,7 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
         </Link>
       </div>
       {comment.replies && comment.replies.length > 0 && (
-        <div className="border-l-2 border-gray-600 dark:border-gray-700 pl-2">
+        <div className="border-l-2 border-gray-600 pl-2 dark:border-gray-700">
           {comment.replies.sort(sortByLikes).map((reply) => {
             if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
             return <Comment key={reply.post.uri} comment={reply} />;
@@ -208,7 +192,7 @@ const getPostThread = async (postId: string) => {
         Accept: "application/json",
       },
       cache: "no-store",
-    }
+    },
   );
 
   if (!res.ok) {

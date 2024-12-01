@@ -1,5 +1,4 @@
-import type { MetaFunction, LoaderFunctionArgs } from "react-router";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import type {
   PostContent,
   PostProperties,
@@ -13,23 +12,32 @@ import { generateTags } from "../../utils/generate-tags";
 import NotFound from "../../utils/not-found";
 import { Footer } from "../../components/footer";
 import { Block } from "../../components/post-block";
+import { ChevronRight } from "lucide-react";
 import { CommentSection } from "../../components/comments-section";
+import { Route } from "./+types/article";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
   let post = null;
   if (params.articleId) {
     post = await getArticleContent(params.articleId);
   }
   const latestPosts = await getLatestArticles(params.articleId!);
+  
+  const requestUrl = new URL(request.url);
+  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
 
-  return { latestPosts, post };
+  return { latestPosts, post, siteUrl };
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  const tags = generateTags(
-    data?.post?.content.title,
-    data?.post?.content.subtitle,
-    data?.post?.content.photoURL ?? undefined
+export const meta = ({ data }: Route.MetaArgs) => {
+
+  const { siteUrl } = data;
+
+  const tags = generateTags({ 
+    title: data?.post?.content.title,
+    description:data?.post?.content.subtitle,
+    image: data?.post?.content.photoURL ?? undefined,
+    siteUrl}
   );
 
   return tags;
@@ -105,11 +113,11 @@ export default function Index() {
             </svg>
             Share on Linkedin
           </a>
-            <a
+          <a
             type="button"
             href={post.content.linkToShareBluesky}
             className="w-full justify-center md:w-auto text-white mt-2 md:mt-4 bg-[#0A7AFF] hover:bg-[#0A7AFF]/90 focus:ring-4 focus:outline-none focus:ring-[#0A7AFF]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#0A7AFF]/55 mb-2"
-            >
+          >
             <svg
               width="24"
               height="24"
@@ -176,12 +184,13 @@ export default function Index() {
             {postPreviews}
           </div>
           <div className="mt-8">
-            <a
-              href="/blog"
-              className="text-primary-700 dark:text-primary-600 hover:opacity-70 font-bold hover:underline"
+            <Link
+              to="/blog"
+              className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             >
-              VIEW ALL ARTICLES
-            </a>
+              View all articles
+              <ChevronRight className="w-6 h-6 ml-2" />
+            </Link>
           </div>
         </div>
       </article>

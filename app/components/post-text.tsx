@@ -7,7 +7,7 @@ export const PostText = ({ text }: { text: RichTextItemResponse }) => {
       text: { content, link },
     } = text;
     const className = [
-      bold ? "text-gray-700 dark:text-gray-400 font-bold" : "",
+      bold ? "font-bold" : "",
       code ? "" : "",
       italic ? "italic" : "",
       strikethrough ? "line-through" : "",

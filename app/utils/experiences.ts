@@ -17,8 +17,7 @@ export const EXPERIENCE = [
           "Amplitude",
         ],
         description: [
-          "Acting as an engineer at a product team, contributing to the onboarding process of new customers.",
-          "Working closely with product managers and product designers.",
+          "I am part of a product team, which develops features to improve user onboarding, boosting early engagement and retention.\n Contribute to architectural decisions for scalable solutions and work with teams to make the new user journey smoother, leading to better adoption metrics.",
         ],
       },
     ],

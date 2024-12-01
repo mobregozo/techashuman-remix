@@ -7,7 +7,7 @@ type PostQuoteProps = {
 
 export const PostQuote = ({ block }: PostQuoteProps) => {
   return (
-    <p className="border-l-4 border-primary-700 dark:border-primary-500 pl-4 text-gray-700 dark:text-gray-400">
+    <p className="border-l-4 border-primary-700 dark:border-primary-500 pl-4">
       {block.quote.rich_text.map((item, index) => (
         <PostText key={`${block.id}-${index}`} text={item} />
       ))}

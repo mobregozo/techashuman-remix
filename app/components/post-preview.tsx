@@ -17,27 +17,27 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
         className="group relative isolate flex flex-col gap-8 md:flex-row"
       >
         {post.photoURL && (
-          <div className="hidden md:block relative aspect-[16/9] md:aspect-square h-48 md:shrink-0">
+          <div className="relative hidden aspect-[16/9] h-48 md:block md:shrink-0">
             <img
               src={post.photoURL}
               alt=""
               style={{ viewTransitionName: post.slug }}
-              className="absolute inset-0 h-full w-full rounded-2xl object-cover group-hover:rotate-1 transition-transform duration-300"
+              className="absolute inset-0 h-full w-full rounded-2xl object-cover transition-transform duration-300 group-hover:rotate-1"
             />
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+            <div className="absolute inset-0 rounded-2xl ring-1 ring-gray-900/10 ring-inset" />
           </div>
         )}
         <div className="flex flex-col justify-between">
-          <div className="flex items-center gap-x-4 text-xs">
+          <div className="flex items-center gap-x-4 text-sm">
             <time
               dateTime={formattedDate}
-              className="text-gray-700 dark:text-gray-500"
+              className="text-gray-700 dark:text-gray-400"
             >
               {formattedDate}
             </time>
           </div>
-          <div className="relative flex flex-col justify-between flex-1">
-            <h3 className="mt-3 text-2xl font-semibold leading-6 text-secondary-700 dark:text-secondary-500 group-hover:opacity-70">
+          <div className="relative flex flex-1 flex-col justify-between">
+            <h3 className="text-secondary-700 dark:text-secondary-500 mt-3 text-2xl leading-6 font-semibold group-hover:opacity-70">
               <span className="absolute inset-0" />
               <span className="tracking-tighter">#{post.number}&nbsp;</span>
               <span style={{ viewTransitionName: `${post.slug}-title` }}>
@@ -45,15 +45,15 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
               </span>
               {post.title}
             </h3>
-            <p className="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400 flex-1">
+            <p className="mt-5 flex-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
               {post.subtitle}
             </p>
-            <div className="flex items-center mt-2 tracking-tighter">
-              <div className="text-sm text-primary-700 dark:text-primary-500 group-hover:underline">
+            <div className="mt-2 flex items-center tracking-tighter">
+              <div className="text-primary-700 dark:text-primary-500 text-sm font-semibold group-hover:underline">
                 Read full article
               </div>
               <svg
-                className="h-4 w-4 stroke-primary-700 dark:stroke-primary-500"
+                className="stroke-primary-700 dark:stroke-primary-500 h-4 w-4"
                 viewBox="0 0 16 16"
                 fill="none"
                 aria-hidden="true"

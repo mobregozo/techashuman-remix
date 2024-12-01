@@ -1,7 +1,6 @@
+import { MAIN_URL } from "@/utils/constants";
+import { getAllArticles, PostProperties } from "@/utils/read-posts.server";
 import type { LoaderFunction } from "react-router";
-import { MAIN_URL } from "../utilities/constants";
-import type { PostProperties } from "../utilities/read-posts.server";
-import { getAllArticles } from "../utilities/read-posts.server";
 
 export const loader: LoaderFunction = async () => {
   const slugs = await getAllArticles();
@@ -30,9 +29,9 @@ const renderXML = (slugs: PostProperties[]) => {
           year: "numeric",
           month: "short",
           day: "2-digit",
-        }).format(new Date(item.date))
+        }).format(new Date(item.date)),
       ).toISOString()}</lastmod>
-    </url>`
+    </url>`,
       )
       .join("")}
   </urlset>`;

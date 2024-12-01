@@ -1,5 +1,4 @@
-import type { MetaFunction } from "react-router";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { Intro } from "../components/intro";
 import { PostLink } from "../components/post-link";
 import { PostPreview } from "../components/post-preview";
@@ -9,9 +8,13 @@ import {
   getLatestArticles,
 } from "../utils/read-posts.server";
 import type { PostProperties } from "../utils/read-posts.server";
+import { ChevronRight } from "lucide-react";
+import { MainArticle } from "../components/main-article";
+import type { Route } from "./+types/home";
 
-export const meta: MetaFunction = () => {
-  const tags = generateTags("Home");
+export const meta = ({ data }: Route.MetaArgs) => {
+  const { siteUrl } = data;
+  const tags = generateTags({ title: "Home", siteUrl });
   return tags;
 };
 
@@ -19,14 +22,14 @@ type PopularArticlesSlug = {
   results: { page: string }[];
 };
 
-export const loader = async () => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
   const response = await fetch(
     "https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=5&period=12mo&filters=event:page==/blog/*",
     {
       headers: {
         Authorization: `Bearer ${process.env.PLAUSIBLE_API_KEY}`,
       },
-    }
+    },
   );
 
   if (!response.ok) {
@@ -36,16 +39,25 @@ export const loader = async () => {
 
   const popularArticlesSlug: PopularArticlesSlug = await response.json();
   const slugs = popularArticlesSlug.results.map((item: { page: string }) =>
-    item.page.replace("/blog/", "")
+    item.page.replace("/blog/", ""),
   );
   const popularArticles = await getArticlesBySlugs(slugs);
+  const lastArticle = latestArticles.shift();
+
+  const requestUrl = new URL(request.url);
+  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
+
   return {
     latestArticles,
     popularArticles,
+    lastArticle,
+    siteUrl,
   };
 };
+
 export default function Index() {
-  const { latestArticles, popularArticles } = useLoaderData<typeof loader>();
+  const { latestArticles, popularArticles, lastArticle } =
+    useLoaderData<typeof loader>();
 
   const latestArticlesPreviews = latestArticles.map((post) => (
     <div key={post.slug} className="mb-16">
@@ -64,29 +76,39 @@ export default function Index() {
       <Intro />
       <div className="mt-10 lg:flex lg:gap-8">
         <div>
-          <h2 className="text-primary-600 text-2xl md:text-3xl font-bold dark:text-white tracking-tighter">
-            Latest articles
+          <h2 className="text-primary-600 mb-8 text-3xl font-semibold tracking-tight dark:text-white">
+            Last issued
           </h2>
-          <div className="md:mt-8 mb-20 divide-y divide-gray-300 dark:divide-gray-800 md:divide-y-0">
-            {latestArticlesPreviews}
-          </div>
+          <MainArticle post={lastArticle as PostProperties} />
         </div>
-        <div>
-          <h2 className="text-primary-600 text-2xl md:text-3xl font-bold dark:text-white tracking-tighter">
+
+        <div className="mt-20 lg:mt-0">
+          <h2 className="text-primary-600 ld:mb-0 mb-8 text-3xl font-semibold tracking-tight dark:text-white">
             Popular articles
           </h2>
-          <div className="md:mt-8 mb-20 divide-y divide-gray-300 dark:divide-gray-800 md:divide-y-0">
+          <div className="mb-20 md:mt-8 dark:divide-gray-800">
             {popularArticlesPreviews}
           </div>
         </div>
       </div>
+      <div>
+        <h2 className="text-primary-600 mt-20 mb-8 text-3xl font-semibold tracking-tight md:text-4xl dark:text-white">
+          Previously shared
+        </h2>
+        <div className="mb-20 md:mt-8 dark:divide-gray-800">
+          {latestArticlesPreviews}
+        </div>
+      </div>
       <div className="grow">
-        <a
-          href="/blog"
-          className="text-xl text-primary-700 dark:text-primary-600 text-center block hover:opacity-70 font-bold hover:underline"
-        >
-          VIEW ALL ARTICLES
-        </a>
+        <div className="flex justify-center">
+          <Link
+            to="/blog"
+            className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+          >
+            View all articles
+            <ChevronRight className="ml-2 h-6 w-6" />
+          </Link>
+        </div>
       </div>
     </>
   );

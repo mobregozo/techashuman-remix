@@ -1,27 +1,44 @@
-import { SocialMedia } from "app/components/social-media";
-import { generateTags } from "app/utils/generate-tags";
-import { ExperienceItem } from "app/components/experience-item";
-import type { MetaFunction } from "react-router";
 import { Link } from "react-router";
-import { EXPERIENCE } from "app/utils/experiences";
+import { generateTags } from "../../utils/generate-tags";
+import { SocialMedia } from "../../components/social-media";
+import { ExperienceItem } from "../../components/experience-item";
+import { EXPERIENCE } from "../../utils/experiences";
+import { DownloadIcon } from "lucide-react";
+import { Route } from "./+types/about";
 
-export const meta: MetaFunction = () => {
-  const tags = generateTags("About");
+export const meta = ({data}: Route.MetaArgs ) => {
+  const { siteUrl } = data;
+  const tags = generateTags({title: "About Me", siteUrl});
   return tags;
 };
+
+export const loader = ({request}: Route.LoaderArgs) => {
+  const requestUrl = new URL(request.url);
+  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
+
+  return { siteUrl };
+}
+
+
 export default function Index() {
+  const topSkills = [
+    "JavaScript",
+    "TypeScript",
+    "React, Remix & Next",
+    "Product Management",
+  ];
   return (
     <>
       <article>
-        <h1 className="text-primary-700 text-4xl md:text-6xl mb-8 font-semibold dark:text-white tracking-tighter">
+        <h1 className="text-primary-700 mb-24 text-4xl font-medium tracking-tight md:text-6xl dark:text-white">
           About
         </h1>
         <div className="mb-8 text-gray-700 dark:text-white flex space-x-20 w-full">
           <div>
-            <h2 className="mb-1 font-bold text-2xl tracking-tighter">
-              Hola, I'm Manu 👋
+            <h2 className="mb-1 font-semibold text-2xl tracking-tight">
+              Hola, I&apos;m Manu 👋
             </h2>
-            <h2 className="mb-3 font-bold tracking-tighter text-xl md:text-2xl text-primary-500">
+            <h2 className="mb-3 font-semibold tracking-tight text-xl md:text-2xl text-primary-500">
               Product-driven JavaScript engineer
             </h2>
             <div className="dark:text-zinc-400 space-y-2">
@@ -33,8 +50,8 @@ export default function Index() {
               </p>
               <p>
                 Yet, after all these years, the excitement of solving problems
-                and creating something impactful never gets old—it's the kind of
-                thrill that keeps me hooked.
+                and creating something impactful never gets old—it&apos;s the
+                kind of thrill that keeps me hooked.
               </p>
               <p>
                 This website is an open source project, in case you are
@@ -66,10 +83,32 @@ export default function Index() {
             ></img>
           </div>
         </div>
-
-        <h2 className="text-primary-700 text-3xl md:text-4xl mt-32 mb-12 font-bold dark:text-secondary-500 tracking-tighter">
-          Working Experience
+        <h2 className="text-primary-700 text-3xl md:text-4xl mt-16 mb-12 font-bold dark:text-secondary-500 tracking-tighter">
+          Top Skills
         </h2>
+        <div className="flex flex-wrap gap-2 mt-4">
+          {topSkills.map((skill) => (
+            <span
+              key={skill}
+              className="inline-block bg-primary-800 text-white text-sm font-semibold px-3.5 py-2 rounded-full"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+        <div className="md:flex items-center justify-between mt-20 mb-12">
+          <h2 className="text-primary-700 text-3xl md:text-4xl font-bold dark:text-secondary-500 tracking-tighter">
+            Working Experience
+          </h2>
+          <button
+            className="mt-4 md:mt-0 inline-flex items-center justify-center px-5 py-2 md:py-3 text-sm md:text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            onClick={() => window.open("/assets/resume.pdf", "_blank")}
+          >
+            <DownloadIcon className="w-4 g-4 md:w-6 md:h-6 mr-2" />
+            Download Resume
+          </button>
+        </div>
+
         <div>
           {EXPERIENCE.map((job, index) => (
             <ExperienceItem key={index} job={job} index={index} />

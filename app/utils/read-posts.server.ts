@@ -15,7 +15,7 @@ export type PostProperties = {
   title: string;
   date: string;
   photoId?: string;
-  photoURL?: string;
+  photoURL?: string | null;
   subtitle: string;
   number: string;
 };
@@ -73,7 +73,7 @@ async function getArticlesMetaData(articles: QueryResult[]) {
         subtitle: blog.properties.subtitle.rich_text[0].plain_text,
         number: blog.properties.number.number,
       };
-    })
+    }),
   );
 }
 
@@ -139,7 +139,7 @@ export async function getArticleContent(slug: string) {
         },
         blocks: content.results,
       };
-    } catch (error) {
+    } catch {
       return null;
     }
   }
