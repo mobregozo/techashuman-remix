@@ -1,6 +1,5 @@
 import { Link, useLoaderData } from "react-router";
 import { Intro } from "../components/intro";
-import { PostLink } from "../components/post-link";
 import { PostPreview } from "../components/post-preview";
 import { generateTags } from "../utils/generate-tags";
 import {
@@ -9,8 +8,9 @@ import {
 } from "../utils/read-posts.server";
 import type { PostProperties } from "../utils/read-posts.server";
 import { ChevronRight } from "lucide-react";
-import { MainArticle } from "../components/main-article";
 import type { Route } from "./+types/home";
+import { FeaturedArticle } from "@/components/featured-articles";
+import { PopularArticles } from "@/components/popular-articles";
 
 export const meta = ({ data }: Route.MetaArgs) => {
   const { siteUrl } = data;
@@ -24,7 +24,7 @@ type PopularArticlesSlug = {
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const response = await fetch(
-    "https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=5&period=12mo&filters=event:page==/blog/*",
+    "https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=3&period=12mo&filters=event:page==/blog/*",
     {
       headers: {
         Authorization: `Bearer ${process.env.PLAUSIBLE_API_KEY}`,
@@ -65,34 +65,15 @@ export default function Index() {
     </div>
   ));
 
-  const popularArticlesPreviews = popularArticles.map((post) => (
-    <div key={post.slug}>
-      <PostLink post={post as PostProperties} />
-    </div>
-  ));
-
   return (
     <>
       <Intro />
-      <div className="mt-10 lg:flex lg:gap-8">
-        <div>
-          <h2 className="text-primary-600 mb-8 text-3xl font-semibold tracking-tight dark:text-white">
-            Last issued
-          </h2>
-          <MainArticle post={lastArticle as PostProperties} />
-        </div>
-
-        <div className="mt-20 lg:mt-0">
-          <h2 className="text-primary-600 ld:mb-0 mb-8 text-3xl font-semibold tracking-tight dark:text-white">
-            Popular articles
-          </h2>
-          <div className="mb-20 md:mt-8 dark:divide-gray-800">
-            {popularArticlesPreviews}
-          </div>
-        </div>
+      <div className="mt-10 items-stretch justify-between lg:flex lg:gap-16">
+        <FeaturedArticle article={lastArticle as PostProperties} />
+        <PopularArticles articles={popularArticles as PostProperties[]} />
       </div>
       <div>
-        <h2 className="text-primary-600 mt-20 mb-8 text-3xl font-semibold tracking-tight md:text-4xl dark:text-white">
+        <h2 className="text-primary-600 mt-20 mb-10 text-3xl font-semibold tracking-tight md:text-4xl lg:mt-28 lg:mb-12 dark:text-white">
           Previously shared
         </h2>
         <div className="mb-20 md:mt-8 dark:divide-gray-800">

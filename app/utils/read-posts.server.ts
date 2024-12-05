@@ -16,8 +16,11 @@ export type PostProperties = {
   date: string;
   photoId?: string;
   photoURL?: string | null;
+  photoURLThumb?: string | null;
+  photoURLSmall?: string | null;
   subtitle: string;
   number: string;
+  readingTime: string;
 };
 
 export type PostGeneratedProps = {
@@ -28,6 +31,8 @@ export type PostGeneratedProps = {
   readingTime: string;
   formattedDate: string;
   photoURL: string;
+  photoURLThumb?: string | null;
+  photoURLSmall?: string | null;
   authorProfileURL: string;
   content: string;
   linkToShareTwitter: string;
@@ -67,11 +72,14 @@ async function getArticlesMetaData(articles: QueryResult[]) {
 
       return {
         photoURL: photo ? photo.response?.urls.small : null,
+        photoURLThumb: photo ? photo.response?.urls.thumb : null,
+        photoURLSmall: photo ? photo.response?.urls.small : null,
         title: blog.properties.title.title[0].plain_text,
         slug: blog.properties.slug.rich_text[0].plain_text,
         date: blog.properties.date.date.start,
         subtitle: blog.properties.subtitle.rich_text[0].plain_text,
         number: blog.properties.number.number,
+        readingTime: blog.properties.readingTime.formula.number,
       };
     }),
   );
@@ -133,6 +141,8 @@ export async function getArticleContent(slug: string) {
             pageData.properties.blueskyId?.rich_text[0]?.plain_text ??
             undefined,
           photoURL: photo ? photo.response?.urls.regular : null,
+          photoURLSmall: photo ? photo.response?.urls.small : null,
+          photoURLThumb: photo ? photo.response?.urls.thumb : null,
           linkToShareBluesky: `https://bsky.app/intent/compose?text=${pageData.properties.title.title[0].plain_text} by @${BLUESKY_ID} - ${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,
           linkToShareLinkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}&text="${pageData.properties.title.title[0].plain_text}"`,
           linkToShareTwitter: `http://twitter.com/share/?text="${pageData.properties.title.title[0].plain_text}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,

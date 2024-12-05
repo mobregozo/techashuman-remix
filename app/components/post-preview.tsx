@@ -53,7 +53,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
                 Read full article
               </div>
               <svg
-                className="stroke-primary-700 dark:stroke-primary-500 h-4 w-4"
+                className="stroke-primary-700 dark:stroke-primary-500 h-6 w-6 translate-x-0 rotate-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100"
                 viewBox="0 0 16 16"
                 fill="none"
                 aria-hidden="true"

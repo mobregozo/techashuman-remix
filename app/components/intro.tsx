@@ -10,8 +10,9 @@ export const Intro = () => {
             Tech as Human
           </h1>
           <p className="my-8 max-w-2xl font-light text-gray-500 md:text-lg lg:text-xl dark:text-gray-400">
-            Written by Manu - Passionate about the intersection of technology
-            and human experience.
+            Written by <span className="font-semibold tracking-wide">Manu</span>{" "}
+            - Passionate about the intersection of technology and human
+            experience.
           </p>
           <Link
             to="/about"
@@ -21,10 +22,10 @@ export const Intro = () => {
           </Link>
           <Link
             to="/blog"
-            className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            className="inline-flex group items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
             Start reading
-            <ChevronRight className="ml-2 h-6 w-6" />
+            <ChevronRight className="ml-2 h-6 w-6 translate-x-0 rotate-0 transform transition-all duration-300 ease-out group-hover:translate-x-1" />
           </Link>
         </div>
         <div className="hidden place-self-end lg:col-span-5 lg:mt-0 lg:flex">

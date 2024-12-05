@@ -1,4 +1,4 @@
-import "./index.css?transform-only";
+import "./index.css";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import Header from "./components/header";
 
