@@ -7,14 +7,6 @@
       "config": { "distDir": "build" }
     }
   ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  "routes": [{ "src": "/(.*)", "dest": "/build/server/index.js" }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/build/server/index.js" }]
 }
