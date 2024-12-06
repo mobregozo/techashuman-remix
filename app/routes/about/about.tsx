@@ -45,7 +45,7 @@ export default function Index() {
                 I specialize in frontend technologies and have spent over a
                 decade immersed in the tech world. From crafting clean,
                 intuitive code to navigating the complexities of management,
-                I’ve worn many hats across diverse companies.
+                I've worn many hats across diverse companies.
               </p>
               <p>
                 Yet, after all these years, the excitement of solving problems
@@ -76,7 +76,7 @@ export default function Index() {
               height="800"
               decoding="async"
               data-nimg="1"
-              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:opacity-80 dark:bg-zinc-800"
+              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover blur-xs transition-all duration-300 hover:scale-120 hover:blur-none"
               sizes="(min-width: 1024px) 32rem, 20rem"
               src="/assets/about.jpeg"
             ></img>

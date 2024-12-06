@@ -1,7 +1,6 @@
 import { PostPreview } from "@/components/post-preview";
 import { generateTags } from "@/utils/generate-tags";
 import { getAllArticles } from "@/utils/read-posts.server";
-import { useLoaderData } from "react-router";
 import type { Route } from "./+types/articles";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -18,8 +17,8 @@ export const meta = ({ data }: Route.MetaArgs) => {
   return tags;
 };
 
-export default function Index() {
-  const { posts } = useLoaderData<typeof loader>();
+export default function Index({ loaderData }: Route.ComponentProps) {
+  const { posts } = loaderData;
 
   const postPreviews = posts.map((post) => (
     <div key={post.slug} className="mb-20">

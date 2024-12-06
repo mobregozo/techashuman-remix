@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router";
+import { Link } from "react-router";
 import { Intro } from "../components/intro";
 import { PostPreview } from "../components/post-preview";
 import { generateTags } from "../utils/generate-tags";
@@ -55,9 +55,8 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   };
 };
 
-export default function Index() {
-  const { latestArticles, popularArticles, lastArticle } =
-    useLoaderData<typeof loader>();
+export default function Index({ loaderData }: Route.ComponentProps) {
+  const { latestArticles, popularArticles, lastArticle } = loaderData;
 
   const latestArticlesPreviews = latestArticles.map((post) => (
     <div key={post.slug} className="mb-16">

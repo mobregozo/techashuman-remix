@@ -1,8 +1,4 @@
-import { Link, useLoaderData } from "react-router";
-import type {
-  PostContent,
-  PostProperties,
-} from "../../utils/read-posts.server";
+import { Link } from "react-router";
 import {
   getArticleContent,
   getLatestArticles,
@@ -42,11 +38,8 @@ export const meta = ({ data }: Route.MetaArgs) => {
   return tags;
 };
 
-export default function Index() {
-  const { post, latestPosts } = useLoaderData<{
-    post: PostContent;
-    latestPosts: PostProperties[];
-  }>();
+export default function Index({ loaderData }: Route.ComponentProps) {
+  const { post, latestPosts } = loaderData;
 
   const postPreviews = latestPosts.map((post) => (
     <div key={post.slug} className="mb-12">
