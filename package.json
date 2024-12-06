@@ -10,8 +10,7 @@
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --write ./",
-    "vercel-build": "react-router build"
+    "format": "prettier --write ./"
   },
   "dependencies": {
     "@atproto/api": "^0.13.18",
