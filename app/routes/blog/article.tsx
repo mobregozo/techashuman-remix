@@ -55,12 +55,12 @@ export default function Index({ loaderData }: Route.ComponentProps) {
     <>
       <article>
         <h1
-          className="text-secondary-700 dark:text-secondary-500 mb-8 text-4xl font-bold tracking-tighter md:text-6xl"
+          className="text-secondary-700 dark:text-secondary-500 mb-8 text-4xl font-semibold tracking-tighter md:text-6xl"
           style={{ viewTransitionName: `${post.content.slug}-title` }}
         >
           {post.content.title}
         </h1>
-        <div className="flex font-bold text-gray-700 dark:text-gray-500">
+        <div className="flex font-bold text-gray-700 dark:text-gray-300">
           <span>{post.content.readingTime} min read</span>
           <span className="px-2">&bull;</span>
           <time
@@ -74,7 +74,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <a
             type="button"
             href={post.content.linkToShareTwitter}
-            className="mt-4 mb-2 inline-flex w-full items-center justify-center rounded-lg bg-[#1da1f2] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#1da1f2]/90 focus:ring-4 focus:ring-[#1da1f2]/50 focus:outline-none md:w-auto dark:focus:ring-[#1da1f2]/55"
+            className="mt-4 mb-2 inline-flex w-full items-center justify-center rounded-lg border border-gray-200 px-5 py-2.5 text-center text-sm font-medium text-white hover:opacity-80 focus:ring-4 focus:outline-none md:w-auto"
           >
             <svg
               className="me-2 h-4 w-4"
@@ -94,7 +94,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <a
             type="button"
             href={post.content.linkToShareLinkedin}
-            className="mt-2 mb-2 inline-flex w-full items-center justify-center rounded-lg bg-[#0077B5] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#0077B5]/90 focus:ring-4 focus:ring-[#0077B5]/50 focus:outline-none md:mt-4 md:w-auto dark:focus:ring-[#0077B5]/55"
+            className="mt-2 mb-2 inline-flex w-full items-center justify-center rounded-lg border border-gray-200 px-5 py-2.5 text-center text-sm font-medium text-white hover:opacity-80 focus:ring-4 focus:outline-none md:mt-4 md:w-auto"
           >
             <svg
               viewBox="0 0 24 24"
@@ -108,7 +108,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <a
             type="button"
             href={post.content.linkToShareBluesky}
-            className="mt-2 mb-2 inline-flex w-full items-center justify-center rounded-lg bg-[#0A7AFF] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#0A7AFF]/90 focus:ring-4 focus:ring-[#0A7AFF]/50 focus:outline-none md:mt-4 md:w-auto dark:focus:ring-[#0A7AFF]/55"
+            className="mt-2 mb-2 inline-flex w-full items-center justify-center rounded-lg border border-gray-200 px-5 py-2.5 text-center text-sm font-medium text-white hover:opacity-80 focus:ring-4 focus:outline-none md:mt-4 md:w-auto"
           >
             <svg
               width="24"
@@ -158,18 +158,19 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             <Block block={block} key={block.id} />
           ))}
         </div>
-        <div className="my-12 text-gray-600 dark:text-gray-400">
+        <div className="my-12 text-gray-600 dark:text-gray-300">
           Thanks for reading ❤️
         </div>
         <div>
-          <hr className="border-t-1 border-gray-300 dark:border-gray-700" />
-          <Footer />
-
+          {/* <hr className="border-t-1 border-gray-300 dark:border-gray-700" /> */}
+          <div className="my-10">
+            <Footer />
+          </div>
           {post.content.blueskyId && (
             <CommentSection postId={post.content.blueskyId} />
           )}
           <hr className="my-12 border-t-1 border-gray-300 dark:border-gray-700" />
-          <h2 className="text-primary-600 mt-8 text-3xl font-bold tracking-tighter md:text-5xl dark:text-white">
+          <h2 className="text-primary-600 mt-8 text-2xl font-semibold tracking-tighter md:text-5xl dark:text-white">
             Other articles
           </h2>
           <div className="divide-y divide-gray-300 md:mt-12 md:divide-y-0 dark:divide-gray-800">

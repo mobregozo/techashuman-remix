@@ -7,7 +7,7 @@ type PostParagraphProps = {
 
 export const PostParagraph = ({ block }: PostParagraphProps) => {
   return (
-    <p className="my-2 font-light">
+    <p className="my-2 font-light lead">
       {block.paragraph.rich_text.map((item, index) => (
         <PostText key={`${block.id}-${index}`} text={item} />
       ))}

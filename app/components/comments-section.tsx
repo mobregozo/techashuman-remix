@@ -62,7 +62,7 @@ export const CommentSection = ({ postId }: Props) => {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold text-gray-700 md:text-2xl dark:text-gray-400">
+      <h2 className="text-lg font-semibold text-gray-700 md:text-4xl mb-6 dark:text-gray-200">
         Comments
       </h2>
       <Link to={postUrl} target="_blank">

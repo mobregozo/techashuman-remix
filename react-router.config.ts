@@ -8,6 +8,6 @@ export default {
       (product) => `/blog/${product.slug}`,
     );
 
-    return ["/", "/about", "/blog", ...PopularArticlesPages];
+    return ["/", "/about", "/blog", "/about/blog", ...PopularArticlesPages];
   },
 } satisfies Config;
