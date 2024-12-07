@@ -19,7 +19,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
         {post.photoURL && (
           <div className="relative hidden aspect-[16/9] h-48 md:block md:shrink-0">
             <img
-              src={post.photoURL}
+              src={post.photoURLSmall!}
               alt=""
               style={{ viewTransitionName: post.slug }}
               className="absolute inset-0 h-full w-full rounded-2xl object-cover transition-transform duration-300 group-hover:rotate-1"

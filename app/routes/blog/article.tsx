@@ -162,7 +162,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           Thanks for reading ❤️
         </div>
         <div>
-          {/* <hr className="border-t-1 border-gray-300 dark:border-gray-700" /> */}
           <div className="my-10">
             <Footer />
           </div>
