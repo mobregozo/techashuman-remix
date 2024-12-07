@@ -22,7 +22,7 @@ export default function App() {
       >
         <main>
           <Header />
-          <div className="relative z-40 container mx-auto max-w-4xl px-5 py-8 md:py-16 dark:text-white">
+          <div className="relative z-40 container mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
             <Outlet />
           </div>
         </main>

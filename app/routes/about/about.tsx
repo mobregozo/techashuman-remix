@@ -32,7 +32,7 @@ export default function Index() {
         <h1 className="text-primary-700 mb-24 text-4xl font-medium tracking-tight md:text-6xl dark:text-white">
           About
         </h1>
-        <div className="mb-8 flex w-full space-x-20 text-gray-700 dark:text-white">
+        <div className="mb-8 flex w-full lg:space-x-20 text-gray-700 dark:text-white">
           <div>
             <h2 className="mb-1 text-2xl font-semibold tracking-tight">
               Hola, I&apos;m Manu 👋
@@ -68,7 +68,7 @@ export default function Index() {
               <SocialMedia />
             </div>
           </div>
-          <div className="hidden md:block md:w-[600px]">
+          <div className="hidden lg:block md:w-[600px]">
             <img
               alt=""
               loading="lazy"

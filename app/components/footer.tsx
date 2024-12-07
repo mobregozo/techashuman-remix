@@ -13,7 +13,7 @@ export const Footer = () => {
             experiences in the IT world, from a human-centric perspective.
           </p>
         </div>
-        <div>
+        <div className="mt-6 lg:mt-0">
           <h2 className="mb-4 text-xl font-semibold tracking-wider dark:text-gray-200">
             Follow Me
           </h2>

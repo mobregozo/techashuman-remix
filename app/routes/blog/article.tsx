@@ -153,7 +153,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             </blockquote>
           </div>
         ) : null}
-        <div className="prose dark:prose-invert mx-auto mb-8 max-w-3xl lg:max-w-5xl">
+        <div className="prose dark:prose-invert mx-auto mb-8 max-w-3xl lg:max-w-4xl">
           {post.blocks.map((block) => (
             <Block block={block} key={block.id} />
           ))}
