@@ -127,8 +127,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <div className="my-4">
             <img
               className="rounded-m h-56 w-full object-cover object-center sm:h-96"
-              src={post.content.photoURL}
-              alt="fix me"
+              src={post.content.photoURLSmall!}
               width={400}
               height={300}
               style={{ viewTransitionName: post.content.slug }}
