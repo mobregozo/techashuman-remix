@@ -158,8 +158,8 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             <Block block={block} key={block.id} />
           ))}
         </div>
-        <div className="my-12 text-gray-600 dark:text-gray-300">
-          Thanks for reading ❤️
+        <div className="prose dark:prose-invert lead my-12 text-gray-600 dark:text-gray-300">
+          <span className="text-xl font-bold">Thanks for reading!</span>
         </div>
         <div>
           <div className="my-10">

@@ -2,9 +2,9 @@ import { Link } from "react-router";
 import { generateTags } from "../../utils/generate-tags";
 import { SocialMedia } from "../../components/social-media";
 import { ExperienceItem } from "../../components/experience-item";
-import { EXPERIENCE } from "../../utils/experiences";
-import { DownloadIcon } from "lucide-react";
+import { DownloadIcon, Music } from "lucide-react";
 import { Route } from "./+types/about";
+import { getJobExperiences } from "@/utils/work-experience.server";
 
 export const meta = ({ data }: Route.MetaArgs) => {
   const { siteUrl } = data;
@@ -12,14 +12,17 @@ export const meta = ({ data }: Route.MetaArgs) => {
   return tags;
 };
 
-export const loader = ({ request }: Route.LoaderArgs) => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
   const requestUrl = new URL(request.url);
   const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
 
-  return { siteUrl };
+  const experiences = await getJobExperiences();
+
+  return { siteUrl, experiences };
 };
 
-export default function Index() {
+export default function Index({ loaderData }: Route.ComponentProps) {
+  const { experiences } = loaderData;
   const topSkills = [
     "JavaScript",
     "TypeScript",
@@ -32,64 +35,60 @@ export default function Index() {
         <h1 className="text-primary-700 mb-24 text-4xl font-medium tracking-tight md:text-6xl dark:text-white">
           About
         </h1>
-        <div className="mb-8 flex w-full lg:space-x-20 text-gray-700 dark:text-white">
-          <div>
-            <h2 className="mb-1 text-2xl font-semibold tracking-tight">
-              Hola, I&apos;m Manu 👋
-            </h2>
-            <h2 className="text-primary-500 mb-3 text-xl font-semibold tracking-tight md:text-2xl">
-              Product-driven JavaScript engineer
-            </h2>
-            <div className="space-y-2 dark:text-zinc-400">
-              <p className="mb-2">
-                I specialize in frontend technologies and have spent over a
-                decade immersed in the tech world. From crafting clean,
-                intuitive code to navigating the complexities of management,
-                I've worn many hats across diverse companies.
-              </p>
-              <p>
-                Yet, after all these years, the excitement of solving problems
-                and creating something impactful never gets old—it&apos;s the
-                kind of thrill that keeps me hooked.
-              </p>
-              <p>
-                This website is an open source project, in case you are
-                interested,{" "}
-                <Link
-                  to="/about/blog"
-                  className="text-secondary-500 hover:underline"
-                >
-                  here
-                </Link>{" "}
-                is more information about it.{" "}
-              </p>
-            </div>
-            <div className="mt-12">
+        <div className="mb-12 flex flex-col items-start gap-8 lg:flex-row lg:items-stretch">
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-lg border-2 border-zinc-700 pb-4 shadow-md lg:items-center">
+            <img
+              alt="picture of Manu at the beach"
+              loading="lazy"
+              className="aspect-square w-80 overflow-hidden bg-zinc-100 object-cover lg:w-2xl"
+              src="/assets/about.jpeg"
+            />
+            <div className="mt-4 justify-self-end">
               <SocialMedia />
             </div>
           </div>
-          <div className="hidden lg:block md:w-[600px]">
-            <img
-              alt=""
-              loading="lazy"
-              width="800"
-              height="800"
-              decoding="async"
-              data-nimg="1"
-              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover blur-xs transition-all duration-300 hover:scale-120 hover:blur-none"
-              sizes="(min-width: 1024px) 32rem, 20rem"
-              src="/assets/about.jpeg"
-            ></img>
+          <div className="space-y-4">
+            <h1 className="text-3xl font-bold">Hola, I'm Manu 👋</h1>
+            <h2 className="text-primary-500 mb-3 text-xl font-semibold tracking-tight md:text-2xl">
+              Product-driven JavaScript engineer
+            </h2>
+            <p className="leading-relaxed">
+              I specialize in frontend technologies, mostly{" "}
+              <strong>React</strong>, and have spent over a decade immersed in
+              the tech world. From crafting code to navigating the complexities
+              of management, I've worn many hats across diverse companies and
+              personal projects.
+            </p>
+            <p>
+              Yet, after all these years, the excitement of creating something
+              impactful never gets old—it&apos;s the kind of thrill that keeps
+              me hooked.
+            </p>
           </div>
         </div>
-        <h2 className="text-primary-700 dark:text-secondary-500 mt-16 mb-12 text-3xl font-bold tracking-tighter md:text-4xl">
+
+        <div className="highlight-white/10 relative z-10 flex gap-4 rounded-xl bg-slate-800 p-4 text-lg ring-2 shadow-xl ring-slate-500">
+          <Music aria-hidden="true" className="text-secondary-500 size-12" />
+          <p className="text-gray-300">
+            I believe our music taste says a lot about us. Explore my collection
+            and maybe get a glimpse of the soundtracks that have shaped my
+            journey &#8226;{" "}
+            <Link
+              to="/about/vinyls"
+              className="text-secondary-500 hover:underline"
+            >
+              Check out my vinyl collection.
+            </Link>
+          </p>
+        </div>
+        <h2 className="text-primary-700 dark:text-secondary-500 mt-30 mb-12 text-3xl font-bold tracking-tighter md:text-4xl">
           Top Skills
         </h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {topSkills.map((skill) => (
             <span
               key={skill}
-              className="bg-primary-800 inline-block rounded-full px-3.5 py-2 text-sm font-semibold text-white"
+              className="bg-primary-800 inline-block rounded-md px-3.5 py-1.5 text-sm font-semibold text-white"
             >
               {skill}
             </span>
@@ -107,9 +106,8 @@ export default function Index() {
             Download Resume
           </button>
         </div>
-
         <div>
-          {EXPERIENCE.map((job, index) => (
+          {experiences.map((job, index) => (
             <ExperienceItem key={index} job={job} index={index} />
           ))}
         </div>

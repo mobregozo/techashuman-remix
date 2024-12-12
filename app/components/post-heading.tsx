@@ -24,7 +24,7 @@ export const PostHeading = ({ block }: PostHeadingProps) => {
       );
     case "heading_2":
       return (
-        <h2 className="text-primary-700 dark:text-secondary-400 text-3xl tracking-tighter">
+        <h2 className="text-primary-700 dark:text-secondary-400 text-4xl tracking-tight font-semibold">
           {block.heading_2.rich_text.map((item, index) => (
             <PostText key={`${block.id}-${index}`} text={item} />
           ))}

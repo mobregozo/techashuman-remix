@@ -4,7 +4,7 @@ export const HOME_OG_IMAGE_URL =
   "https://www.techashuman.com/assets/profile.png";
 export const FULL_NAME = "Manu Obre";
 export const TWITTER_USER = "@ManuTechashuman";
-export const MAIN_URL = "https://www.techashuman.com";
+export const MAIN_URL = "https://techashuman.com";
 export const POST_PATH = "blog";
 export const TWITTER_ID = "36526109";
 export const EMAIL = "obregozo.manuel@gmail.com";

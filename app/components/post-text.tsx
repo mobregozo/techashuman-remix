@@ -24,11 +24,7 @@ export const PostText = ({ text }: { text: RichTextItemResponse }) => {
         </a>
       );
     } else {
-      return (
-        <span className={className} data-testid="text-component">
-          {content}
-        </span>
-      );
+      return <span className={className}>{content}</span>;
     }
   }
 

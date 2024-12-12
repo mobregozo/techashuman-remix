@@ -26,7 +26,7 @@ export const PostList = ({ block }: PostListProps) => {
   }
 
   return (
-    <ul className="my-2 list-inside list-disc pl-0">
+    <ul className="my-2 list-inside lead pl-0">
       {list_item.rich_text.map((item, index) => (
         <li
           className="m-0 marker:m-0 dark:marker:text-white"
@@ -36,5 +36,6 @@ export const PostList = ({ block }: PostListProps) => {
         </li>
       ))}
     </ul>
+    
   );
 };

@@ -1,18 +1,11 @@
 import { motion, useScroll, useSpring } from "motion/react";
 import { useRef } from "react";
+import { RichText } from "./post-rich-text";
+import { JobExperience } from "@/utils/work-experience.server";
+import { Calendar } from "lucide-react";
 
 type ExperienceItemProps = {
-  job: {
-    companyName: string;
-    location: string;
-    period: string;
-    logo: string;
-    projects: {
-      role: string;
-      description: string[];
-      technologies?: string[];
-    }[];
-  };
+  job: JobExperience;
   index: number;
 };
 
@@ -68,26 +61,27 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
           <div className="flex items-stretch justify-start align-top">
             <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white ring-1 shadow-md shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
               <img
-                alt={job.companyName}
+                alt={job.company}
                 loading="lazy"
                 width="32"
                 height="32"
                 decoding="async"
                 data-nimg="1"
                 className="h-8 w-8 rounded-full object-cover"
-                src={`/assets/${job.logo}`}
+                src={`/assets/companies/${job.company.toLowerCase()}.webp`}
                 style={{ color: "transparent" }}
               />
             </div>
             <div className="ml-4 flex flex-1 flex-col">
               <h2 className="mb-1.5 text-xl leading-none font-bold text-gray-700 dark:text-white">
-                {job.companyName}
+                {job.company}
               </h2>
               <div className="text-sm text-gray-600 dark:text-zinc-400">
                 {job.location}
               </div>
             </div>
-            <div className="text-primary-700 hidden text-sm whitespace-nowrap md:block dark:text-white">
+            <div className="text-primary-700 hidden text-sm whitespace-nowrap dark:text-white md:flex items-center gap-3">
+              <Calendar className="size-4" />
               {job.period}
             </div>
           </div>
@@ -100,32 +94,26 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
             viewport={{ once: true, amount: 0.3 }}
             variants={itemVariants}
           >
-            {job.projects.map((project) => (
-              <div key={project.role} className="mt-5">
-                <div className="text-secondary-700 dark:text-primary-500 mb-1 w-full text-lg font-semibold">
-                  {project.role}
-                </div>
-                <div className="my-2 text-sm text-zinc-600 dark:text-zinc-400">
-                  <ul className="list-inside list-none">
-                    {project.description.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                {project.technologies ? (
-                  <div className="mt-3 flex flex-wrap text-sm text-gray-700 dark:text-white">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="my-1 me-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
+            <div key={job.role} className="mt-5">
+              <div className="text-secondary-700 dark:text-primary-500 mb-1 w-full text-lg font-semibold">
+                {job.role}
               </div>
-            ))}
+              <div className="my-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <RichText block={job.projects} />
+              </div>
+              {job.technologies ? (
+                <div className="mt-3 flex flex-wrap text-sm text-gray-700 dark:text-white">
+                  {job.technologies.split(",").map((tech) => (
+                    <span
+                      key={tech}
+                      className="my-1 me-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </motion.div>
         </div>
       </div>
