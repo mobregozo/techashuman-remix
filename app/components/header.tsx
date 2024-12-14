@@ -1,5 +1,6 @@
 import { NavLink } from "react-router";
 import { Loader } from "./loader";
+import { RssIcon } from "lucide-react";
 
 const Header = () => {
   const navLinks = [
@@ -31,7 +32,8 @@ const Header = () => {
         </ul>
         <button className="hover:opacity-60">
           <a href="/rss.xml">
-            <img className="h-5 w-5" alt="rss" src="/assets/logo-rss.svg" />
+            <RssIcon className="size-5 text-white" />
+            {/* <img className="h-5 w-5" alt="rss" src="/assets/logo-rss.svg" /> */}
           </a>
         </button>
       </div>
