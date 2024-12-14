@@ -22,8 +22,7 @@ export const meta = ({ data }: Route.MetaArgs) => {
 export default function Index({ loaderData }: Route.ComponentProps) {
   const { posts } = loaderData;
 
-  // Set initial posts to display and increment for "Load More"
-  const POSTS_PER_PAGE = 5;
+  const POSTS_PER_PAGE = 10;
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
 
   const handleLoadMore = () => {

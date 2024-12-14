@@ -17,7 +17,9 @@ export const Footer = () => {
           <h2 className="mb-4 text-xl font-semibold tracking-wider dark:text-gray-200">
             Follow Me
           </h2>
-          <SocialMedia />
+          <div className="flex gap-4">
+            <SocialMedia />
+          </div>
         </div>
       </div>
     </div>

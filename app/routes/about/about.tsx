@@ -43,7 +43,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               className="aspect-square w-80 overflow-hidden bg-zinc-100 object-cover lg:w-2xl"
               src="/assets/about.jpeg"
             />
-            <div className="mt-4 justify-self-end">
+            <div className="mt-4 flex gap-4 justify-self-end justify-center">
               <SocialMedia />
             </div>
           </div>

@@ -62,7 +62,7 @@ const socialLinks = [
 ];
 
 export const SocialMedia = () => (
-  <div className="flex gap-4 md:justify-center">
+  <>
     {socialLinks.map((link) => (
       <a
         key={link.href}
@@ -72,5 +72,5 @@ export const SocialMedia = () => (
         {link.svg}
       </a>
     ))}
-  </div>
+  </>
 );

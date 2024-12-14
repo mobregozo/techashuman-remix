@@ -18,6 +18,7 @@ export type PostProperties = {
   photoURL?: string | null;
   photoURLThumb?: string | null;
   photoURLSmall?: string | null;
+  photoWebp?: string | null;
   subtitle: string;
   number: string;
   readingTime: string;
@@ -33,6 +34,7 @@ export type PostGeneratedProps = {
   photoURL: string;
   photoURLThumb?: string | null;
   photoURLSmall?: string | null;
+  photoWebp?: string | null;
   authorProfileURL: string;
   content: string;
   linkToShareTwitter: string;
@@ -71,6 +73,9 @@ async function getArticlesMetaData(articles: QueryResult[]) {
       }
 
       return {
+        photoWebp: photo
+          ? photo.response?.urls.raw + "&fm=webp&q=80&w=800"
+          : null,
         photoURL: photo ? photo.response?.urls.small : null,
         photoURLThumb: photo ? photo.response?.urls.thumb : null,
         photoURLSmall: photo ? photo.response?.urls.small : null,
@@ -143,6 +148,9 @@ export async function getArticleContent(slug: string) {
           photoURL: photo ? photo.response?.urls.regular : null,
           photoURLSmall: photo ? photo.response?.urls.small : null,
           photoURLThumb: photo ? photo.response?.urls.thumb : null,
+          photoWebp: photo
+            ? photo.response?.urls.raw + "&fm=webp&q=80&w=800"
+            : null,
           linkToShareBluesky: `https://bsky.app/intent/compose?text=${pageData.properties.title.title[0].plain_text} by @${BLUESKY_ID} - ${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,
           linkToShareLinkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}&text="${pageData.properties.title.title[0].plain_text}"`,
           linkToShareTwitter: `http://twitter.com/share/?text="${pageData.properties.title.title[0].plain_text}" by ${TWITTER_USER} - &url=${MAIN_URL}/${POST_PATH}/${pageData.properties.slug.rich_text[0].plain_text}`,
