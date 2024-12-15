@@ -1,54 +1,20 @@
-import { useState, useEffect } from "react";
-import {
-  AppBskyFeedDefs,
-  AppBskyFeedPost,
-  type AppBskyFeedGetPostThread,
-} from "@atproto/api";
+import { useState } from "react";
 import { Link } from "react-router";
 import { Heart, MessageCircle, Repeat2 } from "lucide-react";
+import { Thread } from "@/routes/blog/article";
+import {
+  isThreadViewPost,
+  PostView,
+} from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 
-interface Props {
-  postId?: string;
-}
-
-type Thread = AppBskyFeedDefs.ThreadViewPost;
-
-// Function to fetch the thread data
-const fetchThreadData = async (
-  uri: string,
-  setThread: (thread: AppBskyFeedDefs.ThreadViewPost) => void,
-  setError: (error: string) => void,
-) => {
-  try {
-    const thread = await getPostThread(uri);
-    setThread(thread);
-  } catch {
-    setError("Error loading comments");
-  }
+type CommentSectionProps = {
+  thread: Thread;
+  postURL: string;
 };
 
-export const CommentSection = ({ postId }: Props) => {
-  const username = "techashuman.com";
-  const uri = `at://${username}/app.bsky.feed.post/${postId}`;
-  const postUrl = `https://bsky.app/profile/${username}/post/${postId}`;
-
-  const [thread, setThread] = useState<Thread | null>(null);
-  const [error, setError] = useState<string | null>(null);
+export const CommentSection = ({ thread, postURL }: CommentSectionProps) => {
   const [visibleCount, setVisibleCount] = useState(3);
 
-  useEffect(() => {
-    fetchThreadData(uri, setThread, setError);
-  }, [uri]);
-
-  if (error) {
-    return <p className="my-4">{error}</p>;
-  }
-
-  if (!postId) return <div />;
-
-  if (!thread) {
-    return <p className="my-4">Loading comments...</p>;
-  }
 
   if (!thread.replies || thread.replies.length === 0) {
     return <p className="my-4"> No comments yet</p>;
@@ -62,10 +28,10 @@ export const CommentSection = ({ postId }: Props) => {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold text-gray-700 md:text-4xl mb-6 dark:text-gray-200">
+      <h2 className="mb-6 text-lg font-semibold text-gray-700 md:text-4xl dark:text-gray-200">
         Comments
       </h2>
-      <Link to={postUrl} target="_blank">
+      <Link to={postURL} target="_blank">
         <p className="my-4 flex items-center gap-2 hover:underline">
           <span className="flex items-center">
             <Heart className="size-5" />
@@ -85,7 +51,7 @@ export const CommentSection = ({ postId }: Props) => {
       <p className="mt-2 text-sm">
         Reply on Bluesky{" "}
         <Link
-          to={postUrl}
+          to={postURL}
           className="underline"
           target="_blank"
           rel="noreferrer noopener"
@@ -97,7 +63,7 @@ export const CommentSection = ({ postId }: Props) => {
       <hr className="mt-2 border-gray-600 dark:border-gray-500" />
       <div className="mt-2 space-y-8">
         {sortedReplies.slice(0, visibleCount).map((reply) => {
-          if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
+          if (!isThreadViewPost(reply)) return null;
           return <Comment key={reply.post.uri} comment={reply} />;
         })}
         {visibleCount < sortedReplies.length && (
@@ -113,11 +79,11 @@ export const CommentSection = ({ postId }: Props) => {
   );
 };
 
-const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
+const Comment = ({ comment }: { comment: any }) => {
   const author = comment.post.author;
   const avatarClassName = "h-4 w-4 shrink-0 rounded-full bg-gray-300";
 
-  if (!AppBskyFeedPost.isRecord(comment.post.record)) return null;
+  if (!comment.post.record) return null;
 
   return (
     <div className="my-4 text-sm">
@@ -149,14 +115,14 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
           target="_blank"
           rel="noreferrer noopener"
         >
-          <p>{comment.post.record.text}</p>
+          <p>{comment.post.record.text as string}</p>
           <Actions post={comment.post} />
         </Link>
       </div>
       {comment.replies && comment.replies.length > 0 && (
         <div className="border-l-2 border-gray-600 pl-2 dark:border-gray-700">
           {comment.replies.sort(sortByLikes).map((reply) => {
-            if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
+            if (!isThreadViewPost(reply)) return null;
             return <Comment key={reply.post.uri} comment={reply} />;
           })}
         </div>
@@ -165,7 +131,7 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
   );
 };
 
-const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
+const Actions = ({ post }: { post: PostView }) => (
   <div className="mt-2 flex w-full max-w-[150px] flex-row items-center justify-between opacity-60">
     <div className="flex flex-row items-center gap-1.5">
       <MessageCircle className="size-4" />
@@ -182,37 +148,8 @@ const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
   </div>
 );
 
-const getPostThread = async (postId: string) => {
-  const res = await fetch(
-    "https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=" +
-      postId,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-      cache: "no-store",
-    },
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch post thread");
-  }
-
-  const data = (await res.json()) as AppBskyFeedGetPostThread.OutputSchema;
-
-  if (!AppBskyFeedDefs.isThreadViewPost(data.thread)) {
-    throw new Error("Could not find thread");
-  }
-
-  return data.thread;
-};
-
 const sortByLikes = (a: unknown, b: unknown) => {
-  if (
-    !AppBskyFeedDefs.isThreadViewPost(a) ||
-    !AppBskyFeedDefs.isThreadViewPost(b)
-  ) {
+  if (!isThreadViewPost(a) || !isThreadViewPost(b)) {
     return 0;
   }
   return (b.post.likeCount ?? 0) - (a.post.likeCount ?? 0);

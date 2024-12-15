@@ -13,8 +13,9 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
-    "@atproto/api": "^0.13.18",
+    "@atproto/api": "^0.13.20",
     "@notionhq/client": "^2.2.14",
+    "@react-router/node": "^7.0.2",
     "clsx": "^2.0.0",
     "isbot": "^3.6.8",
     "lucide-react": "^0.461.0",
