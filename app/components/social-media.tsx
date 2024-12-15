@@ -1,6 +1,7 @@
 const socialLinks = [
   {
     href: "https://www.linkedin.com/in/manuelobregozo/?locale=en_US",
+    name: "LinkedIn",
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -16,6 +17,7 @@ const socialLinks = [
   },
   {
     href: "https://techashuman.substack.com/",
+    name: "Substack",
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +33,7 @@ const socialLinks = [
   },
   {
     href: "https://bsky.app/profile/techashuman.com",
+    name: "Bluesky",
     svg: (
       <svg
         width="24"
@@ -46,6 +49,7 @@ const socialLinks = [
   },
   {
     href: "https://github.com/mobregozo",
+    name: "GitHub",
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +72,7 @@ export const SocialMedia = () => (
         key={link.href}
         className="group hover:text-primary-600 dark:hover:text-primary-600 flex items-center text-sm font-medium text-zinc-800 transition dark:text-zinc-200"
         href={link.href}
+        aria-label={`Social media link of ${link.name}`}
       >
         {link.svg}
       </a>

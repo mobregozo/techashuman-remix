@@ -32,8 +32,10 @@ const Header = () => {
         </ul>
         <button className="hover:opacity-60">
           <a href="/rss.xml">
-            <RssIcon className="size-5 text-white" />
-            {/* <img className="h-5 w-5" alt="rss" src="/assets/logo-rss.svg" /> */}
+            <RssIcon
+              className="size-6 text-white"
+              aria-label="get the rss xml file of the website"
+            />
           </a>
         </button>
       </div>
