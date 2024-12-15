@@ -4,8 +4,8 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "react-router dev",
-    "build": "react-router build",
+    "build": "react-router build && node vercel/prepare.js",
+    "dev": "cross-env NODE_ENV=development node ./dev-server.js",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
@@ -13,6 +13,10 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
+    "@react-router/express": "^7.0.2",
+    "@react-router/node": "^7.0.2",
+    "@vercel/node": "^3.2.25",
+    "express": "^4.21.1",
     "@atproto/api": "^0.13.18",
     "@notionhq/client": "^2.2.14",
     "clsx": "^2.0.0",
@@ -25,11 +29,14 @@
     "unsplash-js": "^7.0.18"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^20",
     "@react-router/dev": "^7.0.1",
     "@react-router/node": "^7.0.1",
     "@react-router/serve": "^7.0.1",
     "@remix-run/dev": "^1.15.0",
     "@remix-run/node": "^1.15.0",
+    "cross-env": "^7.0.3",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.0.0-beta.5",
     "@types/eslint": "^9.6.1",
