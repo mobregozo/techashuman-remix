@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Await, Link } from "react-router";
 import { ChevronRight } from "lucide-react";
 import { Route } from "./+types/article";
 import { CommentSection } from "@/components/comments-section";
@@ -12,6 +12,8 @@ import {
   getLatestArticles,
 } from "@/utils/read-posts.server";
 import { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
+import { Suspense } from "react";
+import { getBlueSkyThreadInfo } from "@/utils/blue-sky";
 
 export type Thread = ThreadViewPost;
 
@@ -29,34 +31,9 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     return { latestPosts, post, siteUrl };
   }
 
-  const postId = post.content.blueskyId;
-  const username = "techashuman.com";
-  const uri = `at://${username}/app.bsky.feed.post/${postId}`;
-  const postUrl = `https://bsky.app/profile/${username}/post/${postId}`;
+  const blueSkyThread = getBlueSkyThreadInfo(post.content.blueskyId);
 
-  const res = await fetch(
-    "https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=" + uri,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-      cache: "no-store",
-    },
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch post thread");
-  }
-
-  const data = await res.json();
-
-  const blueSky = {
-    thread: data.thread as Thread,
-    postURL: postUrl,
-  };
-
-  return { latestPosts, post, siteUrl, blueSky };
+  return { latestPosts, post, siteUrl, blueSkyThread };
 }
 
 export const meta = ({ data }: Route.MetaArgs) => {
@@ -73,7 +50,7 @@ export const meta = ({ data }: Route.MetaArgs) => {
 };
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { post, latestPosts, blueSky } = loaderData;
+  const { post, latestPosts, blueSkyThread } = loaderData;
 
   const postPreviews = latestPosts.map((post) => (
     <div key={post.slug} className="mb-12">
@@ -205,12 +182,18 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <div className="my-10">
             <Footer />
           </div>
-          {blueSky?.thread && (
-            <CommentSection
-              thread={blueSky.thread as Thread}
-              postURL={blueSky.postURL}
-            />
-          )}
+          <Suspense fallback={<div>Loading...</div>}>
+            <Await resolve={blueSkyThread}>
+              {(value) =>
+                value && (
+                  <CommentSection
+                    thread={value.thread.thread as Thread}
+                    postURL={value.postUrl}
+                  />
+                )
+              }
+            </Await>
+          </Suspense>
           <hr className="my-12 border-t-1 border-gray-300 dark:border-gray-700" />
           <h2 className="text-primary-600 mt-8 text-2xl font-semibold tracking-tighter md:text-5xl dark:text-white">
             Other articles

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PostPreview } from "@/components/post-preview";
 import { generateTags } from "@/utils/generate-tags";
 import { getAllArticles } from "@/utils/read-posts.server";

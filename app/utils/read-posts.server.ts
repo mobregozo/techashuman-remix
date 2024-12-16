@@ -74,7 +74,7 @@ async function getArticlesMetaData(articles: QueryResult[]) {
 
       return {
         photoWebp: photo
-          ? photo.response?.urls.raw + "&fm=webp&q=80&w=800"
+          ? photo.response?.urls.raw + "&fm=webp&q=80&w=400"
           : null,
         photoURL: photo ? photo.response?.urls.small : null,
         photoURLThumb: photo ? photo.response?.urls.thumb : null,
