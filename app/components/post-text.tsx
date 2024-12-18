@@ -18,7 +18,7 @@ export const PostText = ({ text }: { text: RichTextItemResponse }) => {
       return (
         <a
           href={link.url}
-          className={`${className} text-primary-700 dark:text-primary-500 font-semibold hover:underline`}
+          className={`${className} text-primary-700 dark:text-primary-500 font-medium hover:underline`}
         >
           {content}
         </a>

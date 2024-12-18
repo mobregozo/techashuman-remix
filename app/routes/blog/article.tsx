@@ -1,15 +1,11 @@
-import { Await, Link } from "react-router";
-import { ChevronRight } from "lucide-react";
+import { Await } from "react-router";
 import { Route } from "./+types/article";
 import { CommentSection } from "@/components/comments-section";
-import { Footer } from "@/components/footer";
 import { Block } from "@/components/post-block";
-import { PostPreview } from "@/components/post-preview";
 import { generateTags } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
 import {
   getArticleContent,
-  getLatestArticles,
 } from "@/utils/read-posts.server";
 import { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 import { Suspense } from "react";
@@ -22,18 +18,17 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   if (params.articleId) {
     post = await getArticleContent(params.articleId);
   }
-  const latestPosts = await getLatestArticles(params.articleId!);
 
   const requestUrl = new URL(request.url);
   const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
 
   if (!post?.content.blueskyId) {
-    return { latestPosts, post, siteUrl };
+    return { post, siteUrl };
   }
 
   const blueSkyThread = getBlueSkyThreadInfo(post.content.blueskyId);
 
-  return { latestPosts, post, siteUrl, blueSkyThread };
+  return { post, siteUrl, blueSkyThread };
 }
 
 export const meta = ({ data }: Route.MetaArgs) => {
@@ -50,13 +45,7 @@ export const meta = ({ data }: Route.MetaArgs) => {
 };
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { post, latestPosts, blueSkyThread } = loaderData;
-
-  const postPreviews = latestPosts.map((post) => (
-    <div key={post.slug} className="mb-12">
-      <PostPreview post={post} />
-    </div>
-  ));
+  const { post, blueSkyThread } = loaderData;
 
   if (!post) {
     return <NotFound />;
@@ -144,11 +133,12 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         {post.content.photoURL && post.content.authorProfileURL ? (
           <div className="my-4">
             <img
-              className="rounded-m h-56 w-full object-cover object-center sm:h-96"
+              className="rounded-m h-56 w-full object-cover object-center sm:h-96 aspect-auto"
               src={post.content.photoWebp!}
               width={400}
               height={300}
               style={{ viewTransitionName: post.content.slug }}
+              loading="lazy"
             />
             <blockquote className="border-primary-700 mt-2 border-l-4 text-xs">
               <p className="mt-0 px-2 py-1 text-gray-700 dark:text-gray-300">
@@ -175,42 +165,18 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             <Block block={block} key={block.id} />
           ))}
         </div>
-        <div className="prose dark:prose-invert lead my-12 text-gray-600 dark:text-gray-300">
-          <span className="text-xl font-bold">Thanks for reading!</span>
-        </div>
-        <div>
-          <div className="my-10">
-            <Footer />
-          </div>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Await resolve={blueSkyThread}>
-              {(value) =>
-                value && (
-                  <CommentSection
-                    thread={value.thread.thread as Thread}
-                    postURL={value.postUrl}
-                  />
-                )
-              }
-            </Await>
-          </Suspense>
-          <hr className="my-12 border-t-1 border-gray-300 dark:border-gray-700" />
-          <h2 className="text-primary-600 mt-8 text-2xl font-semibold tracking-tighter md:text-5xl dark:text-white">
-            Other articles
-          </h2>
-          <div className="divide-y divide-gray-300 md:mt-12 md:divide-y-0 dark:divide-gray-800">
-            {postPreviews}
-          </div>
-          <div className="mt-8">
-            <Link
-              to="/blog"
-              className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            >
-              View all articles
-              <ChevronRight className="ml-2 h-6 w-6" />
-            </Link>
-          </div>
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Await resolve={blueSkyThread}>
+            {(value) =>
+              value && (
+                <CommentSection
+                  thread={value.thread.thread as Thread}
+                  postURL={value.postUrl}
+                />
+              )
+            }
+          </Await>
+        </Suspense>
       </article>
     </>
   );
