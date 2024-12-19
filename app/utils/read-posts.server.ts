@@ -15,10 +15,9 @@ export type PostProperties = {
   title: string;
   date: string;
   photoId?: string;
-  photoURL?: string | null;
-  photoURLThumb?: string | null;
-  photoURLSmall?: string | null;
   photoWebp?: string | null;
+  photoWebpSmall?: string | null;
+  photoWebpThumb?: string | null;
   subtitle: string;
   number: string;
   readingTime: string;
@@ -31,10 +30,9 @@ export type PostGeneratedProps = {
   subtitle: string;
   readingTime: string;
   formattedDate: string;
-  photoURL: string;
-  photoURLThumb?: string | null;
-  photoURLSmall?: string | null;
   photoWebp?: string | null;
+  photoWebpSmall?: string | null;
+  photoWebpThumb?: string | null;
   authorProfileURL: string;
   content: string;
   linkToShareTwitter: string;
@@ -76,9 +74,12 @@ async function getArticlesMetaData(articles: QueryResult[]) {
         photoWebp: photo
           ? photo.response?.urls.raw + "&fm=webp&q=80&w=400"
           : null,
-        photoURL: photo ? photo.response?.urls.small : null,
-        photoURLThumb: photo ? photo.response?.urls.thumb : null,
-        photoURLSmall: photo ? photo.response?.urls.small : null,
+        photoWebpSmall: photo
+          ? photo.response?.urls.raw + "&fm=webp&q=80&w=200"
+          : null,
+        photoWebpThumb: photo
+          ? photo.response?.urls.raw + "&fm=webp&q=80&w=100"
+          : null,
         title: blog.properties.title.title[0].plain_text,
         slug: blog.properties.slug.rich_text[0].plain_text,
         date: blog.properties.date.date.start,

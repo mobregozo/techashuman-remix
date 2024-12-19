@@ -9,6 +9,16 @@ export const meta = () => {
   ];
 };
 
+type Release = {
+  id: number;
+  basic_information: {
+    artists: { name: string; anv: string }[];
+    title: string;
+    year: string;
+    thumb: string;
+  };
+};
+
 export const loader = async () => {
   const token = process.env.DISCOGS_API_TOKEN;
   const username = process.env.DISCOGS_USERNAME;
@@ -26,9 +36,9 @@ export const loader = async () => {
     throw new Error("Error fetching collection from Discogs");
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as { releases: Release[] };
 
-  const albums = data.releases.map((release: any) => {
+  const albums = data.releases.map((release) => {
     return {
       id: release.id,
       artist: release.basic_information.artists[0].anv
@@ -193,7 +203,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
           {decades.map((decade) => (
             <span
               key={decade.label}
-              className={`focus:ring-ring cursor-pointer rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none hover:opacity-80 ${
+              className={`focus:ring-ring cursor-pointer rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
                 activeDecades.includes(decade.label)
                   ? "bg-white text-gray-600"
                   : "focus:outline-none"

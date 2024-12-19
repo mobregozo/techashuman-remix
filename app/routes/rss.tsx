@@ -62,9 +62,9 @@ const renderItem = (article: PostProperties) => {
               }).format(new Date(article.date)),
             ).toISOString()}</pubDate>
             ${
-              article.photoURL
+              article.photoWebpThumb
                 ? `<enclosure url="${escapeXml(
-                    article.photoURL,
+                    article.photoWebpThumb,
                   )}" type="image/jpeg" />`
                 : ""
             }

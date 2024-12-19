@@ -16,7 +16,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
     <Link to={`/blog/${article.slug}`} viewTransition className="flex-1">
       <article className="relative overflow-hidden rounded-xl hover:opacity-50">
         <img
-          src={article.photoURL!}
+          src={article.photoWebp!}
           alt={article.title}
           className="h-[400px] w-full object-cover"
           style={{ viewTransitionName: article.slug }}

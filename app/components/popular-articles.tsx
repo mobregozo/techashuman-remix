@@ -27,7 +27,7 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
                   <MousePointerClickIcon className="h-6 w-6 transform rounded-lg object-cover opacity-0 transition-opacity transition-transform duration-300 ease-out group-hover:scale-200 group-hover:opacity-100" />
                 </div>
                 <img
-                  src={article.photoURLThumb!}
+                  src={article.photoWebpThumb!}
                   alt={article.title}
                   className="h-24 w-24 rounded-lg object-cover"
                   style={{ viewTransitionName: article.slug }}

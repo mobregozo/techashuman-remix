@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Heart, MessageCircle, Repeat2 } from "lucide-react";
 import { Thread } from "@/routes/blog/article";
-import {
-  isThreadViewPost,
-  PostView,
-} from "@atproto/api/dist/client/types/app/bsky/feed/defs";
+import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 
 type CommentSectionProps = {
   thread: Thread;
@@ -62,7 +59,7 @@ export const CommentSection = ({ thread, postURL }: CommentSectionProps) => {
       <hr className="mt-2 border-gray-600 dark:border-gray-500" />
       <div className="mt-2 space-y-8">
         {sortedReplies.slice(0, visibleCount).map((reply) => {
-          if (!isThreadViewPost(reply)) return null;
+          if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
           return <Comment key={reply.post.uri} comment={reply} />;
         })}
         {visibleCount < sortedReplies.length && (
@@ -79,11 +76,11 @@ export const CommentSection = ({ thread, postURL }: CommentSectionProps) => {
   );
 };
 
-const Comment = ({ comment }: { comment: any }) => {
+const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
   const author = comment.post.author;
   const avatarClassName = "h-4 w-4 shrink-0 rounded-full bg-gray-300";
 
-  if (!comment.post.record) return null;
+  if (!AppBskyFeedPost.isRecord(comment.post.record)) return null;
 
   return (
     <div className="my-4 text-sm">
@@ -115,14 +112,14 @@ const Comment = ({ comment }: { comment: any }) => {
           target="_blank"
           rel="noreferrer noopener"
         >
-          <p>{comment.post.record.text as string}</p>
+          <p>{comment.post.record.text}</p>
           <Actions post={comment.post} />
         </Link>
       </div>
       {comment.replies && comment.replies.length > 0 && (
         <div className="border-l-2 border-gray-600 pl-2 dark:border-gray-700">
           {comment.replies.sort(sortByLikes).map((reply) => {
-            if (!isThreadViewPost(reply)) return null;
+            if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
             return <Comment key={reply.post.uri} comment={reply} />;
           })}
         </div>
@@ -131,7 +128,7 @@ const Comment = ({ comment }: { comment: any }) => {
   );
 };
 
-const Actions = ({ post }: { post: PostView }) => (
+const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
   <div className="mt-2 flex w-full max-w-[150px] flex-row items-center justify-between opacity-60">
     <div className="flex flex-row items-center gap-1.5">
       <MessageCircle className="size-4" />
@@ -149,7 +146,10 @@ const Actions = ({ post }: { post: PostView }) => (
 );
 
 const sortByLikes = (a: unknown, b: unknown) => {
-  if (!isThreadViewPost(a) || !isThreadViewPost(b)) {
+  if (
+    !AppBskyFeedDefs.isThreadViewPost(a) ||
+    !AppBskyFeedDefs.isThreadViewPost(b)
+  ) {
     return 0;
   }
   return (b.post.likeCount ?? 0) - (a.post.likeCount ?? 0);

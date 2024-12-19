@@ -16,10 +16,10 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
         key={post.slug}
         className="group relative isolate flex flex-col gap-8 md:flex-row"
       >
-        {post.photoURL && (
+        {post.photoWebpSmall && (
           <div className="relative hidden aspect-[16/9] h-48 md:block md:shrink-0">
             <img
-              src={post.photoURLSmall!}
+              src={post.photoWebpSmall!}
               alt=""
               style={{ viewTransitionName: post.slug }}
               className="absolute inset-0 h-full w-full rounded-2xl object-cover transition-transform duration-300 group-hover:rotate-1"
