@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <nav className="bg-primary-700 dark:bg-primary-900 sticky top-0 z-50">
-      <div className="container mx-auto flex max-w-3xl justify-between px-5 py-3 text-sm lg:max-w-4xl">
+      <div className="container mx-auto flex max-w-3xl justify-between px-5 py-3 text-sm lg:max-w-3.5xl">
         <ul className="flex space-x-8 font-semibold text-white">
           {navLinks.map((link) => (
             <li key={link.name} className="relative">
