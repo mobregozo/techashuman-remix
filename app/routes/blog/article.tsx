@@ -1,15 +1,14 @@
 import { Await } from "react-router";
 import { Route } from "./+types/article";
-import { CommentSection } from "@/components/comments-section";
 import { Block } from "@/components/post-block";
 import { generateTags } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
-import {
-  getArticleContent,
-} from "@/utils/read-posts.server";
+import { getArticleContent } from "@/utils/read-posts.server";
 import { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { getBlueSkyThreadInfo } from "@/utils/blue-sky";
+
+const CommentSection = lazy(() => import("@/components/comments-section"));
 
 export type Thread = ThreadViewPost;
 
@@ -133,7 +132,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         {post.content.photoURL && post.content.authorProfileURL ? (
           <div className="my-4">
             <img
-              className="rounded-m h-56 w-full object-cover object-center sm:h-96 aspect-auto"
+              className="rounded-m aspect-auto h-56 w-full object-cover object-center sm:h-96"
               src={post.content.photoWebp!}
               width={400}
               height={300}
@@ -160,12 +159,12 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             </blockquote>
           </div>
         ) : null}
-        <div className="prose dark:prose-invert mx-auto mb-8 max-w-3xl lg:max-w-3.5xl">
+        <div className="prose dark:prose-invert mx-auto mb-8 max-w-3xl lg:max-w-4xl">
           {post.blocks.map((block) => (
             <Block block={block} key={block.id} />
           ))}
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading comments...</div>}>
           <Await resolve={blueSkyThread}>
             {(value) =>
               value && (

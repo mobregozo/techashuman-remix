@@ -9,7 +9,7 @@ type CommentSectionProps = {
   postURL: string;
 };
 
-export const CommentSection = ({ thread, postURL }: CommentSectionProps) => {
+export default function CommentSection({ thread, postURL }: CommentSectionProps) {
   const [visibleCount, setVisibleCount] = useState(3);
 
   if (!thread.replies || thread.replies.length === 0) {
@@ -74,7 +74,7 @@ export const CommentSection = ({ thread, postURL }: CommentSectionProps) => {
       <hr className="my-12 border-t-1 border-gray-300 dark:border-gray-700" />
     </div>
   );
-};
+}
 
 const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
   const author = comment.post.author;

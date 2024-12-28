@@ -2,7 +2,6 @@ import { Link, Outlet } from "react-router";
 import { ChevronRight } from "lucide-react";
 import { Footer } from "@/components/footer";
 import { PostPreview } from "@/components/post-preview";
-
 import { getLatestArticles } from "@/utils/read-posts.server";
 import { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 import { Route } from "./+types/layout";
