@@ -13,7 +13,7 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
-    "@atproto/api": "^0.13.20",
+    "@atproto/api": "^0.13.23",
     "@notionhq/client": "^2.2.14",
     "@react-router/node": "^7.0.2",
     "clsx": "^2.0.0",
@@ -22,13 +22,13 @@
     "motion": "^11.11.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router": "^7.0.1",
+    "react-router": "^7.1.0",
     "unsplash-js": "^7.0.18"
   },
   "devDependencies": {
-    "@react-router/dev": "^7.0.1",
-    "@react-router/node": "^7.0.1",
-    "@react-router/serve": "^7.0.1",
+    "@react-router/dev": "^7.1.0",
+    "@react-router/node": "^7.1.0",
+    "@react-router/serve": "^7.1.0",
     "@remix-run/dev": "^1.15.0",
     "@remix-run/node": "^1.15.0",
     "@tailwindcss/typography": "^0.5.15",
