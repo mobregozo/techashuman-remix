@@ -1,17 +1,12 @@
 import { generateTags } from "@/utils/generate-tags";
-import { Route } from "./+types/blog";
+import { MAIN_URL } from "@/utils/constants";
 
-export const meta = ({ data }: Route.MetaArgs) => {
-  const { siteUrl } = data;
-  const tags = generateTags({ title: "About the Blog", siteUrl });
+export const meta = () => {
+  const tags = generateTags({
+    title: "About the Blog",
+    siteUrl: `${MAIN_URL}/about/blog`,
+  });
   return tags;
-};
-
-export const loader = ({ request }: Route.LoaderArgs) => {
-  const requestUrl = new URL(request.url);
-  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
-
-  return { siteUrl };
 };
 
 export default function AboutBlog() {

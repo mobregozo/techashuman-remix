@@ -5,20 +5,20 @@ import { ExperienceItem } from "../../components/experience-item";
 import { DownloadIcon, Music } from "lucide-react";
 import { Route } from "./+types/about";
 import { getJobExperiences } from "@/utils/work-experience.server";
+import { MAIN_URL } from "@/utils/constants";
 
-export const meta = ({ data }: Route.MetaArgs) => {
-  const { siteUrl } = data;
-  const tags = generateTags({ title: "About Me", siteUrl });
+export const meta = () => {
+  const tags = generateTags({
+    title: "About Me",
+    siteUrl: `${MAIN_URL}/about`,
+  });
   return tags;
 };
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
-  const requestUrl = new URL(request.url);
-  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
-
+export const loader = async () => {
   const experiences = await getJobExperiences();
 
-  return { siteUrl, experiences };
+  return { experiences };
 };
 
 export default function Index({ loaderData }: Route.ComponentProps) {
@@ -43,7 +43,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               className="aspect-square w-80 overflow-hidden bg-zinc-100 object-cover lg:w-2xl"
               src="/assets/about.jpeg"
             />
-            <div className="mt-4 flex gap-4 justify-self-end justify-center">
+            <div className="mt-4 flex justify-center gap-4 justify-self-end">
               <SocialMedia />
             </div>
           </div>
