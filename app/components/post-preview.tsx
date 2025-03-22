@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { href, Link } from "react-router";
 import type { PostProperties } from "../utils/read-posts.server";
 
 type PostPreviewProps = {
@@ -11,7 +11,12 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
     timeStyle: undefined,
   }).format(new Date(post.date));
   return (
-    <Link to={`/blog/${post.slug}`} viewTransition>
+    <Link
+      to={href("/blog/:articleId", {
+        articleId: post.slug,
+      })}
+      viewTransition
+    >
       <article
         key={post.slug}
         className="group relative isolate flex flex-col gap-8 md:flex-row"

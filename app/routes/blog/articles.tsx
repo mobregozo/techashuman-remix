@@ -4,7 +4,7 @@ import { generateTags } from "@/utils/generate-tags";
 import { getAllArticles } from "@/utils/read-posts.server";
 import type { Route } from "./+types/articles";
 import { ChevronDown } from "lucide-react";
-import { MAIN_URL, POST_PATH } from "@/utils/constants";
+import { href } from "react-router";
 
 export async function loader() {
   const posts = await getAllArticles();
@@ -15,7 +15,7 @@ export async function loader() {
 export const meta = () => {
   const tags = generateTags({
     title: "Articles",
-    siteUrl: `${MAIN_URL}/${POST_PATH}`,
+    siteUrl: href("/blog"),
   });
   return tags;
 };
