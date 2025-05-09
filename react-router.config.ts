@@ -9,6 +9,15 @@ export default {
       (product) => `/blog/${product.slug}`,
     );
 
-    return ["/", "/about", "/blog", "/about/blog", ...PopularArticlesPages];
+    return [
+      "/",
+      "/about",
+      "/blog",
+      "/about/blog",
+      "/robots.txt",
+      "/sitemap.xml",
+      "/rss.xml",
+      ...PopularArticlesPages,
+    ];
   },
 } satisfies Config;

@@ -4,6 +4,8 @@ node_modules
 /build
 /public/build
 .env
+.env.local
+.env.production
 .local.env
 .vscode/
 .yarn/

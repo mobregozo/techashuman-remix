@@ -6,6 +6,8 @@ import { DownloadIcon, Music } from "lucide-react";
 import { Route } from "./+types/about";
 import { getJobExperiences } from "@/utils/work-experience.server";
 import { MAIN_URL } from "@/utils/constants";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import AboutImage from "@/assets/about.jpeg?w=80;200;400&format=webp;avif&as=picture";
 
 export const meta = () => {
   const tags = generateTags({
@@ -37,11 +39,10 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </h1>
         <div className="mb-12 flex flex-col items-start gap-8 lg:flex-row lg:items-stretch">
           <div className="relative flex flex-col justify-between overflow-hidden rounded-lg border-2 border-zinc-700 pb-4 shadow-md lg:items-center">
-            <img
+            <OptimizedImage
               alt="picture of Manu at the beach"
-              loading="lazy"
               className="aspect-square w-80 overflow-hidden bg-zinc-100 object-cover lg:w-2xl"
-              src="/assets/about.jpeg"
+              image={AboutImage}
             />
             <div className="mt-4 flex justify-center gap-4 justify-self-end">
               <SocialMedia />
@@ -55,14 +56,22 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             <p className="leading-relaxed">
               I specialize in frontend technologies, mostly{" "}
               <strong>React</strong>, and have spent over a decade immersed in
-              the tech world. From crafting code to navigating the complexities
-              of management, I've worn many hats across diverse companies and
-              personal projects.
+              the tech world.
+            </p>
+            <p className="leading-relaxed">
+              From crafting code to navigating the complexities of management,
+              I've worn many hats across diverse companies and personal
+              projects.
             </p>
             <p>
-              Yet, after all these years, the excitement of creating something
-              impactful never gets old—it&apos;s the kind of thrill that keeps
-              me hooked.
+              Curious about this blog? here's the{" "}
+              <a
+                href="/about/blog"
+                className="text-primary-700 dark:text-primary-500 font-medium hover:underline"
+              >
+                {" "}
+                story behind it.{" "}
+              </a>
             </p>
           </div>
         </div>

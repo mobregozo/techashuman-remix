@@ -3,6 +3,28 @@ import { useRef } from "react";
 import { RichText } from "./post-rich-text";
 import { JobExperience } from "@/utils/work-experience.server";
 import { Calendar } from "lucide-react";
+import adevintaLogo from "@/assets/companies/adevinta.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import dynatraceLogo from "@/assets/companies/dynatrace.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import frontmenLogo from "@/assets/companies/frontmen.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import grupoassaLogo from "@/assets/companies/grupoassa.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import mobiquityLogo from "@/assets/companies/mobiquity.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import norsyncLogo from "@/assets/companies/norsync.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import pleoLogo from "@/assets/companies/pleo.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import serviteonlineLogo from "@/assets/companies/serviteonline.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import sparkdigitalLogo from "@/assets/companies/sparkdigital.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import { OptimizedImage, OptimizedImageProps } from "./ui/optimized-image";
+
+const companiesLogos: Record<string, OptimizedImageProps["image"]> = {
+  adevinta: adevintaLogo,
+  dynatrace: dynatraceLogo,
+  frontmen: frontmenLogo,
+  grupoassa: grupoassaLogo,
+  mobiquity: mobiquityLogo,
+  norsync: norsyncLogo,
+  pleo: pleoLogo,
+  serviteonline: serviteonlineLogo,
+  sparkdigital: sparkdigitalLogo,
+};
 
 type ExperienceItemProps = {
   job: JobExperience;
@@ -60,16 +82,10 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
         <div className="flex-1">
           <div className="flex items-stretch justify-start align-top">
             <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white ring-1 shadow-md shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-              <img
+              <OptimizedImage
                 alt={job.company}
-                loading="lazy"
-                width="32"
-                height="32"
-                decoding="async"
-                data-nimg="1"
                 className="h-8 w-8 rounded-full object-cover"
-                src={`/assets/companies/${job.company.toLowerCase()}.webp`}
-                style={{ color: "transparent" }}
+                image={companiesLogos[job.company.toLocaleLowerCase()]}
               />
             </div>
             <div className="ml-4 flex flex-1 flex-col">
@@ -80,7 +96,7 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
                 {job.location}
               </div>
             </div>
-            <div className="text-primary-700 hidden text-sm whitespace-nowrap dark:text-white md:flex items-center gap-3">
+            <div className="text-primary-700 hidden items-center gap-3 text-sm whitespace-nowrap md:flex dark:text-white">
               <Calendar className="size-4" />
               {job.period}
             </div>
