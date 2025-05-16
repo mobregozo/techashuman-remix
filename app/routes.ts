@@ -18,4 +18,5 @@ export default [
   route("/rss.xml", "./routes/rss.tsx"),
   route("/robots.txt", "./routes/robots.tsx"),
   route("/sitemap.xml", "./routes/sitemap.tsx"),
+  route("/llms.txt", "./routes/llms.tsx"),
 ] satisfies RouteConfig;

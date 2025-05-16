@@ -18,13 +18,15 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
         <img
           src={article.photoWebp!}
           alt={article.title}
+          loading="lazy"
+          decoding="async"
           className="h-[400px] w-full object-cover"
           style={{ viewTransitionName: article.slug }}
         />
         <div className="bg-gra absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80" />
         <div className="absolute right-0 bottom-0 left-0 p-8">
           <h2
-            className="mb-3 text-2xl lg:text-2xl font-bold text-white"
+            className="mb-3 text-2xl font-bold text-white lg:text-2xl"
             style={{ viewTransitionName: `${article.slug}-title` }}
           >
             {article.title}

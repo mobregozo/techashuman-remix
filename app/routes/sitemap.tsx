@@ -2,18 +2,6 @@ import { MAIN_URL } from "@/utils/constants";
 import { getAllArticles, PostProperties } from "@/utils/read-posts.server";
 import type { LoaderFunction } from "react-router";
 
-export const loader: LoaderFunction = async () => {
-  const slugs = await getAllArticles();
-
-  return new Response(renderXML(slugs), {
-    headers: {
-      "Content-Type": "application/xml; charset=utf-8",
-      "x-content-type-options": "nosniff",
-      "Cache-Control": `public, max-age=${60 * 10}, s-maxage=${60 * 60 * 24}`,
-    },
-  });
-};
-
 const renderXML = (slugs: PostProperties[]) => {
   const url = `${MAIN_URL}/blog`;
 
@@ -37,4 +25,16 @@ const renderXML = (slugs: PostProperties[]) => {
   </urlset>`;
 
   return sourceXML;
+};
+
+export const loader: LoaderFunction = async () => {
+  const slugs = await getAllArticles();
+
+  return new Response(renderXML(slugs), {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "x-content-type-options": "nosniff",
+      "Cache-Control": "public, max-age=600, s-maxage=86400",
+    },
+  });
 };

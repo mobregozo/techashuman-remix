@@ -17,6 +17,7 @@ export default {
       "/robots.txt",
       "/sitemap.xml",
       "/rss.xml",
+      "/llms.txt",
       ...PopularArticlesPages,
     ];
   },
