@@ -5,5 +5,5 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { imagetools } from "vite-imagetools";
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), imagetools(), tailwindcss(), reactRouter()],
+  plugins: [tailwindcss(), tsconfigPaths(), imagetools(), reactRouter()],
 });
