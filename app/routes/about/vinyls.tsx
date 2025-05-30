@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Route } from "./+types/vinyls";
 import { VinylItem } from "@/components/vinyl-item";
+import { MAIN_URL } from "@/utils/constants";
+import { generateTags } from "@/utils/generate-tags";
 
 export const meta = () => {
-  return [
-    { title: "My Vinyl Collection | Tech as Human" },
-    { name: "description", content: "Welcome to my vinyl collection" },
-  ];
+  const tags = generateTags({
+    title: "My Vinyl Collection",
+    siteUrl: `${MAIN_URL}/about/vinyls`,
+  });
+  return tags;
 };
 
 type Release = {

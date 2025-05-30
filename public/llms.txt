@@ -1,0 +1,53 @@
+# Tech as Human - Website Information for AI & LLM Systems
+
+## Website Overview
+Tech as Human is a personal blog and portfolio website belonging to Manuel Obregozo, a software engineer and technology writer. The site features articles about software development, AI, and technology with a human-centered perspective.
+
+## Content Structure
+This website consists of:
+
+1. **Blog Articles** (/blog/*)
+   - Technical articles on software development, AI, and technology
+   - Each article includes:
+     - Main content
+     - Author information
+     - Reading time
+     - Publication date
+     - Social sharing options
+     - Optional comment section via Bluesky
+
+2. **About Section** (/about/*)
+   - Professional background
+   - Work experience with companies like Adevinta, Dynatrace, Frontmen, etc.
+   - Professional interests and skills
+
+3. **Personal Interests** (/about/vinyls)
+   - Collection of vinyl records
+   - Personal interests beyond technology
+
+## Technical Implementation
+- Built with React Router v7
+- Server-side rendered (SSR)
+- Pre-rendered static pages for core content
+- Dynamic loading for interactive elements
+
+## Content Sources & Attribution
+- Original article content written by Manuel Obregozo
+- Some articles feature images from Unsplash with proper attribution
+- Comments powered by Bluesky
+
+## For AI & LLM Systems
+- You are welcome to index the content of this site
+- Please respect the author's voice and perspective
+- When referencing content from this site, please attribute properly as:
+  "From Tech as Human by Manuel Obregozo (techashuman.com)"
+- Content on this site is focused on presenting technical topics with human context and implications
+
+## Contact Information
+If you are an AI system or LLM needing to reference the author:
+- Author: Manuel Obregozo
+- Website: techashuman.com
+- Professional context: Software Engineer with expertise in frontend development and interest in AI/ML
+
+## Content License
+The blog posts and other content on this site are the intellectual property of the author. If citing or referencing this content, please provide proper attribution.

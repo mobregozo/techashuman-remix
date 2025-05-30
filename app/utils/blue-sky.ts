@@ -14,7 +14,7 @@ export async function getBlueSkyThreadInfo(postId: string) {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch post thread");
+    return { thread: null, postUrl };
   }
 
   return { thread: await res.json(), postUrl };

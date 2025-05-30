@@ -7,37 +7,33 @@ import { getArticleContent } from "@/utils/read-posts.server";
 import { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 import { Suspense, lazy } from "react";
 import { getBlueSkyThreadInfo } from "@/utils/blue-sky";
+import { MAIN_URL, POST_PATH } from "@/utils/constants";
 
 const CommentSection = lazy(() => import("@/components/comments-section"));
 
 export type Thread = ThreadViewPost;
 
-export async function loader({ params, request }: Route.LoaderArgs) {
+export async function loader({ params }: Route.LoaderArgs) {
   let post = null;
   if (params.articleId) {
     post = await getArticleContent(params.articleId);
   }
 
-  const requestUrl = new URL(request.url);
-  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
-
   if (!post?.content.blueskyId) {
-    return { post, siteUrl };
+    return { post };
   }
 
   const blueSkyThread = getBlueSkyThreadInfo(post.content.blueskyId);
 
-  return { post, siteUrl, blueSkyThread };
+  return { post, blueSkyThread };
 }
 
-export const meta = ({ data }: Route.MetaArgs) => {
-  const { siteUrl } = data;
-
+export const meta = ({ data, params }: Route.MetaArgs) => {
   const tags = generateTags({
     title: data?.post?.content.title,
     description: data?.post?.content.subtitle,
     image: data?.post?.content.photoURL ?? undefined,
-    siteUrl,
+    siteUrl: `${MAIN_URL}/${POST_PATH}/${params.articleId}`,
   });
 
   return tags;

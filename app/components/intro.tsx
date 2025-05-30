@@ -1,5 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router";
+import { OptimizedImage } from "./ui/optimized-image";
+import homeImage from "@/assets/home.png?w=400;800;1200&format=webp;avif&as=picture";
 
 export const Intro = () => {
   return (
@@ -29,9 +31,9 @@ export const Intro = () => {
           </Link>
         </div>
         <div className="hidden place-self-end lg:col-span-5 lg:mt-0 lg:flex">
-          <img
-            src="/assets/home.png"
-            alt=""
+          <OptimizedImage
+            image={homeImage}
+            alt="Homepage illustration"
             className="mt-6 h-auto w-28 md:mt-0 md:w-72"
           />
         </div>

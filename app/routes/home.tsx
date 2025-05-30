@@ -11,10 +11,10 @@ import { ChevronRight } from "lucide-react";
 import type { Route } from "./+types/home";
 import { FeaturedArticle } from "@/components/featured-articles";
 import { PopularArticles } from "@/components/popular-articles";
+import { MAIN_URL } from "@/utils/constants";
 
-export const meta = ({ data }: Route.MetaArgs) => {
-  const { siteUrl } = data;
-  const tags = generateTags({ title: "Home", siteUrl });
+export const meta = () => {
+  const tags = generateTags({ title: "Home", siteUrl: `${MAIN_URL}` });
   return tags;
 };
 
@@ -22,7 +22,7 @@ type PopularArticlesSlug = {
   results: { page: string }[];
 };
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
+export const loader = async () => {
   const response = await fetch(
     "https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=3&period=12mo&filters=event:page==/blog/*",
     {
@@ -44,14 +44,10 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   const popularArticles = await getArticlesBySlugs(slugs);
   const lastArticle = latestArticles.shift();
 
-  const requestUrl = new URL(request.url);
-  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
-
   return {
     latestArticles,
     popularArticles,
     lastArticle,
-    siteUrl,
   };
 };
 

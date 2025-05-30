@@ -4,18 +4,19 @@ import { generateTags } from "@/utils/generate-tags";
 import { getAllArticles } from "@/utils/read-posts.server";
 import type { Route } from "./+types/articles";
 import { ChevronDown } from "lucide-react";
+import { href } from "react-router";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader() {
   const posts = await getAllArticles();
-  const requestUrl = new URL(request.url);
-  const siteUrl = requestUrl.protocol + "//" + requestUrl.host;
 
-  return { posts, siteUrl };
+  return { posts };
 }
 
-export const meta = ({ data }: Route.MetaArgs) => {
-  const { siteUrl } = data;
-  const tags = generateTags({ title: "Articles", siteUrl });
+export const meta = () => {
+  const tags = generateTags({
+    title: "Articles",
+    siteUrl: href("/blog"),
+  });
   return tags;
 };
 
