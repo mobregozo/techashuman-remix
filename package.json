@@ -13,11 +13,7 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@atproto/api": "^0.13.23",
-=======
     "@atproto/api": "^0.14.9",
->>>>>>> 89bb4127809e3b6f4e225323f05bce440c5944f9
     "@notionhq/client": "^2.2.14",
     "@react-router/node": "^7.5.3",
     "clsx": "^2.0.0",
