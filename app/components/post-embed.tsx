@@ -1,13 +1,13 @@
-import type { EmbedBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import type { EmbedBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
 type PostVideoProps = {
-  block: EmbedBlockObjectResponse;
-};
+  block: EmbedBlockObjectResponse
+}
 
 export const PostEmbed = ({ block }: PostVideoProps) => {
-  const url = block.embed?.url;
+  const url = block.embed?.url
 
-  if (url.includes("twitter")) {
+  if (url.includes('twitter')) {
     return (
       <iframe
         title={block.id}
@@ -16,8 +16,8 @@ export const PostEmbed = ({ block }: PostVideoProps) => {
         className="my-10 aspect-video mx-auto"
         src={block.embed?.url}
       ></iframe>
-    );
+    )
   }
 
-  return block.embed ? <a href={block.embed.url}>{block.embed.url}</a> : null;
-};
+  return block.embed ? <a href={block.embed.url}>{block.embed.url}</a> : null
+}

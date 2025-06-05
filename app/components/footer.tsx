@@ -1,4 +1,4 @@
-import { SocialMedia } from "./social-media";
+import { SocialMedia } from './social-media'
 
 export const Footer = () => {
   return (
@@ -23,5 +23,5 @@ export const Footer = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,6 +1,6 @@
-import "./index.css";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import { Header } from "./components/header";
+import './index.css'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
+import { Header } from './components/header'
 
 export default function App() {
   return (
@@ -31,7 +31,7 @@ export default function App() {
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
 export function ErrorBoundary() {
@@ -63,5 +63,5 @@ export function ErrorBoundary() {
         <Scripts />
       </body>
     </html>
-  );
+  )
 }

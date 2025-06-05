@@ -1,27 +1,27 @@
-import { Link, Outlet } from "react-router";
-import { ChevronRight } from "lucide-react";
-import { Footer } from "@/components/footer";
-import { PostPreview } from "@/components/post-preview";
-import { getLatestArticles } from "@/utils/read-posts.server";
-import { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
-import { Route } from "./+types/layout";
+import { Footer } from '@/components/footer'
+import { PostPreview } from '@/components/post-preview'
+import { getLatestArticles } from '@/utils/read-posts.server'
+import { ThreadViewPost } from '@atproto/api/dist/client/types/app/bsky/feed/defs'
+import { ChevronRight } from 'lucide-react'
+import { Link, Outlet } from 'react-router'
+import { Route } from './+types/layout'
 
-export type Thread = ThreadViewPost;
+export type Thread = ThreadViewPost
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const latestPosts = await getLatestArticles(params.articleId!);
+  const latestPosts = await getLatestArticles(params.articleId!)
 
-  return { latestPosts };
+  return { latestPosts }
 }
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { latestPosts } = loaderData;
+  const { latestPosts } = loaderData
 
   const postPreviews = latestPosts.map((post) => (
     <div key={post.slug} className="mb-12">
       <PostPreview post={post} />
     </div>
-  ));
+  ))
 
   return (
     <>
@@ -49,5 +49,5 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </div>
       </article>
     </>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import { PostText } from "./post-text";
-import type { ParagraphBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import type { ParagraphBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import { PostText } from './post-text'
 
 type PostParagraphProps = {
-  block: ParagraphBlockObjectResponse;
-};
+  block: ParagraphBlockObjectResponse
+}
 
 export const PostParagraph = ({ block }: PostParagraphProps) => {
   return (
@@ -12,5 +12,5 @@ export const PostParagraph = ({ block }: PostParagraphProps) => {
         <PostText key={`${block.id}-${index}`} text={item} />
       ))}
     </p>
-  );
-};
+  )
+}

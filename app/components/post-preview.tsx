@@ -1,18 +1,18 @@
-import { href, Link } from "react-router";
-import type { PostProperties } from "../utils/read-posts.server";
+import { Link, href } from 'react-router'
+import type { PostProperties } from '../utils/read-posts.server'
 
 type PostPreviewProps = {
-  post: PostProperties;
-};
+  post: PostProperties
+}
 
 export const PostPreview = ({ post }: PostPreviewProps) => {
-  const formattedDate = new Intl.DateTimeFormat("en-US", {
-    dateStyle: "long",
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'long',
     timeStyle: undefined,
-  }).format(new Date(post.date));
+  }).format(new Date(post.date))
   return (
     <Link
-      to={href("/blog/:articleId", {
+      to={href('/blog/:articleId', {
         articleId: post.slug,
       })}
       viewTransition
@@ -46,7 +46,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
               <span className="absolute inset-0" />
               <span className="tracking-tighter">#{post.number}&nbsp;</span>
               <span style={{ viewTransitionName: `${post.slug}-title` }}>
-                {" "}
+                {' '}
               </span>
               {post.title}
             </h3>
@@ -75,5 +75,5 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
         </div>
       </article>
     </Link>
-  );
-};
+  )
+}

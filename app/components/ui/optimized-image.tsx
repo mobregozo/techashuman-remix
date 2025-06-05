@@ -1,15 +1,15 @@
 export type OptimizedImageProps = {
   image: {
-    sources: Record<"type" | "srcset" | "sizes", string>;
+    sources: Record<'type' | 'srcset' | 'sizes', string>
     img: {
-      src: string;
-      width: number;
-      height: number;
-    };
-  };
-  alt: string;
-  className?: string;
-};
+      src: string
+      width: number
+      height: number
+    }
+  }
+  alt: string
+  className?: string
+}
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   image,
@@ -21,7 +21,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       type: `image/${format}`,
       srcset: srcset,
     }),
-  );
+  )
 
   return (
     <picture>
@@ -37,5 +37,5 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         loading="lazy"
       />
     </picture>
-  );
-};
+  )
+}

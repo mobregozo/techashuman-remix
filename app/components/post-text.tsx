@@ -1,18 +1,18 @@
-import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
+import type { RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints'
 
 export const PostText = ({ text }: { text: RichTextItemResponse }) => {
-  if (text.type === "text") {
+  if (text.type === 'text') {
     const {
       annotations: { bold, code, italic, strikethrough, underline },
       text: { content, link },
-    } = text;
+    } = text
     const className = [
-      bold ? "font-bold" : "",
-      code ? "" : "",
-      italic ? "italic" : "",
-      strikethrough ? "line-through" : "",
-      underline ? "underline" : "",
-    ].join(" ");
+      bold ? 'font-bold' : '',
+      code ? '' : '',
+      italic ? 'italic' : '',
+      strikethrough ? 'line-through' : '',
+      underline ? 'underline' : '',
+    ].join(' ')
 
     if (link !== null) {
       return (
@@ -22,11 +22,11 @@ export const PostText = ({ text }: { text: RichTextItemResponse }) => {
         >
           {content}
         </a>
-      );
+      )
     } else {
-      return <span className={className}>{content}</span>;
+      return <span className={className}>{content}</span>
     }
   }
 
-  return <></>;
-};
+  return <></>
+}

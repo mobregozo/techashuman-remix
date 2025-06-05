@@ -2,27 +2,27 @@ import type {
   BulletedListItemBlockObjectResponse,
   NumberedListItemBlockObjectResponse,
   RichTextItemResponse,
-} from "@notionhq/client/build/src/api-endpoints";
-import { PostText } from "./post-text";
+} from '@notionhq/client/build/src/api-endpoints'
+import { PostText } from './post-text'
 
 export type PostListProps = {
   block:
     | NumberedListItemBlockObjectResponse
-    | BulletedListItemBlockObjectResponse;
-};
+    | BulletedListItemBlockObjectResponse
+}
 
 export const PostList = ({ block }: PostListProps) => {
   let list_item: {
-    rich_text: Array<RichTextItemResponse>;
-  };
+    rich_text: Array<RichTextItemResponse>
+  }
 
   switch (block.type) {
-    case "bulleted_list_item":
-      list_item = block.bulleted_list_item;
-      break;
-    case "numbered_list_item":
-      list_item = block.numbered_list_item;
-      break;
+    case 'bulleted_list_item':
+      list_item = block.bulleted_list_item
+      break
+    case 'numbered_list_item':
+      list_item = block.numbered_list_item
+      break
   }
 
   return (
@@ -36,6 +36,5 @@ export const PostList = ({ block }: PostListProps) => {
         </li>
       ))}
     </ul>
-    
-  );
-};
+  )
+}

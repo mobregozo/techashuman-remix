@@ -1,7 +1,7 @@
 const socialLinks = [
   {
-    href: "https://www.linkedin.com/in/manuelobregozo/?locale=en_US",
-    name: "LinkedIn",
+    href: 'https://www.linkedin.com/in/manuelobregozo/?locale=en_US',
+    name: 'LinkedIn',
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -16,8 +16,8 @@ const socialLinks = [
     ),
   },
   {
-    href: "https://techashuman.substack.com/",
-    name: "Substack",
+    href: 'https://techashuman.substack.com/',
+    name: 'Substack',
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -32,8 +32,8 @@ const socialLinks = [
     ),
   },
   {
-    href: "https://bsky.app/profile/techashuman.com",
-    name: "Bluesky",
+    href: 'https://bsky.app/profile/techashuman.com',
+    name: 'Bluesky',
     svg: (
       <svg
         width="24"
@@ -48,8 +48,8 @@ const socialLinks = [
     ),
   },
   {
-    href: "https://github.com/mobregozo",
-    name: "GitHub",
+    href: 'https://github.com/mobregozo',
+    name: 'GitHub',
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ const socialLinks = [
       </svg>
     ),
   },
-];
+]
 
 export const SocialMedia = () => (
   <>
@@ -78,4 +78,4 @@ export const SocialMedia = () => (
       </a>
     ))}
   </>
-);
+)

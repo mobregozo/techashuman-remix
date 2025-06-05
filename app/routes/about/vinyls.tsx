@@ -1,45 +1,45 @@
-import { useState } from "react";
-import { Route } from "./+types/vinyls";
-import { VinylItem } from "@/components/vinyl-item";
-import { MAIN_URL } from "@/utils/constants";
-import { generateTags } from "@/utils/generate-tags";
+import { VinylItem } from '@/components/vinyl-item'
+import { MAIN_URL } from '@/utils/constants'
+import { generateTags } from '@/utils/generate-tags'
+import { useState } from 'react'
+import { Route } from './+types/vinyls'
 
 export const meta = () => {
   const tags = generateTags({
-    title: "My Vinyl Collection",
+    title: 'My Vinyl Collection',
     siteUrl: `${MAIN_URL}/about/vinyls`,
-  });
-  return tags;
-};
+  })
+  return tags
+}
 
 type Release = {
-  id: number;
+  id: number
   basic_information: {
-    artists: { name: string; anv: string }[];
-    title: string;
-    year: string;
-    thumb: string;
-  };
-};
+    artists: { name: string; anv: string }[]
+    title: string
+    year: string
+    thumb: string
+  }
+}
 
 export const loader = async () => {
-  const token = process.env.DISCOGS_API_TOKEN;
-  const username = process.env.DISCOGS_USERNAME;
+  const token = process.env.DISCOGS_API_TOKEN
+  const username = process.env.DISCOGS_USERNAME
 
   if (!token || !username) {
-    throw new Error("Discogs token or username is not provided.");
+    throw new Error('Discogs token or username is not provided.')
   }
 
   // Discogs API URL to fetch the user's collection from the default folder (folder_id=0)
-  const discogsApiUrl = `https://api.discogs.com/users/${username}/collection/folders/0/releases?token=${token}&page=1&per_page=100`;
+  const discogsApiUrl = `https://api.discogs.com/users/${username}/collection/folders/0/releases?token=${token}&page=1&per_page=100`
 
-  const response = await fetch(discogsApiUrl);
+  const response = await fetch(discogsApiUrl)
 
   if (!response.ok) {
-    throw new Error("Error fetching collection from Discogs");
+    throw new Error('Error fetching collection from Discogs')
   }
 
-  const data = (await response.json()) as { releases: Release[] };
+  const data = (await response.json()) as { releases: Release[] }
 
   const albums = data.releases.map((release) => {
     return {
@@ -50,49 +50,49 @@ export const loader = async () => {
       album: release.basic_information.title,
       year: parseInt(release.basic_information.year),
       cover: release.basic_information.thumb,
-    };
-  });
+    }
+  })
 
-  return { albums };
-};
+  return { albums }
+}
 
 // Decade quick filters
 const decades = [
-  { label: "70s", filter: (year: number) => year >= 1970 && year < 1980 },
-  { label: "80s", filter: (year: number) => year >= 1980 && year < 1990 },
-  { label: "90s", filter: (year: number) => year >= 1990 && year < 2000 },
-  { label: "00+", filter: (year: number) => year >= 2000 },
-];
+  { label: '70s', filter: (year: number) => year >= 1970 && year < 1980 },
+  { label: '80s', filter: (year: number) => year >= 1980 && year < 1990 },
+  { label: '90s', filter: (year: number) => year >= 1990 && year < 2000 },
+  { label: '00+', filter: (year: number) => year >= 2000 },
+]
 
 export default function Vinyls({ loaderData }: Route.ComponentProps) {
-  const { albums } = loaderData;
+  const { albums } = loaderData
 
-  const [artistFilter, setArtistFilter] = useState("");
-  const [albumFilter, setAlbumFilter] = useState("");
-  const [activeDecades, setActiveDecades] = useState<string[]>([]);
+  const [artistFilter, setArtistFilter] = useState('')
+  const [albumFilter, setAlbumFilter] = useState('')
+  const [activeDecades, setActiveDecades] = useState<string[]>([])
 
   const toggleDecade = (decade: string) => {
     setActiveDecades((prev) =>
       prev.includes(decade)
         ? prev.filter((d) => d !== decade)
         : [...prev, decade],
-    );
-  };
+    )
+  }
 
   const filteredAlbums = albums.filter((album) => {
     const matchesArtist = album.artist
       .toLowerCase()
-      .includes(artistFilter.toLowerCase());
+      .includes(artistFilter.toLowerCase())
     const matchesAlbum = album.album
       .toLowerCase()
-      .includes(albumFilter.toLowerCase());
+      .includes(albumFilter.toLowerCase())
     const matchesDecade =
       activeDecades.length === 0 ||
       activeDecades.some((decade) =>
         decades.find((d) => d.label === decade)?.filter(album.year),
-      );
-    return matchesArtist && matchesAlbum && matchesDecade;
-  });
+      )
+    return matchesArtist && matchesAlbum && matchesDecade
+  })
 
   return (
     <div className="mx-auto w-full space-y-6 dark:text-gray-100">
@@ -163,7 +163,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
         <p>
           <span className="font-semibold italic">
             "You can tell a lot about a person by what's on their playlist."
-          </span>{" "}
+          </span>{' '}
           – Begin Again.
         </p>
       </blockquote>
@@ -208,8 +208,8 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
               key={decade.label}
               className={`focus:ring-ring cursor-pointer rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
                 activeDecades.includes(decade.label)
-                  ? "bg-white text-gray-600"
-                  : "focus:outline-none"
+                  ? 'bg-white text-gray-600'
+                  : 'focus:outline-none'
               } `}
               onClick={() => toggleDecade(decade.label)}
             >
@@ -220,8 +220,8 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
             className="focus:ring-ring hover:bg-primary/80 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-white px-2.5 py-0.5 text-xs font-semibold text-gray-600 shadow transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none dark:hover:bg-gray-400"
             onClick={() => setActiveDecades([])}
           >
-            {" "}
-            Clear{" "}
+            {' '}
+            Clear{' '}
           </span>
         </div>
       </div>
@@ -234,5 +234,5 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }

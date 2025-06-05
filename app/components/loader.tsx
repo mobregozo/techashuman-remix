@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 export const Loader = () => {
-  const [width, seWidth] = useState(0);
+  const [width, seWidth] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,18 +11,18 @@ export const Loader = () => {
             (document.documentElement.scrollHeight -
               document.documentElement.clientHeight)) *
             100,
-        );
+        )
       }
-    };
-    window.addEventListener("scroll", handleScroll.bind(this));
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    }
+    window.addEventListener('scroll', handleScroll.bind(this))
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div
       className="w-full"
       style={{
-        top: "46px",
+        top: '46px',
       }}
     >
       <div
@@ -32,5 +32,5 @@ export const Loader = () => {
         }}
       />
     </div>
-  );
-};
+  )
+}

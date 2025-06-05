@@ -1,9 +1,9 @@
-import { TrendingUp, Clock, MousePointerClickIcon } from "lucide-react";
-import { PostProperties } from "@/utils/read-posts.server";
-import { Link } from "react-router";
+import { PostProperties } from '@/utils/read-posts.server'
+import { Clock, MousePointerClickIcon, TrendingUp } from 'lucide-react'
+import { Link } from 'react-router'
 
 interface PopularArticlesProps {
-  articles: PostProperties[];
+  articles: PostProperties[]
 }
 
 export function PopularArticles({ articles }: PopularArticlesProps) {
@@ -50,5 +50,5 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }

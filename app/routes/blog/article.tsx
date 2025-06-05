@@ -1,31 +1,31 @@
-import { Await } from "react-router";
-import { Route } from "./+types/article";
-import { Block } from "@/components/post-block";
-import { generateTags } from "@/utils/generate-tags";
-import NotFound from "@/utils/not-found";
-import { getArticleContent } from "@/utils/read-posts.server";
-import { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
-import { Suspense, lazy } from "react";
-import { getBlueSkyThreadInfo } from "@/utils/blue-sky";
-import { MAIN_URL, POST_PATH } from "@/utils/constants";
+import { Block } from '@/components/post-block'
+import { getBlueSkyThreadInfo } from '@/utils/blue-sky'
+import { MAIN_URL, POST_PATH } from '@/utils/constants'
+import { generateTags } from '@/utils/generate-tags'
+import NotFound from '@/utils/not-found'
+import { getArticleContent } from '@/utils/read-posts.server'
+import { ThreadViewPost } from '@atproto/api/dist/client/types/app/bsky/feed/defs'
+import { Suspense, lazy } from 'react'
+import { Await } from 'react-router'
+import { Route } from './+types/article'
 
-const CommentSection = lazy(() => import("@/components/comments-section"));
+const CommentSection = lazy(() => import('@/components/comments-section'))
 
-export type Thread = ThreadViewPost;
+export type Thread = ThreadViewPost
 
 export async function loader({ params }: Route.LoaderArgs) {
-  let post = null;
+  let post = null
   if (params.articleId) {
-    post = await getArticleContent(params.articleId);
+    post = await getArticleContent(params.articleId)
   }
 
   if (!post?.content.blueskyId) {
-    return { post };
+    return { post }
   }
 
-  const blueSkyThread = getBlueSkyThreadInfo(post.content.blueskyId);
+  const blueSkyThread = getBlueSkyThreadInfo(post.content.blueskyId)
 
-  return { post, blueSkyThread };
+  return { post, blueSkyThread }
 }
 
 export const meta = ({ data, params }: Route.MetaArgs) => {
@@ -34,16 +34,16 @@ export const meta = ({ data, params }: Route.MetaArgs) => {
     description: data?.post?.content.subtitle,
     image: data?.post?.content.photoURL ?? undefined,
     siteUrl: `${MAIN_URL}/${POST_PATH}/${params.articleId}`,
-  });
+  })
 
-  return tags;
-};
+  return tags
+}
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { post, blueSkyThread } = loaderData;
+  const { post, blueSkyThread } = loaderData
 
   if (!post) {
-    return <NotFound />;
+    return <NotFound />
   }
 
   return (
@@ -137,14 +137,14 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             />
             <blockquote className="border-primary-700 mt-2 border-l-4 text-xs">
               <p className="mt-0 px-2 py-1 text-gray-700 dark:text-gray-300">
-                Photo by{" "}
+                Photo by{' '}
                 <a
                   className="text-primary-600 hover:underline"
                   href={post.content.authorProfileURL}
                 >
                   {post.content.photoAuthor}
-                </a>{" "}
-                on{" "}
+                </a>{' '}
+                on{' '}
                 <a
                   className="text-primary-600 hover:underline"
                   href="https://unsplash.com/?utm_source=blog&utm_medium=referral"
@@ -174,5 +174,5 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </Suspense>
       </article>
     </>
-  );
+  )
 }

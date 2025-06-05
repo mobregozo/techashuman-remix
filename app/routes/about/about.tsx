@@ -1,36 +1,36 @@
-import { Link } from "react-router";
-import { generateTags } from "../../utils/generate-tags";
-import { SocialMedia } from "../../components/social-media";
-import { ExperienceItem } from "../../components/experience-item";
-import { DownloadIcon, Music } from "lucide-react";
-import { Route } from "./+types/about";
-import { getJobExperiences } from "@/utils/work-experience.server";
-import { MAIN_URL } from "@/utils/constants";
-import { OptimizedImage } from "@/components/ui/optimized-image";
-import AboutImage from "@/assets/about.jpeg?w=80;200;400&format=webp;avif&as=picture";
+import AboutImage from '@/assets/about.jpeg?w=80;200;400&format=webp;avif&as=picture'
+import { OptimizedImage } from '@/components/ui/optimized-image'
+import { MAIN_URL } from '@/utils/constants'
+import { getJobExperiences } from '@/utils/work-experience.server'
+import { DownloadIcon, Music } from 'lucide-react'
+import { Link } from 'react-router'
+import { ExperienceItem } from '../../components/experience-item'
+import { SocialMedia } from '../../components/social-media'
+import { generateTags } from '../../utils/generate-tags'
+import { Route } from './+types/about'
 
 export const meta = () => {
   const tags = generateTags({
-    title: "About Me",
+    title: 'About Me',
     siteUrl: `${MAIN_URL}/about`,
-  });
-  return tags;
-};
+  })
+  return tags
+}
 
 export const loader = async () => {
-  const experiences = await getJobExperiences();
+  const experiences = await getJobExperiences()
 
-  return { experiences };
-};
+  return { experiences }
+}
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { experiences } = loaderData;
+  const { experiences } = loaderData
   const topSkills = [
-    "JavaScript",
-    "TypeScript",
-    "React, Remix & Next",
-    "Product Management",
-  ];
+    'JavaScript',
+    'TypeScript',
+    'React, Remix & Next',
+    'Product Management',
+  ]
   return (
     <>
       <article>
@@ -54,7 +54,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               Product-driven JavaScript engineer
             </h2>
             <p className="leading-relaxed">
-              I specialize in frontend technologies, mostly{" "}
+              I specialize in frontend technologies, mostly{' '}
               <strong>React</strong>, and have spent over a decade immersed in
               the tech world.
             </p>
@@ -64,13 +64,13 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               projects.
             </p>
             <p>
-              Curious about this blog? here's the{" "}
+              Curious about this blog? here's the{' '}
               <a
                 href="/about/blog"
                 className="text-primary-700 dark:text-primary-500 font-medium hover:underline"
               >
-                {" "}
-                story behind it.{" "}
+                {' '}
+                story behind it.{' '}
               </a>
             </p>
           </div>
@@ -81,7 +81,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <p className="text-gray-300">
             I believe our music taste says a lot about us. Explore my collection
             and maybe get a glimpse of the soundtracks that have shaped my
-            journey &#8226;{" "}
+            journey &#8226;{' '}
             <Link
               to="/about/vinyls"
               className="text-secondary-500 hover:underline"
@@ -109,7 +109,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           </h2>
           <button
             className="mt-4 inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 md:mt-0 md:py-3 md:text-base dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            onClick={() => window.open("/assets/resume.pdf", "_blank")}
+            onClick={() => window.open('/assets/resume.pdf', '_blank')}
           >
             <DownloadIcon className="g-4 mr-2 w-4 md:h-6 md:w-6" />
             Download Resume
@@ -122,5 +122,5 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </div>
       </article>
     </>
-  );
+  )
 }

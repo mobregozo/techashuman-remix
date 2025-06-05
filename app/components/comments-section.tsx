@@ -1,26 +1,29 @@
-import { useState } from "react";
-import { Link } from "react-router";
-import { Heart, MessageCircle, Repeat2 } from "lucide-react";
-import { Thread } from "@/routes/blog/article";
-import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { Thread } from '@/routes/blog/article'
+import { AppBskyFeedDefs, AppBskyFeedPost } from '@atproto/api'
+import { Heart, MessageCircle, Repeat2 } from 'lucide-react'
+import { useState } from 'react'
+import { Link } from 'react-router'
 
 type CommentSectionProps = {
-  thread: Thread;
-  postURL: string;
-};
+  thread: Thread
+  postURL: string
+}
 
-export default function CommentSection({ thread, postURL }: CommentSectionProps) {
-  const [visibleCount, setVisibleCount] = useState(3);
+export default function CommentSection({
+  thread,
+  postURL,
+}: CommentSectionProps) {
+  const [visibleCount, setVisibleCount] = useState(3)
 
   if (!thread.replies || thread.replies.length === 0) {
-    return <p className="my-4"> No comments yet</p>;
+    return <p className="my-4"> No comments yet</p>
   }
 
   const showMore = () => {
-    setVisibleCount((prevCount) => prevCount + 5);
-  };
+    setVisibleCount((prevCount) => prevCount + 5)
+  }
 
-  const sortedReplies = thread.replies.sort(sortByLikes);
+  const sortedReplies = thread.replies.sort(sortByLikes)
 
   return (
     <div>
@@ -45,7 +48,7 @@ export default function CommentSection({ thread, postURL }: CommentSectionProps)
         </p>
       </Link>
       <p className="mt-2 text-sm">
-        Reply on Bluesky{" "}
+        Reply on Bluesky{' '}
         <Link
           to={postURL}
           className="underline"
@@ -53,14 +56,14 @@ export default function CommentSection({ thread, postURL }: CommentSectionProps)
           rel="noreferrer noopener"
         >
           here
-        </Link>{" "}
+        </Link>{' '}
         to join the conversation.
       </p>
       <hr className="mt-2 border-gray-600 dark:border-gray-500" />
       <div className="mt-2 space-y-8">
         {sortedReplies.slice(0, visibleCount).map((reply) => {
-          if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
-          return <Comment key={reply.post.uri} comment={reply} />;
+          if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null
+          return <Comment key={reply.post.uri} comment={reply} />
         })}
         {visibleCount < sortedReplies.length && (
           <button
@@ -73,14 +76,14 @@ export default function CommentSection({ thread, postURL }: CommentSectionProps)
       </div>
       <hr className="my-12 border-t-1 border-gray-300 dark:border-gray-700" />
     </div>
-  );
+  )
 }
 
 const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
-  const author = comment.post.author;
-  const avatarClassName = "h-4 w-4 shrink-0 rounded-full bg-gray-300";
+  const author = comment.post.author
+  const avatarClassName = 'h-4 w-4 shrink-0 rounded-full bg-gray-300'
 
-  if (!AppBskyFeedPost.isRecord(comment.post.record)) return null;
+  if (!AppBskyFeedPost.isRecord(comment.post.record)) return null
 
   return (
     <div className="my-4 text-sm">
@@ -101,13 +104,13 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
             <div className={avatarClassName} />
           )}
           <p className="line-clamp-1">
-            {author.displayName ?? author.handle}{" "}
+            {author.displayName ?? author.handle}{' '}
             <span className="text-gray-500">@{author.handle}</span>
           </p>
         </Link>
         <Link
           to={`https://bsky.app/profile/${author.did}/post/${comment.post.uri
-            .split("/")
+            .split('/')
             .pop()}`}
           target="_blank"
           rel="noreferrer noopener"
@@ -119,14 +122,14 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
       {comment.replies && comment.replies.length > 0 && (
         <div className="border-l-2 border-gray-600 pl-2 dark:border-gray-700">
           {comment.replies.sort(sortByLikes).map((reply) => {
-            if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
-            return <Comment key={reply.post.uri} comment={reply} />;
+            if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null
+            return <Comment key={reply.post.uri} comment={reply} />
           })}
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
   <div className="mt-2 flex w-full max-w-[150px] flex-row items-center justify-between opacity-60">
@@ -143,14 +146,14 @@ const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
       <p className="text-xs">{post.likeCount ?? 0}</p>
     </div>
   </div>
-);
+)
 
 const sortByLikes = (a: unknown, b: unknown) => {
   if (
     !AppBskyFeedDefs.isThreadViewPost(a) ||
     !AppBskyFeedDefs.isThreadViewPost(b)
   ) {
-    return 0;
+    return 0
   }
-  return (b.post.likeCount ?? 0) - (a.post.likeCount ?? 0);
-};
+  return (b.post.likeCount ?? 0) - (a.post.likeCount ?? 0)
+}

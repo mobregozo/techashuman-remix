@@ -1,15 +1,15 @@
-import { generateTags } from "@/utils/generate-tags";
-import { MAIN_URL } from "@/utils/constants";
-import { OptimizedImage } from "@/components/ui/optimized-image";
-import chatGPTImage from "@/assets/gpt.webp?w=80;400;600;1000&format=webp;avif&as=picture";
+import chatGPTImage from '@/assets/gpt.webp?w=80;400;600;1000&format=webp;avif&as=picture'
+import { OptimizedImage } from '@/components/ui/optimized-image'
+import { MAIN_URL } from '@/utils/constants'
+import { generateTags } from '@/utils/generate-tags'
 
 export const meta = () => {
   const tags = generateTags({
-    title: "About the Blog",
+    title: 'About the Blog',
     siteUrl: `${MAIN_URL}/about/blog`,
-  });
-  return tags;
-};
+  })
+  return tags
+}
 
 export default function AboutBlog() {
   return (
@@ -97,19 +97,19 @@ export default function AboutBlog() {
         compromising their privacy.
       </p>
       <p>
-        Here's the link to my{" "}
+        Here's the link to my{' '}
         <a
           href="https://bsky.app/profile/techashuman.com"
           className="text-secondary-500 hover:underline"
         >
-          Bluesky Profile{" "}
+          Bluesky Profile{' '}
         </a>
         And here's the link that originally explains the concept of
         <a
           href="https://emilyliu.me/blog/comments"
           className="text-secondary-500 hover:underline"
         >
-          {" "}
+          {' '}
           adding comments.
         </a>
       </p>
@@ -118,7 +118,7 @@ export default function AboutBlog() {
         I use Plausible for analytics because it prioritizes privacy, offering a
         simple and clean interface. Plus, I love that it doesn't track personal
         data. The dashboard gives me a clear picture of how the blog is
-        performing, and it's open for everyone to see. Here's a link to my{" "}
+        performing, and it's open for everyone to see. Here's a link to my{' '}
         <a
           href="https://plausible.io/techashuman.com"
           className="text-secondary-500 hover:underline"
@@ -156,7 +156,7 @@ export default function AboutBlog() {
         and build a community around my content.
       </p>
       <p>
-        Here's the link to follow me on{" "}
+        Here's the link to follow me on{' '}
         <a
           href="https://techashuman.substack.com/"
           className="text-secondary-500 hover:underline"
@@ -176,5 +176,5 @@ export default function AboutBlog() {
         hope my posts help you stay informed, stay inspired, and stay curious.
       </p>
     </article>
-  );
+  )
 }

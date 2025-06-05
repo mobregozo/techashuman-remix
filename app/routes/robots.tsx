@@ -1,4 +1,4 @@
-import { MAIN_URL } from "../utils/constants";
+import { MAIN_URL } from '../utils/constants'
 
 export const loader = () => {
   // handle "GET" request
@@ -11,12 +11,12 @@ export const loader = () => {
         Allow: /
     
         Sitemap: ${MAIN_URL}/sitemap.xml
-        `;
+        `
   // return the text content, a status 200 success response, and set the content type to text/plain
   return new Response(robotText, {
     status: 200,
     headers: {
-      "Content-Type": "text/plain",
+      'Content-Type': 'text/plain',
     },
-  });
-};
+  })
+}

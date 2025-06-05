@@ -1,64 +1,64 @@
-import { Link } from "react-router";
-import { Intro } from "../components/intro";
-import { PostPreview } from "../components/post-preview";
-import { generateTags } from "../utils/generate-tags";
+import { FeaturedArticle } from '@/components/featured-articles'
+import { PopularArticles } from '@/components/popular-articles'
+import { MAIN_URL } from '@/utils/constants'
+import { ChevronRight } from 'lucide-react'
+import { Link } from 'react-router'
+import { Intro } from '../components/intro'
+import { PostPreview } from '../components/post-preview'
+import { generateTags } from '../utils/generate-tags'
 import {
   getArticlesBySlugs,
   getLatestArticles,
-} from "../utils/read-posts.server";
-import type { PostProperties } from "../utils/read-posts.server";
-import { ChevronRight } from "lucide-react";
-import type { Route } from "./+types/home";
-import { FeaturedArticle } from "@/components/featured-articles";
-import { PopularArticles } from "@/components/popular-articles";
-import { MAIN_URL } from "@/utils/constants";
+} from '../utils/read-posts.server'
+import type { PostProperties } from '../utils/read-posts.server'
+import type { Route } from './+types/home'
 
 export const meta = () => {
-  const tags = generateTags({ title: "Home", siteUrl: `${MAIN_URL}` });
-  return tags;
-};
+  const tags = generateTags({ title: 'Home', siteUrl: `${MAIN_URL}` })
+  return tags
+}
 
 type PopularArticlesSlug = {
-  results: { page: string }[];
-};
+  results: { page: string }[]
+}
 
 export const loader = async () => {
   const response = await fetch(
-    "https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=3&period=12mo&filters=event:page==/blog/*",
+    'https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=3&period=12mo&filters=event:page==/blog/*',
     {
       headers: {
         Authorization: `Bearer ${process.env.PLAUSIBLE_API_KEY}`,
       },
     },
-  );
+  )
 
   if (!response.ok) {
-    throw new Error("Failed to fetch popular links");
+    throw new Error('Failed to fetch popular links')
   }
-  const latestArticles = await getLatestArticles();
+  const latestArticles = await getLatestArticles()
 
-  const popularArticlesSlug: PopularArticlesSlug = await response.json();
+  const popularArticlesSlug: PopularArticlesSlug = await response.json()
   const slugs = popularArticlesSlug.results.map((item: { page: string }) =>
-    item.page.replace("/blog/", ""),
-  );
-  const popularArticles = await getArticlesBySlugs(slugs);
-  const lastArticle = latestArticles.shift();
+    item.page.replace('/blog/', ''),
+  )
+  const popularArticles = await getArticlesBySlugs(slugs)
+  const lastArticle = latestArticles.shift()
 
   return {
     latestArticles,
     popularArticles,
     lastArticle,
-  };
-};
+  }
+}
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { latestArticles, popularArticles, lastArticle } = loaderData;
+  const { latestArticles, popularArticles, lastArticle } = loaderData
 
   const latestArticlesPreviews = latestArticles.map((post) => (
     <div key={post.slug} className="mb-16">
       <PostPreview post={post as PostProperties} />
     </div>
-  ));
+  ))
 
   return (
     <>
@@ -87,5 +87,5 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
     </>
-  );
+  )
 }

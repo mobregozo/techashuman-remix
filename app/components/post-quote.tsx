@@ -1,9 +1,9 @@
-import { PostText } from "./post-text";
-import type { QuoteBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import type { QuoteBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import { PostText } from './post-text'
 
 type PostQuoteProps = {
-  block: QuoteBlockObjectResponse;
-};
+  block: QuoteBlockObjectResponse
+}
 
 export const PostQuote = ({ block }: PostQuoteProps) => {
   return (
@@ -12,5 +12,5 @@ export const PostQuote = ({ block }: PostQuoteProps) => {
         <PostText key={`${block.id}-${index}`} text={item} />
       ))}
     </p>
-  );
-};
+  )
+}

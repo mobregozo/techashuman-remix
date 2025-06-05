@@ -1,11 +1,11 @@
-declare module "*&as=picture" {
+declare module '*&as=picture' {
   const content: {
-    sources: Record<"type" | "srcset" | "sizes", string>;
+    sources: Record<'type' | 'srcset' | 'sizes', string>
     img: {
-      src: string;
-      width: number;
-      height: number;
-    };
-  };
-  export default content;
+      src: string
+      width: number
+      height: number
+    }
+  }
+  export default content
 }

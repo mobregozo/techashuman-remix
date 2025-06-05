@@ -1,9 +1,9 @@
-import { PostText } from "./post-text";
-import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
+import type { RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints'
+import { PostText } from './post-text'
 
 type PostParagraphProps = {
-  block: Array<RichTextItemResponse>;
-};
+  block: Array<RichTextItemResponse>
+}
 
 export const RichText = ({ block }: PostParagraphProps) => {
   return (
@@ -12,5 +12,5 @@ export const RichText = ({ block }: PostParagraphProps) => {
         <PostText key={index} text={item} />
       ))}
     </p>
-  );
-};
+  )
+}

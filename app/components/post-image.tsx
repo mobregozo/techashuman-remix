@@ -1,13 +1,13 @@
-import type { ImageBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import type { ImageBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
 type PostVideoProps = {
-  block: ImageBlockObjectResponse;
-};
+  block: ImageBlockObjectResponse
+}
 
 export const PostImage = ({ block }: PostVideoProps) => {
-  const imageType = block.image.type;
-  if (imageType === "file") {
-    const captionText = block.image.caption[0].plain_text ?? "blog image";
+  const imageType = block.image.type
+  if (imageType === 'file') {
+    const captionText = block.image.caption[0].plain_text ?? 'blog image'
     return (
       <div className="flex justify-center">
         <img
@@ -16,6 +16,6 @@ export const PostImage = ({ block }: PostVideoProps) => {
           src={block.image.file.url}
         />
       </div>
-    );
-  } else return null;
-};
+    )
+  } else return null
+}

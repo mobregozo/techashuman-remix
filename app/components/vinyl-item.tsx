@@ -1,20 +1,20 @@
 type VinylListItemProps = {
   album: {
-    id: number;
-    artist: string;
-    album: string;
-    year: number;
-    cover: string;
-    country?: string;
-  };
-};
+    id: number
+    artist: string
+    album: string
+    year: number
+    cover: string
+    country?: string
+  }
+}
 
 export const VinylItem = ({ album }: VinylListItemProps) => {
   return (
     <div
       key={album.id}
       className="group mb-4 flex items-start gap-6 hover:opacity-70 sm:mb-0 sm:block sm:text-center"
-      style={{ contentVisibility: "auto" }}
+      style={{ contentVisibility: 'auto' }}
     >
       <img
         src={album.cover}
@@ -36,5 +36,5 @@ export const VinylItem = ({ album }: VinylListItemProps) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}

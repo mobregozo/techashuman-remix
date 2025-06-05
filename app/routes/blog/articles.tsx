@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { PostPreview } from "@/components/post-preview";
-import { generateTags } from "@/utils/generate-tags";
-import { getAllArticles } from "@/utils/read-posts.server";
-import type { Route } from "./+types/articles";
-import { ChevronDown } from "lucide-react";
-import { href } from "react-router";
+import { PostPreview } from '@/components/post-preview'
+import { generateTags } from '@/utils/generate-tags'
+import { getAllArticles } from '@/utils/read-posts.server'
+import { ChevronDown } from 'lucide-react'
+import { useState } from 'react'
+import { href } from 'react-router'
+import type { Route } from './+types/articles'
 
 export async function loader() {
-  const posts = await getAllArticles();
+  const posts = await getAllArticles()
 
-  return { posts };
+  return { posts }
 }
 
 export const meta = () => {
   const tags = generateTags({
-    title: "Articles",
-    siteUrl: href("/blog"),
-  });
-  return tags;
-};
+    title: 'Articles',
+    siteUrl: href('/blog'),
+  })
+  return tags
+}
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { posts } = loaderData;
+  const { posts } = loaderData
 
-  const POSTS_PER_PAGE = 10;
-  const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
+  const POSTS_PER_PAGE = 10
+  const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE)
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + POSTS_PER_PAGE);
-  };
+    setVisibleCount((prevCount) => prevCount + POSTS_PER_PAGE)
+  }
 
-  const visiblePosts = posts.slice(0, visibleCount);
+  const visiblePosts = posts.slice(0, visibleCount)
 
   return (
     <>
@@ -56,5 +56,5 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         )}
       </div>
     </>
-  );
+  )
 }
