@@ -12,6 +12,7 @@ type CustomMetaArgs = {
   description?: string
   siteUrl?: string
   image?: string
+  canonicalUrl?: string
 } & { additionalMeta?: MetaDescriptor[] }
 
 export const generateTags = ({
@@ -20,6 +21,7 @@ export const generateTags = ({
   siteUrl,
   image = HOME_OG_IMAGE_URL,
   additionalMeta,
+  canonicalUrl,
 }: CustomMetaArgs) => {
   return [
     { title: `${title} | TechAsHuman` },
@@ -35,6 +37,7 @@ export const generateTags = ({
     { name: 'twitter:title', content: `${title} | TechAsHuman` },
     { name: 'twitter:description', content: description },
     { name: 'twitter:image', content: image },
+    ...(canonicalUrl ? [{ rel: 'canonical', href: canonicalUrl }] : []),
     ...(additionalMeta ?? []),
   ].filter((v) => {
     if ('content' in v) {

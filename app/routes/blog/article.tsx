@@ -29,11 +29,13 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export const meta = ({ data, params }: Route.MetaArgs) => {
+  const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`
   const tags = generateTags({
     title: data?.post?.content.title,
     description: data?.post?.content.subtitle,
     image: data?.post?.content.photoURL ?? undefined,
-    siteUrl: `${MAIN_URL}/${POST_PATH}/${params.articleId}`,
+    siteUrl: canonicalUrl,
+    canonicalUrl,
   })
 
   return tags
