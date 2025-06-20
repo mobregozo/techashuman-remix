@@ -146,7 +146,7 @@ export async function getArticleContent(slug: string) {
           blueskyId:
             pageData.properties.blueskyId?.rich_text[0]?.plain_text ??
             undefined,
-          photoURL: photo ? photo.response?.urls.regular : null,
+          photoURL: photo ? photo.response?.urls.raw + '&w=1200&h=630&fit=crop&fm=jpg' : null,
           photoURLSmall: photo ? photo.response?.urls.small : null,
           photoURLThumb: photo ? photo.response?.urls.thumb : null,
           photoWebp: photo

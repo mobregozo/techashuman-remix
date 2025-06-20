@@ -149,14 +149,20 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </div>
         {post.content.photoURL && post.content.authorProfileURL ? (
           <div className="my-4">
-            <img
-              className="aspect-auto h-56 w-full rounded-m object-cover object-center sm:h-96"
-              src={post.content.photoWebp!}
-              width={400}
-              height={300}
-              style={{ viewTransitionName: post.content.slug }}
-              loading="lazy"
-            />
+            <picture>
+              {post.content.photoWebp && (
+                <source srcSet={post.content.photoWebp} type="image/webp" />
+              )}
+              <img
+                className="aspect-auto h-56 w-full rounded-m object-cover object-center sm:h-96"
+                src={post.content.photoURL}
+                width={400}
+                height={300}
+                style={{ viewTransitionName: post.content.slug }}
+                loading="lazy"
+                alt={post.content.title}
+              />
+            </picture>
             <blockquote className="mt-2 border-primary-700 border-l-4 text-xs">
               <p className="mt-0 px-2 py-1 text-gray-700 dark:text-gray-300">
                 Photo by{' '}
