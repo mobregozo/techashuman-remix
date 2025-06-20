@@ -46,11 +46,31 @@ export default function Index({ loaderData }: Route.ComponentProps) {
     return <NotFound />
   }
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.content.title,
+    description: post.content.subtitle,
+    image: post.content.photoURL,
+    author: {
+      '@type': 'Person',
+      name: 'Manuel Obregozo',
+    },
+    datePublished: post.content.formattedDate,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${MAIN_URL}/${POST_PATH}/${post.content.slug}`,
+    },
+  }
+
   return (
     <>
+      <script type="application/ld+json">
+        {JSON.stringify(structuredData)}
+      </script>
       <article>
         <h1
-          className="text-secondary-700 dark:text-secondary-500 mb-8 text-4xl font-semibold tracking-tighter md:text-6xl"
+          className="mb-8 font-semibold text-4xl text-secondary-700 tracking-tighter md:text-6xl dark:text-secondary-500"
           style={{ viewTransitionName: `${post.content.slug}-title` }}
         >
           {post.content.title}
@@ -60,7 +80,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <span className="px-2">&bull;</span>
           <time
             dateTime={post.content.formattedDate}
-            className="text-primary-700 dark:text-primary-500 uppercase"
+            className="text-primary-700 uppercase dark:text-primary-500"
           >
             {post.content.formattedDate}
           </time>
@@ -70,7 +90,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             type="button"
             href={post.content.linkToShareTwitter}
             aria-label="Share on Twitter"
-            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center text-sm font-medium text-white hover:opacity-80 focus:ring-4 focus:outline-none md:border md:px-5"
+            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
           >
             <svg
               className="size-6 md:size-4"
@@ -91,7 +111,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             type="button"
             href={post.content.linkToShareLinkedin}
             aria-label="Share on Linkedin"
-            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center text-sm font-medium text-white hover:opacity-80 focus:ring-4 focus:outline-none md:border md:px-5"
+            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
           >
             <svg
               viewBox="0 0 24 24"
@@ -109,7 +129,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             type="button"
             href={post.content.linkToShareBluesky}
             aria-label="Share on Bluesky"
-            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center text-sm font-medium text-white hover:opacity-80 focus:ring-4 focus:outline-none md:border md:px-5"
+            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
           >
             <svg
               width="24"
@@ -128,14 +148,14 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         {post.content.photoURL && post.content.authorProfileURL ? (
           <div className="my-4">
             <img
-              className="rounded-m aspect-auto h-56 w-full object-cover object-center sm:h-96"
+              className="aspect-auto h-56 w-full rounded-m object-cover object-center sm:h-96"
               src={post.content.photoWebp!}
               width={400}
               height={300}
               style={{ viewTransitionName: post.content.slug }}
               loading="lazy"
             />
-            <blockquote className="border-primary-700 mt-2 border-l-4 text-xs">
+            <blockquote className="mt-2 border-primary-700 border-l-4 text-xs">
               <p className="mt-0 px-2 py-1 text-gray-700 dark:text-gray-300">
                 Photo by{' '}
                 <a
