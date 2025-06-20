@@ -1,12 +1,12 @@
 import type { Config } from '@react-router/dev/config'
-import { getLatestArticles } from './app/utils/read-posts.server'
+import { getAllArticles } from './app/utils/read-posts.server'
 
 export default {
   ssr: true,
   async prerender() {
-    const popularArticles = await getLatestArticles()
-    const PopularArticlesPages = popularArticles.map(
-      (product) => `/blog/${product.slug}`,
+    const allArticles = await getAllArticles()
+    const allArticlesPages = allArticles.map(
+      (article) => `/blog/${article.slug}`,
     )
 
     return [
@@ -18,7 +18,7 @@ export default {
       '/sitemap.xml',
       '/rss.xml',
       '/llms.txt',
-      ...PopularArticlesPages,
+      ...allArticlesPages,
     ]
   },
 } satisfies Config
