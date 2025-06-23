@@ -34,7 +34,17 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <h2 className="text-primary-700 mb-24 text-4xl font-medium tracking-tight md:text-6xl dark:text-white">
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Articles',
+          url: href('/blog'),
+          description:
+            'A collection of articles on Tech as Human, exploring the intersection of technology and human life.',
+        })}
+      </script>
+      <h2 className="mb-24 font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
         Articles
       </h2>
       <div className="mt-16">
@@ -47,7 +57,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <div className="flex items-center justify-center">
             <button
               onClick={handleLoadMore}
-              className="group inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              className="group inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-base text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
             >
               Load More
               <ChevronDown className="ml-2 h-6 w-6 animate-bounce duration-100 group-hover:animate-none" />

@@ -27,7 +27,7 @@ export default function CommentSection({
 
   return (
     <div>
-      <h2 className="mb-6 text-lg font-semibold text-gray-700 md:text-4xl dark:text-gray-200">
+      <h2 className="mb-6 font-semibold text-gray-700 text-lg md:text-4xl dark:text-gray-200">
         Comments
       </h2>
       <Link to={postURL} target="_blank">
@@ -68,13 +68,13 @@ export default function CommentSection({
         {visibleCount < sortedReplies.length && (
           <button
             onClick={showMore}
-            className="mt-2 text-sm text-blue-500 underline"
+            className="mt-2 text-blue-500 text-sm underline"
           >
             Show more comments
           </button>
         )}
       </div>
-      <hr className="my-12 border-t-1 border-gray-300 dark:border-gray-700" />
+      <hr className="my-12 border-gray-300 border-t-1 dark:border-gray-700" />
     </div>
   )
 }
@@ -120,7 +120,7 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
         </Link>
       </div>
       {comment.replies && comment.replies.length > 0 && (
-        <div className="border-l-2 border-gray-600 pl-2 dark:border-gray-700">
+        <div className="border-gray-600 border-l-2 pl-2 dark:border-gray-700">
           {comment.replies.sort(sortByLikes).map((reply) => {
             if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null
             return <Comment key={reply.post.uri} comment={reply} />

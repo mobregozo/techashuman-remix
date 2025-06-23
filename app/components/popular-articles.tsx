@@ -11,7 +11,7 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
     <div className="mt-20 w-[288px] lg:mt-0">
       <div className="mb-10 flex items-center lg:mb-6">
         <TrendingUp className="mr-2 h-8 w-8 text-white" />
-        <h2 className="lf:text-2xl text-3xl font-bold text-gray-200">
+        <h2 className="font-bold lf:text-2xl text-3xl text-gray-200">
           Popular Articles
         </h2>
       </div>
@@ -39,7 +39,7 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
                   >
                     {article.title}
                   </h3>
-                  <div className="flex items-center text-sm text-gray-400">
+                  <div className="flex items-center text-gray-400 text-sm">
                     <Clock className="mr-1 h-4 w-4" />
                     {article.readingTime} min read
                   </div>

@@ -23,14 +23,14 @@ export const VinylItem = ({ album }: VinylListItemProps) => {
         style={{ viewTransitionName: album.album }}
       />
       <div>
-        <p className="text-lg font-semibold sm:mt-2 sm:text-sm dark:text-gray-200">
+        <p className="font-semibold text-lg sm:mt-2 sm:text-sm dark:text-gray-200">
           {album.album} ({album.year})
         </p>
-        <p className="text-md text-gray-600 sm:text-xs dark:text-gray-400">
+        <p className="text-gray-600 text-md sm:text-xs dark:text-gray-400">
           {album.artist}
         </p>
         {album.country && (
-          <p className="text-md text-gray-800 sm:text-xs dark:text-gray-200">
+          <p className="text-gray-800 text-md sm:text-xs dark:text-gray-200">
             {album.country}
           </p>
         )}

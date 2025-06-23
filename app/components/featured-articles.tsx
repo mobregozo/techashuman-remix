@@ -23,15 +23,15 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
           className="h-[400px] w-full object-cover"
           style={{ viewTransitionName: article.slug }}
         />
-        <div className="bg-gra absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-gra bg-gradient-to-t from-black to-transparent opacity-80" />
         <div className="absolute right-0 bottom-0 left-0 p-8">
           <h2
-            className="mb-3 text-2xl font-bold text-white lg:text-2xl"
+            className="mb-3 font-bold text-2xl text-white lg:text-2xl"
             style={{ viewTransitionName: `${article.slug}-title` }}
           >
             {article.title}
           </h2>
-          <div className="mb-3 flex items-center text-sm text-gray-200">
+          <div className="mb-3 flex items-center text-gray-200 text-sm">
             <div className="flex items-center">
               <Calendar className="mr-1 h-4 w-4" />
               {formattedDate}

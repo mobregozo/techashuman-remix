@@ -96,7 +96,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="mx-auto w-full space-y-6 dark:text-gray-100">
-      <div className="group mt-4 mb-12 flex items-center gap-4 text-3xl font-bold">
+      <div className="group mt-4 mb-12 flex items-center gap-4 font-bold text-3xl">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           version="1.1"
@@ -149,7 +149,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
             ></path>
           </g>
         </svg>
-        <h1 className="text-primary-700 text-4xl font-medium tracking-tight md:text-6xl dark:text-white">
+        <h1 className="font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
           My vinyl collection
         </h1>
       </div>
@@ -171,7 +171,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
         <div className="space-y-2">
           <label
             htmlFor="artist"
-            className="mb-2 block text-sm font-bold text-gray-300"
+            className="mb-2 block font-bold text-gray-300 text-sm"
           >
             Artist
           </label>
@@ -180,13 +180,13 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
             placeholder="Filter by artist..."
             value={artistFilter}
             onChange={(e) => setArtistFilter(e.target.value)}
-            className="border-input file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-900 dark:text-gray-100"
+            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-900 dark:text-gray-100"
           />
         </div>
         <div className="space-y-2">
           <label
             htmlFor="album"
-            className="mb-2 block text-sm font-bold text-gray-300"
+            className="mb-2 block font-bold text-gray-300 text-sm"
           >
             Album
           </label>
@@ -195,7 +195,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
             placeholder="Filter by album name..."
             value={albumFilter}
             onChange={(e) => setAlbumFilter(e.target.value)}
-            className="border-input file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-900 dark:text-gray-100"
+            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-900 dark:text-gray-100"
           />
         </div>
       </div>
@@ -206,7 +206,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
           {decades.map((decade) => (
             <span
               key={decade.label}
-              className={`focus:ring-ring cursor-pointer rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors hover:opacity-80 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
+              className={`cursor-pointer rounded-md border px-2.5 py-0.5 font-semibold text-xs transition-colors hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${
                 activeDecades.includes(decade.label)
                   ? 'bg-white text-gray-600'
                   : 'focus:outline-none'
@@ -217,7 +217,7 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
             </span>
           ))}
           <span
-            className="focus:ring-ring hover:bg-primary/80 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-white px-2.5 py-0.5 text-xs font-semibold text-gray-600 shadow transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none dark:hover:bg-gray-400"
+            className="inline-flex cursor-pointer items-center rounded-md border border-transparent bg-white px-2.5 py-0.5 font-semibold text-gray-600 text-xs shadow transition-colors hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:hover:bg-gray-400"
             onClick={() => setActiveDecades([])}
           >
             {' '}

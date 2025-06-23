@@ -12,7 +12,7 @@ export const PostCode = ({ block }: PostCodeProps) => {
   }
 
   return (
-    <pre className="p-4 rounded-md bg-gray-800">
+    <pre className="rounded-md bg-gray-800 p-4">
       <code className={`language-${block.code.language}`}>{code}</code>
     </pre>
   )

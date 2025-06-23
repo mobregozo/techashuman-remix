@@ -62,13 +62,27 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Tech as Human',
+          url: MAIN_URL,
+          description:
+            'Tech as Human explores how technology and human life connect. Read articles about the tech world—all with a focus on people.',
+          publisher: {
+            '@type': 'Person',
+            name: 'Manuel Obregozo',
+          },
+        })}
+      </script>
       <Intro />
       <div className="mt-10 items-stretch justify-between lg:flex lg:gap-16">
         <FeaturedArticle article={lastArticle as PostProperties} />
         <PopularArticles articles={popularArticles as PostProperties[]} />
       </div>
       <div>
-        <h2 className="text-primary-600 mt-20 mb-10 text-3xl font-semibold tracking-tight md:text-4xl lg:mt-28 lg:mb-12 dark:text-white">
+        <h2 className="mt-20 mb-10 font-semibold text-3xl text-primary-600 tracking-tight md:text-4xl lg:mt-28 lg:mb-12 dark:text-white">
           Previously shared
         </h2>
         <div className="mb-20 md:mt-8 dark:divide-gray-800">
@@ -79,7 +93,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         <div className="flex justify-center">
           <Link
             to="/blog"
-            className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-base text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
           >
             View all articles
             <ChevronRight className="ml-2 h-6 w-6" />

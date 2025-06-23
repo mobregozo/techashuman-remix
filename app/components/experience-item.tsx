@@ -81,7 +81,7 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
         </svg>
         <div className="flex-1">
           <div className="flex items-stretch justify-start align-top">
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white ring-1 shadow-md shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
               <OptimizedImage
                 alt={job.company}
                 className="h-8 w-8 rounded-full object-cover"
@@ -89,19 +89,19 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
               />
             </div>
             <div className="ml-4 flex flex-1 flex-col">
-              <h2 className="mb-1.5 text-xl leading-none font-bold text-gray-700 dark:text-white">
+              <h2 className="mb-1.5 font-bold text-gray-700 text-xl leading-none dark:text-white">
                 {job.company}
               </h2>
-              <div className="text-sm text-gray-600 dark:text-zinc-400">
+              <div className="text-gray-600 text-sm dark:text-zinc-400">
                 {job.location}
               </div>
             </div>
-            <div className="text-primary-700 hidden items-center gap-3 text-sm whitespace-nowrap md:flex dark:text-white">
+            <div className="hidden items-center gap-3 whitespace-nowrap text-primary-700 text-sm md:flex dark:text-white">
               <Calendar className="size-4" />
               {job.period}
             </div>
           </div>
-          <div className="text-primary-700 mt-2 text-sm whitespace-nowrap md:hidden dark:text-white">
+          <div className="mt-2 whitespace-nowrap text-primary-700 text-sm md:hidden dark:text-white">
             {job.period}
           </div>
           <motion.div
@@ -111,18 +111,18 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
             variants={itemVariants}
           >
             <div key={job.role} className="mt-5">
-              <div className="text-secondary-700 dark:text-primary-500 mb-1 w-full text-lg font-semibold">
+              <div className="mb-1 w-full font-semibold text-lg text-secondary-700 dark:text-primary-500">
                 {job.role}
               </div>
               <div className="my-2 text-sm text-zinc-600 dark:text-zinc-400">
                 <RichText block={job.projects} />
               </div>
               {job.technologies ? (
-                <div className="mt-3 flex flex-wrap text-sm text-gray-700 dark:text-white">
+                <div className="mt-3 flex flex-wrap text-gray-700 text-sm dark:text-white">
                   {job.technologies.split(',').map((tech) => (
                     <span
                       key={tech}
-                      className="my-1 me-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+                      className="my-1 me-2 rounded-full bg-gray-100 px-2.5 py-0.5 font-medium text-gray-800 text-xs dark:bg-gray-700 dark:text-gray-300"
                     >
                       {tech}
                     </span>

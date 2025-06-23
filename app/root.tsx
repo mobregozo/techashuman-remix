@@ -22,7 +22,7 @@ export default function App() {
       >
         <main>
           <Header />
-          <div className="relative z-40 container mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
+          <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
             <Outlet />
           </div>
         </main>
@@ -43,9 +43,9 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body className="flex h-full w-full flex-col bg-white dark:bg-zinc-900">
-        <div className="relative z-40 container mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
+        <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-primary-600 mb-4 text-4xl font-bold dark:text-white">
+            <h1 className="mb-4 font-bold text-4xl text-primary-600 dark:text-white">
               Oops! Something went wrong
             </h1>
             <p className="mb-8 text-gray-600 dark:text-gray-300">
@@ -54,7 +54,7 @@ export function ErrorBoundary() {
             </p>
             <a
               href="/"
-              className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 dark:focus:ring-primary-900 inline-flex items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white focus:ring-4"
+              className="inline-flex items-center justify-center rounded-lg bg-primary-600 px-5 py-3 text-center font-medium text-base text-white hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
             >
               Return to Homepage
             </a>

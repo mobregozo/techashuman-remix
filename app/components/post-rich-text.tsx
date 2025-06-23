@@ -7,7 +7,7 @@ type PostParagraphProps = {
 
 export const RichText = ({ block }: PostParagraphProps) => {
   return (
-    <p className="lead my-2 font-light whitespace-pre-line">
+    <p className="lead my-2 whitespace-pre-line font-light">
       {block.map((item, index) => (
         <PostText key={index} text={item} />
       ))}

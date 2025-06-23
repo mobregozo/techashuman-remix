@@ -26,7 +26,7 @@ export const Loader = () => {
       }}
     >
       <div
-        className="bg-secondary-700 dark:bg-secondary-500 h-1"
+        className="h-1 bg-secondary-700 dark:bg-secondary-500"
         style={{
           width: `${width}%`,
         }}

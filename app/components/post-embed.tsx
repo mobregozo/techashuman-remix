@@ -13,7 +13,7 @@ export const PostEmbed = ({ block }: PostVideoProps) => {
         title={block.id}
         width={300}
         height={700}
-        className="my-10 aspect-video mx-auto"
+        className="mx-auto my-10 aspect-video"
         src={block.embed?.url}
       ></iframe>
     )
