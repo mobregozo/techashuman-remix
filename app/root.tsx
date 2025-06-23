@@ -11,7 +11,7 @@ export default function App() {
         <Meta />
         <Links />
         <script
-          defer
+          defer={true}
           data-domain="techashuman.com"
           src="https://plausible.io/js/script.js"
         />
