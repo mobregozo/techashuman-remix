@@ -8,22 +8,27 @@ export const meta = () => {
     title: 'About the Blog',
     siteUrl: `${MAIN_URL}/about/blog`,
   })
-  return tags
+  
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About the Blog',
+    url: `${MAIN_URL}/about/blog`,
+    description:
+      'About Tech as Human: a blog exploring the intersection of technology and human life, written by Manuel Obregozo.',
+  }
+
+  return [
+    ...tags,
+    {
+      'script:ld+json': structuredData,
+    },
+  ]
 }
 
 export default function AboutBlog() {
   return (
     <article>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'AboutPage',
-          name: 'About the Blog',
-          url: `${MAIN_URL}/about/blog`,
-          description:
-            'About Tech as Human: a blog exploring the intersection of technology and human life, written by Manuel Obregozo.',
-        })}
-      </script>
       <h1 className="mb-24 font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
         About Tech as Human
       </h1>

@@ -15,7 +15,26 @@ import type { Route } from './+types/home'
 
 export const meta = () => {
   const tags = generateTags({ title: 'Home', siteUrl: `${MAIN_URL}` })
-  return tags
+  
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Tech as Human',
+    url: MAIN_URL,
+    description:
+      'Tech as Human explores how technology and human life connect. Read articles about the tech world—all with a focus on people.',
+    publisher: {
+      '@type': 'Person',
+      name: 'Manuel Obregozo',
+    },
+  }
+
+  return [
+    ...tags,
+    {
+      'script:ld+json': structuredData,
+    },
+  ]
 }
 
 type PopularArticlesSlug = {
@@ -62,20 +81,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'Tech as Human',
-          url: MAIN_URL,
-          description:
-            'Tech as Human explores how technology and human life connect. Read articles about the tech world—all with a focus on people.',
-          publisher: {
-            '@type': 'Person',
-            name: 'Manuel Obregozo',
-          },
-        })}
-      </script>
       <Intro />
       <div className="mt-10 items-stretch justify-between lg:flex lg:gap-16">
         <FeaturedArticle article={lastArticle as PostProperties} />

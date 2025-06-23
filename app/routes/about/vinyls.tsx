@@ -9,7 +9,22 @@ export const meta = () => {
     title: 'My Vinyl Collection',
     siteUrl: `${MAIN_URL}/about/vinyls`,
   })
-  return tags
+  
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'My Vinyl Collection',
+    url: `${MAIN_URL}/about/vinyls`,
+    description:
+      'A collection of vinyl records from Manuel Obregozo\'s personal music collection, showcasing musical taste and influences.',
+  }
+
+  return [
+    ...tags,
+    {
+      'script:ld+json': structuredData,
+    },
+  ]
 }
 
 type Release = {

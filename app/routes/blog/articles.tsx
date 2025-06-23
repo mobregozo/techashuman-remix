@@ -17,7 +17,22 @@ export const meta = () => {
     title: 'Articles',
     siteUrl: href('/blog'),
   })
-  return tags
+  
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Articles',
+    url: href('/blog'),
+    description:
+      'A collection of articles on Tech as Human, exploring the intersection of technology and human life.',
+  }
+
+  return [
+    ...tags,
+    {
+      'script:ld+json': structuredData,
+    },
+  ]
 }
 
 export default function Index({ loaderData }: Route.ComponentProps) {
@@ -34,16 +49,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'CollectionPage',
-          name: 'Articles',
-          url: href('/blog'),
-          description:
-            'A collection of articles on Tech as Human, exploring the intersection of technology and human life.',
-        })}
-      </script>
       <h2 className="mb-24 font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
         Articles
       </h2>
