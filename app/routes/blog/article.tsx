@@ -1,17 +1,9 @@
 import { Block } from '@/components/post-block'
-import { getBlueSkyThreadInfo } from '@/utils/blue-sky'
 import { MAIN_URL, POST_PATH } from '@/utils/constants'
 import { generateTags } from '@/utils/generate-tags'
 import NotFound from '@/utils/not-found'
 import { getArticleContent } from '@/utils/read-posts.server'
-import { ThreadViewPost } from '@atproto/api/dist/client/types/app/bsky/feed/defs'
-import { Suspense, lazy } from 'react'
-import { Await } from 'react-router'
 import { Route } from './+types/article'
-
-const CommentSection = lazy(() => import('@/components/comments-section'))
-
-export type Thread = ThreadViewPost
 
 export async function loader({ params }: Route.LoaderArgs) {
   let post = null
@@ -23,9 +15,7 @@ export async function loader({ params }: Route.LoaderArgs) {
     return { post }
   }
 
-  const blueSkyThread = getBlueSkyThreadInfo(post.content.blueskyId)
-
-  return { post, blueSkyThread }
+  return { post }
 }
 
 export const meta = ({ data, params }: Route.MetaArgs) => {
@@ -65,7 +55,7 @@ export const meta = ({ data, params }: Route.MetaArgs) => {
 }
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { post, blueSkyThread } = loaderData
+  const { post } = loaderData
 
   if (!post) {
     return <NotFound />
@@ -188,18 +178,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <Block block={block} key={block.id} />
         ))}
       </div>
-      <Suspense fallback={<div>Loading comments...</div>}>
-        <Await resolve={blueSkyThread}>
-          {(value) =>
-            value && (
-              <CommentSection
-                thread={value.thread.thread as Thread}
-                postURL={value.postUrl}
-              />
-            )
-          }
-        </Await>
-      </Suspense>
     </article>
   )
 }

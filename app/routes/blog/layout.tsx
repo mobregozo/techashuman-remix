@@ -1,12 +1,9 @@
 import { Footer } from '@/components/footer'
 import { PostPreview } from '@/components/post-preview'
 import { getLatestArticles } from '@/utils/read-posts.server'
-import { ThreadViewPost } from '@atproto/api/dist/client/types/app/bsky/feed/defs'
 import { ChevronRight } from 'lucide-react'
 import { Link, Outlet } from 'react-router'
 import { Route } from './+types/layout'
-
-export type Thread = ThreadViewPost
 
 export async function loader({ params }: Route.LoaderArgs) {
   const latestPosts = await getLatestArticles(params.articleId!)

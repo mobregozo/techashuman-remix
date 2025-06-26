@@ -15,7 +15,6 @@
     "check:fix": "biome check --write ."
   },
   "dependencies": {
-    "@atproto/api": "^0.14.9",
     "@notionhq/client": "^2.2.14",
     "@react-router/node": "^7.6.2",
     "clsx": "^2.0.0",
