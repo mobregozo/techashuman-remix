@@ -148,7 +148,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </a>
       </div>
       {post.content.photoURL && post.content.authorProfileURL ? (
-        <div className="my-4">
+        <div className="my-4 hidden md:block">
           <picture>
             {post.content.photoWebp && (
               <source srcSet={post.content.photoWebp} type="image/webp" />
@@ -167,14 +167,14 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             <p className="mt-0 px-2 py-1 text-gray-700 dark:text-gray-300">
               Photo by{' '}
               <a
-                className="text-primary-600 hover:underline"
+                className="text-primary-800 hover:underline dark:text-primary-200"
                 href={post.content.authorProfileURL}
               >
                 {post.content.photoAuthor}
               </a>{' '}
               on{' '}
               <a
-                className="text-primary-600 hover:underline"
+                className="text-primary-800 hover:underline dark:text-primary-200"
                 href="https://unsplash.com/?utm_source=blog&utm_medium=referral"
               >
                 Unsplash
