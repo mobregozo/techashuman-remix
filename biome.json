@@ -8,6 +8,7 @@
       "./build",
       "./public/build",
       "./.yalc",
+      "./.react-router",
       "**/.react-router"
     ]
   },
@@ -118,6 +119,7 @@
       "./public/build",
       "./.yalc",
       "./app/ui/primitives",
+      "./.react-router",
       "**/.react-router"
     ]
   },
