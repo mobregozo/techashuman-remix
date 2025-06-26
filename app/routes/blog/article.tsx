@@ -74,7 +74,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
   return (
     <article>
       <h1
-        className="mb-8 font-semibold text-4xl text-secondary-700 tracking-tighter md:text-6xl dark:text-secondary-500"
+        className="mb-4 font-semibold text-5xl text-secondary-700 tracking-tighter md:mb-8 md:text-6xl dark:text-secondary-500"
         style={{ viewTransitionName: `${post.content.slug}-title` }}
       >
         {post.content.title}
@@ -89,7 +89,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           {post.content.formattedDate}
         </time>
       </div>
-      <div className="mt-4 flex md:space-x-3">
+      <div className="mt-1 mb-8 flex md:mt-4 md:mb-0 md:space-x-3">
         <a
           type="button"
           href={post.content.linkToShareTwitter}
