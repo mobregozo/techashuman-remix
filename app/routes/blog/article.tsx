@@ -38,8 +38,11 @@ export const meta = ({ data, params }: Route.MetaArgs) => {
     author: {
       '@type': 'Person',
       name: 'Manuel Obregozo',
+      url: 'https://www.techashuman.com/about',
     },
-    datePublished: data?.post?.content.formattedDate,
+    datePublished: data?.post?.content.formattedDate
+      ? new Date(data.post.content.formattedDate).toISOString()
+      : null,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': canonicalUrl,
