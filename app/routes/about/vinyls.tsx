@@ -4,19 +4,20 @@ import { generateTags } from '@/utils/generate-tags'
 import { useState } from 'react'
 import { Route } from './+types/vinyls'
 
-export const meta = () => {
+export const meta = ({ data }: Route.MetaArgs) => {
   const tags = generateTags({
     title: 'My Vinyl Collection',
-    siteUrl: `${MAIN_URL}/about/vinyls`,
+    siteUrl: `${data?.baseUrl}/about/vinyls`,
+    image: `${data?.baseUrl}/assets/vinyl-og.png`,
   })
-  
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'My Vinyl Collection',
     url: `${MAIN_URL}/about/vinyls`,
     description:
-      'A collection of vinyl records from Manuel Obregozo\'s personal music collection, showcasing musical taste and influences.',
+      "A collection of vinyl records from Manuel Obregozo's personal music collection, showcasing musical taste and influences.",
   }
 
   return [
@@ -37,9 +38,10 @@ type Release = {
   }
 }
 
-export const loader = async () => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
   const token = process.env.DISCOGS_API_TOKEN
   const username = process.env.DISCOGS_USERNAME
+  const baseUrl = process.env.BASE_URL || new URL(request.url).origin
 
   if (!token || !username) {
     throw new Error('Discogs token or username is not provided.')
@@ -68,7 +70,7 @@ export const loader = async () => {
     }
   })
 
-  return { albums }
+  return { albums, baseUrl }
 }
 
 // Decade quick filters
