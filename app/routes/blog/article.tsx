@@ -1,3 +1,4 @@
+import { NewsletterSignup } from '@/components/newsletter-signup'
 import { Block } from '@/components/post-block'
 import { MAIN_URL, POST_PATH } from '@/utils/constants'
 import { generateTags } from '@/utils/generate-tags'
@@ -181,6 +182,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <Block block={block} key={block.id} />
         ))}
       </div>
+      <NewsletterSignup />
     </article>
   )
 }
