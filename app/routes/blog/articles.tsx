@@ -1,15 +1,19 @@
 import { PostPreview } from '@/components/post-preview'
 import { generateTags } from '@/utils/generate-tags'
 import { getAllArticles } from '@/utils/read-posts.server'
-import { ChevronDown } from 'lucide-react'
-import { useState } from 'react'
-import { href } from 'react-router'
+import { ChevronDown, LoaderCircle, Search } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Form, href, useNavigation, useSubmit } from 'react-router'
 import type { Route } from './+types/articles'
 
-export async function loader() {
-  const posts = await getAllArticles()
+const POSTS_PER_PAGE = 10
 
-  return { posts }
+export async function loader({ request }: { request: Request }) {
+  const url = new URL(request.url)
+  const q = url.searchParams.get('q')
+  const posts = await getAllArticles(q)
+
+  return { posts, q }
 }
 
 export const meta = () => {
@@ -17,7 +21,7 @@ export const meta = () => {
     title: 'Articles',
     siteUrl: href('/blog'),
   })
-  
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -36,9 +40,21 @@ export const meta = () => {
 }
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { posts } = loaderData
+  const { posts, q } = loaderData
+  const navigation = useNavigation()
+  const submit = useSubmit()
 
-  const POSTS_PER_PAGE = 10
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has('q')
+
+  useEffect(() => {
+    const searchField = document.getElementById('q')
+    if (searchField instanceof HTMLInputElement) {
+      searchField.value = q || ''
+    }
+  }, [q])
+
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE)
 
   const handleLoadMore = () => {
@@ -49,15 +65,53 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <h2 className="mb-24 font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
+      <h2 className="mb-10 font-medium text-4xl text-primary-700 tracking-tight md:mb-24 md:text-6xl dark:text-white">
         Articles
       </h2>
-      <div className="mt-16">
-        {visiblePosts.map((post) => (
-          <div key={post.slug} className="mb-20">
-            <PostPreview post={post} />
-          </div>
-        ))}
+      <div>
+        <div className="flex items-center gap-2 py-4">
+          <Form
+            id="search-form"
+            role="search"
+            className="relative flex-1"
+            onChange={(event) => {
+              const isFirstSearch = q === null
+              submit(event.currentTarget, {
+                replace: !isFirstSearch,
+              })
+            }}
+          >
+            <input
+              id="q"
+              aria-label="Search contacts"
+              placeholder="Search articles by title or content"
+              type="search"
+              name="q"
+              defaultValue={q || ''}
+              className={
+                `relative h-12 w-full rounded-lg border border-gray-300 px-4 py-2 pl-10 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:ring-primary-400` +
+                (searching ? ' bg-none' : 'apearance-none')
+              }
+            />
+            {!searching && (
+              <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-gray-400" />
+            )}
+            {searching && (
+              <LoaderCircle className="-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 animate-spin text-gray-400" />
+            )}
+          </Form>
+        </div>
+      </div>
+      <div className="mt-10 md:mt-16">
+        {visiblePosts.length ? (
+          visiblePosts.map((post) => (
+            <div key={post.slug} className="mb-20">
+              <PostPreview post={post} />
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-gray-500">No articles found</div>
+        )}
         {visibleCount < posts.length && (
           <div className="flex items-center justify-center">
             <button

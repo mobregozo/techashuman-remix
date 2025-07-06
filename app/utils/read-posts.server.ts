@@ -236,7 +236,9 @@ export async function getArticlesBySlugs(slugs: string[]) {
   return getArticlesMetaData(response.results)
 }
 
-export async function getAllArticles() {
+export async function getAllArticles(
+  q?: string | null,
+): Promise<PostProperties[]> {
   const response: any = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE as string,
     filter: {
@@ -252,6 +254,22 @@ export async function getAllArticles() {
           number: {
             is_not_empty: true,
           },
+        },
+        {
+          or: [
+            {
+              property: 'title',
+              rich_text: {
+                contains: q ?? '',
+              },
+            },
+            {
+              property: 'subtitle',
+              rich_text: {
+                contains: q ?? '',
+              },
+            },
+          ],
         },
       ],
     },
