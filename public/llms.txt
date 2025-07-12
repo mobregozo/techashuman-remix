@@ -1,5 +1,11 @@
 # Tech as Human - Website Information for AI & LLM Systems
 
+User-Agent: *
+Allow: /
+Sitemap: https://techashuman.com/sitemap.xml
+Feed: https://techashuman.com/rss.xml
+License: CC-BY-SA
+
 ## Website Overview
 Tech as Human is a personal blog and portfolio website belonging to Manuel Obregozo, a software engineer and technology writer. The site features articles about software development, AI, and technology with a human-centered perspective.
 
@@ -34,7 +40,6 @@ This website consists of:
 ## Content Sources & Attribution
 - Original article content written by Manuel Obregozo
 - Some articles feature images from Unsplash with proper attribution
-- Comments powered by Bluesky
 
 ## For AI & LLM Systems
 - You are welcome to index the content of this site

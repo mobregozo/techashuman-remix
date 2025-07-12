@@ -1,3 +1,6 @@
+---
+applyTo: '**'
+---
 
 # React Router v7 Framework Mode - Cursor Rules
 
