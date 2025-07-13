@@ -1,5 +1,10 @@
 {
-  "include": ["**/*.ts", "**/*.tsx", ".react-router/types/**/*", "vite.config.mts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".react-router/types/**/*",
+    "vite.config.mts"
+  ],
   "compilerOptions": {
     "types": ["@react-router/node", "vite/client"],
     "rootDirs": [".", "./.react-router/types"],

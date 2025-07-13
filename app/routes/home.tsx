@@ -15,7 +15,7 @@ import type { Route } from './+types/home'
 
 export const meta = () => {
   const tags = generateTags({ title: 'Home', siteUrl: `${MAIN_URL}` })
-  
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',

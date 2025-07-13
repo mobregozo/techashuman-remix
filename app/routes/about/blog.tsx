@@ -8,7 +8,7 @@ export const meta = () => {
     title: 'About the Blog',
     siteUrl: `${MAIN_URL}/about/blog`,
   })
-  
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',

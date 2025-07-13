@@ -1,5 +1,5 @@
+import { MarkdownContent } from '@/components/markdown-content'
 import { NewsletterSignup } from '@/components/newsletter-signup'
-import { Block } from '@/components/post-block'
 import { MAIN_URL, POST_PATH } from '@/utils/constants'
 import { generateTags } from '@/utils/generate-tags'
 import NotFound from '@/utils/not-found'
@@ -12,7 +12,7 @@ export async function loader({ params }: Route.LoaderArgs) {
     post = await getArticleContent(params.articleId)
   }
 
-  if (!post?.content.blueskyId) {
+  if (!post?.blueskyId) {
     return { post }
   }
 
@@ -22,9 +22,9 @@ export async function loader({ params }: Route.LoaderArgs) {
 export const meta = ({ data, params }: Route.MetaArgs) => {
   const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`
   const tags = generateTags({
-    title: data?.post?.content.title,
-    description: data?.post?.content.subtitle,
-    image: data?.post?.content.photoURL ?? undefined,
+    title: data?.post?.title,
+    description: data?.post?.subtitle,
+    image: data?.post?.photoURL ?? undefined,
     siteUrl: canonicalUrl,
     canonicalUrl,
   })
@@ -32,17 +32,17 @@ export const meta = ({ data, params }: Route.MetaArgs) => {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: data?.post?.content.title || 'Article',
+    headline: data?.post?.title || 'Article',
     description:
-      data?.post?.content.subtitle || 'Blog article on Tech as Human',
-    image: data?.post?.content.photoURL,
+      data?.post?.subtitle || 'Blog article on Tech as Human',
+    image: data?.post?.photoURL,
     author: {
       '@type': 'Person',
       name: 'Manuel Obregozo',
       url: 'https://www.techashuman.com/about',
     },
-    datePublished: data?.post?.content.formattedDate
-      ? new Date(data.post.content.formattedDate).toISOString()
+    datePublished: data?.post?.formattedDate
+      ? new Date(data.post.formattedDate).toISOString()
       : null,
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -69,24 +69,24 @@ export default function Index({ loaderData }: Route.ComponentProps) {
     <article>
       <h1
         className="mb-4 font-semibold text-5xl text-secondary-700 tracking-tighter md:mb-8 md:text-6xl dark:text-secondary-500"
-        style={{ viewTransitionName: `${post.content.slug}-title` }}
+        style={{ viewTransitionName: `${post.slug}-title` }}
       >
-        {post.content.title}
+        {post.title}
       </h1>
       <div className="flex font-bold text-gray-700 dark:text-gray-300">
-        <span>{post.content.readingTime} min read</span>
+        <span>{post.readingTime} min read</span>
         <span className="px-2">&bull;</span>
         <time
-          dateTime={post.content.formattedDate}
+          dateTime={post.formattedDate}
           className="text-primary-700 uppercase dark:text-primary-500"
         >
-          {post.content.formattedDate}
+          {post.formattedDate}
         </time>
       </div>
       <div className="mt-1 mb-8 flex md:mt-4 md:mb-0 md:space-x-3">
         <a
           type="button"
-          href={post.content.linkToShareTwitter}
+          href={post.linkToShareTwitter}
           aria-label="Share on Twitter"
           className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
         >
@@ -107,7 +107,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </a>
         <a
           type="button"
-          href={post.content.linkToShareLinkedin}
+          href={post.linkToShareLinkedin}
           aria-label="Share on Linkedin"
           className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
         >
@@ -123,7 +123,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </a>
         <a
           type="button"
-          href={post.content.linkToShareBluesky}
+          href={post.linkToShareBluesky}
           aria-label="Share on Bluesky"
           className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
         >
@@ -141,20 +141,20 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <span className="ml-2 hidden md:inline-flex">Share on Bluesky</span>
         </a>
       </div>
-      {post.content.photoURL && post.content.authorProfileURL ? (
+      {post.photoURL && post.authorProfileURL ? (
         <div className="my-4 hidden md:block">
           <picture>
-            {post.content.photoWebp && (
-              <source srcSet={post.content.photoWebp} type="image/webp" />
+            {post.photoWebp && (
+              <source srcSet={post.photoWebp} type="image/webp" />
             )}
             <img
               className="aspect-auto h-56 w-full rounded-m object-cover object-center sm:h-96"
-              src={post.content.photoURL}
+              src={post.photoURL}
               width={400}
               height={300}
-              style={{ viewTransitionName: post.content.slug }}
+              style={{ viewTransitionName: post.slug }}
               loading="lazy"
-              alt={post.content.title}
+              alt={post.title}
             />
           </picture>
           <blockquote className="mt-2 border-primary-700 border-l-4 text-xs">
@@ -162,9 +162,9 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               Photo by{' '}
               <a
                 className="text-primary-800 hover:underline dark:text-primary-200"
-                href={post.content.authorProfileURL}
+                href={post.authorProfileURL}
               >
-                {post.content.photoAuthor}
+                {post.photoAuthor}
               </a>{' '}
               on{' '}
               <a
@@ -177,11 +177,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           </blockquote>
         </div>
       ) : null}
-      <div className="prose dark:prose-invert mx-auto mb-8 max-w-3xl lg:max-w-4xl">
-        {post.blocks.map((block) => (
-          <Block block={block} key={block.id} />
-        ))}
-      </div>
+      <MarkdownContent content={post.content || ''} className="mb-24" />
       <NewsletterSignup />
     </article>
   )
