@@ -86,7 +86,7 @@
 }
 
 .markdown-content h2 {
-  @apply text-4xl text-primary-500;
+  @apply text-4xl text-primary-500 tracking-tight;
 }
 
 .markdown-content h2 strong {
