@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@notionhq/client": "^2.2.14",
-    "@react-router/node": "^7.6.2",
+    "@react-router/node": "^7.7.1",
     "@types/marked": "^5.0.2",
     "isbot": "^5",
     "lucide-react": "^0.461.0",
@@ -25,7 +25,7 @@
     "notion-to-md": "^3.1.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router": "^7.6.2",
+    "react-router": "^7.7.1",
     "rehype-pretty-code": "^0.14.1",
     "rehype-stringify": "^10.0.1",
     "remark-parse": "^11.0.0",
@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@react-router/dev": "^7.6.2",
-    "@react-router/serve": "^7.6.2",
+    "@react-router/dev": "^7.7.1",
+    "@react-router/serve": "^7.7.1",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.7",
     "@types/react": "^18.2.20",
