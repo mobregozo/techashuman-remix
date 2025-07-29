@@ -24,3 +24,92 @@
   --color-secondary-800: #9c4221;
   --color-secondary-900: #7b341e;
 }
+
+.markdown-content {
+  /* Base prose styles */
+  @apply prose md:prose-lg mx-0 w-full max-w-screen;
+}
+
+/* Image styles */
+.markdown-content img {
+  @apply mx-auto rounded-lg;
+}
+
+/* Video styles */
+.markdown-content video {
+  @apply mx-auto my-6 w-full rounded-lg;
+}
+
+/* Table styles */
+.markdown-content table {
+  @apply border-collapse;
+}
+
+.markdown-content td {
+  @apply border border-gray-600;
+}
+
+.markdown-content th {
+  @apply border border-gray-600 bg-gray-800;
+}
+
+/* Code block styles */
+.markdown-content pre {
+  @apply rounded-lg border border-gray-700;
+}
+
+.markdown-content code {
+  @apply text-amber-400;
+}
+
+/* Blockquote styles */
+.markdown-content blockquote {
+  @apply w-full md:w-fit border-l-4 border-primary-500 bg-gray-800 px-4 py-2 text-gray-400 my-2;
+  p {
+    @apply my-2;
+  }
+}
+
+/* Link styles */
+.markdown-content a {
+  @apply text-primary-600;
+}
+
+/* Heading styles */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  @apply text-gray-100;
+}
+
+.markdown-content h2 {
+  @apply text-4xl text-primary-500;
+}
+
+.markdown-content h2 strong {
+  @apply text-4xl text-primary-500;
+}
+
+.markdown-content h3 {
+  @apply text-2xl text-secondary-400;
+}
+
+/* Text styles */
+.markdown-content p {
+  @apply text-gray-300 my-5;
+}
+
+.markdown-content strong {
+  @apply text-gray-100;
+}
+
+.markdown-content ol {
+  @apply text-gray-300;
+}
+
+.markdown-content ul {
+  @apply text-gray-300;
+}
