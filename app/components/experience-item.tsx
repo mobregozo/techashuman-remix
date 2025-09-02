@@ -1,20 +1,20 @@
-import adevintaLogo from '@/assets/companies/adevinta.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import dynatraceLogo from '@/assets/companies/dynatrace.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import frontmenLogo from '@/assets/companies/frontmen.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import grupoassaLogo from '@/assets/companies/grupoassa.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import mobiquityLogo from '@/assets/companies/mobiquity.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import norsyncLogo from '@/assets/companies/norsync.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import pleoLogo from '@/assets/companies/pleo.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import serviteonlineLogo from '@/assets/companies/serviteonline.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import sparkdigitalLogo from '@/assets/companies/sparkdigital.webp?w=32;w=64;w=128&format=webp;avif&as=picture'
-import { JobExperience } from '@/utils/work-experience.server'
-import { Calendar } from 'lucide-react'
-import { motion, useScroll, useSpring } from 'motion/react'
-import { useRef } from 'react'
-import { RichText } from './post-rich-text'
-import { OptimizedImage, OptimizedImageProps } from './ui/optimized-image'
+import adevintaLogo from "@/assets/companies/adevinta.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import dynatraceLogo from "@/assets/companies/dynatrace.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import frontmenLogo from "@/assets/companies/frontmen.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import grupoassaLogo from "@/assets/companies/grupoassa.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import mobiquityLogo from "@/assets/companies/mobiquity.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import norsyncLogo from "@/assets/companies/norsync.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import pleoLogo from "@/assets/companies/pleo.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import serviteonlineLogo from "@/assets/companies/serviteonline.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import sparkdigitalLogo from "@/assets/companies/sparkdigital.webp?w=32;w=64;w=128&format=webp;avif&as=picture";
+import { JobExperience } from "@/utils/work-experience.server";
+import { Calendar } from "lucide-react";
+import { motion, useScroll, useSpring } from "motion/react";
+import { useRef } from "react";
+import { RichText } from "./post-rich-text";
+import { OptimizedImage, OptimizedImageProps } from "./ui/optimized-image";
 
-const companiesLogos: Record<string, OptimizedImageProps['image']> = {
+const companiesLogos: Record<string, OptimizedImageProps["image"]> = {
   adevinta: adevintaLogo,
   dynatrace: dynatraceLogo,
   frontmen: frontmenLogo,
@@ -24,12 +24,12 @@ const companiesLogos: Record<string, OptimizedImageProps['image']> = {
   pleo: pleoLogo,
   serviteonline: serviteonlineLogo,
   sparkdigital: sparkdigitalLogo,
-}
+};
 
 type ExperienceItemProps = {
-  job: JobExperience
-  index: number
-}
+  job: JobExperience;
+  index: number;
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -37,16 +37,16 @@ const itemVariants = {
     opacity: 1,
     y: 0,
   },
-}
+};
 
 export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
-  const ref = useRef(null)
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end end'],
-  })
+    offset: ["start end", "end end"],
+  });
 
-  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 20 })
+  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
 
   return (
     <motion.div
@@ -59,10 +59,10 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
         <svg
           className="text-primary-600 dark:text-secondary-500"
           style={{
-            position: 'sticky',
-            top: '20px',
-            width: '10px',
-            overflow: 'visible',
+            position: "sticky",
+            top: "20px",
+            width: "10px",
+            overflow: "visible",
           }}
         >
           <motion.line
@@ -111,7 +111,7 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
             variants={itemVariants}
           >
             <div key={job.role} className="mt-5">
-              <div className="mb-1 w-full font-semibold text-lg text-secondary-700 dark:text-primary-500">
+              <div className="mb-1 w-full font-semibold text-lg text-secondary-600 dark:text-primary-500">
                 {job.role}
               </div>
               <div className="my-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -119,7 +119,7 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
               </div>
               {job.technologies ? (
                 <div className="mt-3 flex flex-wrap text-gray-700 text-sm dark:text-white">
-                  {job.technologies.split(',').map((tech) => (
+                  {job.technologies.split(",").map((tech) => (
                     <span
                       key={tech}
                       className="my-1 me-2 rounded-full bg-gray-100 px-2.5 py-0.5 font-medium text-gray-800 text-xs dark:bg-gray-700 dark:text-gray-300"
@@ -134,5 +134,5 @@ export const ExperienceItem = ({ job, index }: ExperienceItemProps) => {
         </div>
       </div>
     </motion.div>
-  )
-}
+  );
+};

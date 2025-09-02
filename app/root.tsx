@@ -1,6 +1,6 @@
-import './index.css'
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
-import { Header } from './components/header'
+import "./index.css";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { Header } from "./components/header";
 
 export default function App() {
   return (
@@ -22,7 +22,7 @@ export default function App() {
       >
         <main>
           <Header />
-          <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
+          <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 text-zinc-600 md:py-16 lg:max-w-4xl dark:text-white">
             <Outlet />
           </div>
         </main>
@@ -31,7 +31,7 @@ export default function App() {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
 
 export function ErrorBoundary() {
@@ -63,5 +63,5 @@ export function ErrorBoundary() {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

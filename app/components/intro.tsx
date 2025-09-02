@@ -1,7 +1,7 @@
-import homeImage from '@/assets/mate.png?w=400;800;1200&format=webp;avif&as=picture'
-import { ChevronRight } from 'lucide-react'
-import { Link } from 'react-router'
-import { OptimizedImage } from './ui/optimized-image'
+import homeImage from "@/assets/mate.png?w=400;800;1200&format=webp;avif&as=picture";
+import { ChevronRight } from "lucide-react";
+import { Link } from "react-router";
+import { OptimizedImage } from "./ui/optimized-image";
 
 export const Intro = () => {
   return (
@@ -12,7 +12,7 @@ export const Intro = () => {
             Tech as Human
           </h1>
           <p className="my-8 max-w-2xl font-light text-gray-500 md:text-lg lg:text-xl dark:text-gray-400">
-            Written by <span className="font-semibold tracking-wide">Manu</span>{' '}
+            Written by <span className="font-semibold tracking-wide">Manu</span>{" "}
             - Passionate about the intersection of technology and human
             experience.
           </p>
@@ -24,7 +24,7 @@ export const Intro = () => {
           </Link>
           <Link
             to="/blog"
-            className="group inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-base text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
+            className="group inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-base text-zinc-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-gray-900 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
           >
             Start reading
             <ChevronRight className="ml-2 h-6 w-6 translate-x-0 rotate-0 transform transition-all duration-300 ease-out group-hover:translate-x-1" />
@@ -39,5 +39,5 @@ export const Intro = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

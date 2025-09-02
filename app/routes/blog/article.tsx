@@ -1,68 +1,67 @@
-import { MarkdownContent } from '@/components/markdown-content'
-import { NewsletterSignup } from '@/components/newsletter-signup'
-import { MAIN_URL, POST_PATH } from '@/utils/constants'
-import { generateTags } from '@/utils/generate-tags'
-import NotFound from '@/utils/not-found'
-import { getArticleContent } from '@/utils/read-posts.server'
-import { Route } from './+types/article'
+import { MarkdownContent } from "@/components/markdown-content";
+import { NewsletterSignup } from "@/components/newsletter-signup";
+import { MAIN_URL, POST_PATH } from "@/utils/constants";
+import { generateTags } from "@/utils/generate-tags";
+import NotFound from "@/utils/not-found";
+import { getArticleContent } from "@/utils/read-posts.server";
+import { Route } from "./+types/article";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  let post = null
+  let post = null;
   if (params.articleId) {
-    post = await getArticleContent(params.articleId)
+    post = await getArticleContent(params.articleId);
   }
 
   if (!post?.blueskyId) {
-    return { post }
+    return { post };
   }
 
-  return { post }
+  return { post };
 }
 
 export const meta = ({ data, params }: Route.MetaArgs) => {
-  const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`
+  const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`;
   const tags = generateTags({
     title: data?.post?.title,
     description: data?.post?.subtitle,
     image: data?.post?.photoURL ?? undefined,
     siteUrl: canonicalUrl,
     canonicalUrl,
-  })
+  });
 
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: data?.post?.title || 'Article',
-    description:
-      data?.post?.subtitle || 'Blog article on Tech as Human',
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: data?.post?.title || "Article",
+    description: data?.post?.subtitle || "Blog article on Tech as Human",
     image: data?.post?.photoURL,
     author: {
-      '@type': 'Person',
-      name: 'Manuel Obregozo',
-      url: 'https://www.techashuman.com/about',
+      "@type": "Person",
+      name: "Manuel Obregozo",
+      url: "https://www.techashuman.com/about",
     },
     datePublished: data?.post?.formattedDate
       ? new Date(data.post.formattedDate).toISOString()
       : null,
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl,
+      "@type": "WebPage",
+      "@id": canonicalUrl,
     },
-  }
+  };
 
   return [
     ...tags,
     {
-      'script:ld+json': structuredData,
+      "script:ld+json": structuredData,
     },
-  ]
-}
+  ];
+};
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { post } = loaderData
+  const { post } = loaderData;
 
   if (!post) {
-    return <NotFound />
+    return <NotFound />;
   }
 
   return (
@@ -88,7 +87,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           type="button"
           href={post.linkToShareTwitter}
           aria-label="Share on Twitter"
-          className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
+          className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
         >
           <svg
             className="size-6 md:size-4"
@@ -109,12 +108,12 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           type="button"
           href={post.linkToShareLinkedin}
           aria-label="Share on Linkedin"
-          className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
+          className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
         >
           <svg
             viewBox="0 0 24 24"
             aria-hidden="true"
-            className="size-6 fill-white md:size-4"
+            className="size-6 fill-zinc-500 md:size-4 dark:fill-white"
           >
             <path d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715zM7.003 8.575a1.546 1.546 0 01-1.548-1.549 1.548 1.548 0 111.547 1.549zm1.336 9.764H5.666V9.75H8.34v8.589zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.003z"></path>
           </svg>
@@ -125,14 +124,14 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           type="button"
           href={post.linkToShareBluesky}
           aria-label="Share on Bluesky"
-          className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-white hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5"
+          className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
         >
           <svg
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            className="size-6 fill-white md:size-4"
+            className="size-6 fill-zinc-500 md:size-4 dark:fill-white"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path d="M6.33525 3.34624C8.6282 5.3013 11.0944 9.26553 12 11.3927C12.9056 9.26553 15.3718 5.3013 17.6648 3.34624C19.3192 1.93553 22 0.844029 22 4.31729C22 5.01097 21.6498 10.1444 21.4444 10.9779C20.7305 13.8754 18.1291 14.6144 15.815 14.1671C19.8599 14.949 20.8889 17.5388 18.6667 20.1285C14.4462 25.0471 12.6007 18.8945 12.1279 17.318C12.0412 17.029 12.0006 16.8937 12 17.0087C11.9994 16.8937 11.9588 17.029 11.8721 17.318C11.3993 18.8945 9.55377 25.0471 5.33334 20.1285C3.11113 17.5388 4.14007 14.949 8.18497 14.1671C5.87088 14.6144 3.26947 13.8754 2.55556 10.9779C2.35018 10.1444 2 5.01097 2 4.31729C2 0.844029 4.68077 1.93553 6.33525 3.34624Z" />
@@ -159,14 +158,14 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           </picture>
           <blockquote className="mt-2 border-primary-700 border-l-4 text-xs">
             <p className="mt-0 px-2 py-1 text-gray-700 dark:text-gray-300">
-              Photo by{' '}
+              Photo by{" "}
               <a
                 className="text-primary-800 hover:underline dark:text-primary-200"
                 href={post.authorProfileURL}
               >
                 {post.photoAuthor}
-              </a>{' '}
-              on{' '}
+              </a>{" "}
+              on{" "}
               <a
                 className="text-primary-800 hover:underline dark:text-primary-200"
                 href="https://unsplash.com/?utm_source=blog&utm_medium=referral"
@@ -177,8 +176,8 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           </blockquote>
         </div>
       ) : null}
-      <MarkdownContent content={post.content || ''} className="mb-24" />
+      <MarkdownContent content={post.content || ""} className="mb-24" />
       <NewsletterSignup />
     </article>
-  )
+  );
 }
