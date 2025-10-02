@@ -1,16 +1,16 @@
-import { PostProperties } from '@/utils/read-posts.server'
-import { Calendar, Clock } from 'lucide-react'
-import { Link } from 'react-router'
+import { PostProperties } from "@/utils/read-posts.server";
+import { Calendar, Clock } from "lucide-react";
+import { Link } from "react-router";
 
 type FeaturedArticleProps = {
-  article: PostProperties
-}
+  article: PostProperties;
+};
 
 export function FeaturedArticle({ article }: FeaturedArticleProps) {
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'long',
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "long",
     timeStyle: undefined,
-  }).format(new Date(article.date))
+  }).format(new Date(article.date));
 
   return (
     <Link to={`/blog/${article.slug}`} viewTransition className="flex-1">
@@ -46,5 +46,5 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
         </div>
       </article>
     </Link>
-  )
+  );
 }
