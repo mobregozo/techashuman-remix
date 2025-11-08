@@ -1,5 +1,6 @@
 import { MarkdownContent } from "@/components/markdown-content";
 import { NewsletterSignup } from "@/components/newsletter-signup";
+import { ArticlePhotoSection } from "@/components/article-photo-section";
 import { MAIN_URL, POST_PATH } from "@/utils/constants";
 import { generateTags } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
@@ -7,24 +8,30 @@ import { getArticleContent } from "@/utils/read-posts.server";
 import { Route } from "./+types/article";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  let post = null;
-  if (params.articleId) {
-    post = await getArticleContent(params.articleId);
-  }
+  const result = await getArticleContent(params.articleId);
 
-  if (!post?.blueskyId) {
-    return { post };
-  }
-
-  return { post };
+  return {
+    post: result?.post,
+  };
 }
 
-export const meta = ({ data, params }: Route.MetaArgs) => {
+export const meta = ({ loaderData, params }: Route.MetaArgs) => {
   const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`;
+  const post = loaderData?.post;
+
+  if (!post) {
+    return {
+      title: "Article Not Found - Tech as Human",
+      description:
+        "The article you are looking for does not exist. Explore more articles on Tech as Human.",
+      canonical: canonicalUrl,
+    };
+  }
+
   const tags = generateTags({
-    title: data?.post?.title,
-    description: data?.post?.subtitle,
-    image: data?.post?.photoURL ?? undefined,
+    title: post?.title,
+    description: post?.subtitle,
+    image: post?.photo?.photoURL ?? undefined,
     siteUrl: canonicalUrl,
     canonicalUrl,
   });
@@ -32,16 +39,16 @@ export const meta = ({ data, params }: Route.MetaArgs) => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: data?.post?.title || "Article",
-    description: data?.post?.subtitle || "Blog article on Tech as Human",
-    image: data?.post?.photoURL,
+    headline: post?.title || "Article",
+    description: post?.subtitle || "Blog article on Tech as Human",
+    image: post?.photo?.photoURL,
     author: {
       "@type": "Person",
       name: "Manuel Obregozo",
       url: "https://www.techashuman.com/about",
     },
-    datePublished: data?.post?.formattedDate
-      ? new Date(data.post.formattedDate).toISOString()
+    datePublished: post?.formattedDate
+      ? new Date(post.formattedDate).toISOString()
       : null,
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -140,42 +147,13 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <span className="ml-2 hidden md:inline-flex">Share on Bluesky</span>
         </a>
       </div>
-      {post.photoURL && post.authorProfileURL ? (
-        <div className="my-4 hidden md:block">
-          <picture>
-            {post.photoWebp && (
-              <source srcSet={post.photoWebp} type="image/webp" />
-            )}
-            <img
-              className="aspect-auto h-56 w-full rounded-m object-cover object-center sm:h-96"
-              src={post.photoURL}
-              width={400}
-              height={300}
-              style={{ viewTransitionName: post.slug }}
-              loading="lazy"
-              alt={post.title}
-            />
-          </picture>
-          <blockquote className="mt-2 border-primary-700 border-l-4 text-xs">
-            <p className="mt-0 px-2 py-1 text-gray-700 dark:text-gray-300">
-              Photo by{" "}
-              <a
-                className="text-primary-800 hover:underline dark:text-primary-200"
-                href={post.authorProfileURL}
-              >
-                {post.photoAuthor}
-              </a>{" "}
-              on{" "}
-              <a
-                className="text-primary-800 hover:underline dark:text-primary-200"
-                href="https://unsplash.com/?utm_source=blog&utm_medium=referral"
-              >
-                Unsplash
-              </a>
-            </p>
-          </blockquote>
-        </div>
-      ) : null}
+      {post.photo && (
+        <ArticlePhotoSection
+          photo={post.photo}
+          slug={post.slug}
+          title={post.title}
+        />
+      )}
       <MarkdownContent content={post.content || ""} className="mb-24" />
       <NewsletterSignup />
     </article>
