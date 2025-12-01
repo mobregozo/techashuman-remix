@@ -1,27 +1,21 @@
 import { VinylItem } from "@/components/vinyl-item";
-import { MAIN_URL } from "@/utils/constants";
-import { generateTags } from "@/utils/generate-tags";
+import { MAIN_URL, TWITTER_USER, TWITTER_ID } from "@/utils/constants";
 import { useState } from "react";
 import { Route } from "./+types/vinyls";
 
-export const meta = ({ data }: Route.MetaArgs) => {
-  const tags = generateTags({
-    title: "My Vinyl Collection",
-    siteUrl: `${data?.baseUrl}/about/vinyls`,
-    image: `${data?.baseUrl}/assets/vinyl-og.png`,
-  });
+export const meta = () => {
+  const canonicalUrl = `${MAIN_URL}/about/vinyls`;
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "My Vinyl Collection",
-    url: `${MAIN_URL}/about/vinyls`,
+    url: canonicalUrl,
     description:
       "A collection of vinyl records from Manuel Obregozo's personal music collection, showcasing musical taste and influences.",
   };
 
   return [
-    ...tags,
     {
       "script:ld+json": structuredData,
     },
@@ -80,7 +74,13 @@ const decades = [
 ];
 
 export default function Vinyls({ loaderData }: Route.ComponentProps) {
-  const { albums } = loaderData;
+  const { albums, baseUrl } = loaderData;
+
+  const title = "My Vinyl Collection | TechAsHuman";
+  const description =
+    "A curated collection of vinyl records showcasing musical taste and influences.";
+  const canonicalUrl = `${MAIN_URL}/about/vinyls`;
+  const image = `${baseUrl}/assets/vinyl-og.png`;
 
   const [artistFilter, setArtistFilter] = useState("");
   const [albumFilter, setAlbumFilter] = useState("");
@@ -111,6 +111,22 @@ export default function Vinyls({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="mx-auto w-full space-y-6 dark:text-gray-100">
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:image" content={image} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={TWITTER_USER} />
+      <meta name="twitter:creator" content={TWITTER_USER} />
+      <meta name="twitter:creator:id" content={TWITTER_ID} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
+      <link rel="canonical" href={canonicalUrl} />
+
       <div className="group mt-4 mb-12 flex items-center gap-4 font-bold text-3xl">
         <svg
           xmlns="http://www.w3.org/2000/svg"

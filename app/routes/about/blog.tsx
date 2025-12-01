@@ -1,34 +1,57 @@
-import chatGPTImage from '@/assets/gpt.webp?w=80;400;600;1000&format=webp;avif&as=picture'
-import { OptimizedImage } from '@/components/ui/optimized-image'
-import { MAIN_URL } from '@/utils/constants'
-import { generateTags } from '@/utils/generate-tags'
+import chatGPTImage from "@/assets/gpt.webp?w=80;400;600;1000&format=webp;avif&as=picture";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import {
+  MAIN_URL,
+  SEO_DESCRIPTION,
+  TWITTER_USER,
+  TWITTER_ID,
+  HOME_OG_IMAGE_URL,
+} from "@/utils/constants";
 
 export const meta = () => {
-  const tags = generateTags({
-    title: 'About the Blog',
-    siteUrl: `${MAIN_URL}/about/blog`,
-  })
+  const canonicalUrl = `${MAIN_URL}/about/blog`;
 
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'AboutPage',
-    name: 'About the Blog',
-    url: `${MAIN_URL}/about/blog`,
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About the Blog - Tech as Human",
+    url: canonicalUrl,
     description:
-      'About Tech as Human: a blog exploring the intersection of technology and human life, written by Manuel Obregozo.',
-  }
+      "About Tech as Human: a blog exploring the intersection of technology and human life, written by Manuel Obregozo.",
+  };
 
   return [
-    ...tags,
     {
-      'script:ld+json': structuredData,
+      "script:ld+json": structuredData,
     },
-  ]
-}
+  ];
+};
 
 export default function AboutBlog() {
+  const title = "About the Blog | TechAsHuman";
+  const description =
+    "About Tech as Human: a blog exploring the intersection of technology and human life, written by Manuel Obregozo.";
+  const canonicalUrl = `${MAIN_URL}/about/blog`;
+  const image = HOME_OG_IMAGE_URL;
+
   return (
     <article>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:image" content={image} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={TWITTER_USER} />
+      <meta name="twitter:creator" content={TWITTER_USER} />
+      <meta name="twitter:creator:id" content={TWITTER_ID} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
+      <link rel="canonical" href={canonicalUrl} />
+
       <h1 className="mb-24 font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
         About Tech as Human
       </h1>
@@ -112,19 +135,19 @@ export default function AboutBlog() {
         compromising their privacy.
       </p>
       <p>
-        Here's the link to my{' '}
+        Here's the link to my{" "}
         <a
           href="https://bsky.app/profile/techashuman.com"
           className="text-secondary-500 hover:underline"
         >
-          Bluesky Profile{' '}
+          Bluesky Profile{" "}
         </a>
         And here's the link that originally explains the concept of
         <a
           href="https://emilyliu.me/blog/comments"
           className="text-secondary-500 hover:underline"
         >
-          {' '}
+          {" "}
           adding comments.
         </a>
       </p>
@@ -133,7 +156,7 @@ export default function AboutBlog() {
         I use Plausible for analytics because it prioritizes privacy, offering a
         simple and clean interface. Plus, I love that it doesn't track personal
         data. The dashboard gives me a clear picture of how the blog is
-        performing, and it's open for everyone to see. Here's a link to my{' '}
+        performing, and it's open for everyone to see. Here's a link to my{" "}
         <a
           href="https://plausible.io/techashuman.com"
           className="text-secondary-500 hover:underline"
@@ -171,7 +194,7 @@ export default function AboutBlog() {
         and build a community around my content.
       </p>
       <p>
-        Here's the link to follow me on{' '}
+        Here's the link to follow me on{" "}
         <a
           href="https://techashuman.substack.com/"
           className="text-secondary-500 hover:underline"
@@ -191,5 +214,5 @@ export default function AboutBlog() {
         hope my posts help you stay informed, stay inspired, and stay curious.
       </p>
     </article>
-  )
+  );
 }

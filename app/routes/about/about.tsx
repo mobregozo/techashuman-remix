@@ -1,31 +1,39 @@
 import AboutImage from "@/assets/about.jpeg?w=80;200;400&format=webp;avif&as=picture";
 import { OptimizedImage } from "@/components/ui/optimized-image";
-import { MAIN_URL } from "@/utils/constants";
+import {
+  MAIN_URL,
+  SEO_DESCRIPTION,
+  TWITTER_USER,
+  TWITTER_ID,
+  HOME_OG_IMAGE_URL,
+} from "@/utils/constants";
 import { getJobExperiences } from "@/utils/work-experience.server";
 import { DownloadIcon, Music } from "lucide-react";
 import { Link } from "react-router";
 import { ExperienceItem } from "../../components/experience-item";
 import { SocialMedia } from "../../components/social-media";
-import { generateTags } from "../../utils/generate-tags";
 import { Route } from "./+types/about";
 
 export const meta = () => {
-  const tags = generateTags({
-    title: "About Me",
-    siteUrl: `${MAIN_URL}/about`,
-  });
+  const canonicalUrl = `${MAIN_URL}/about`;
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Manuel Obregozo",
-    url: `${MAIN_URL}/about`,
+    url: canonicalUrl,
     description:
       "Product-driven JavaScript engineer. I specialize in frontend technologies, mostly React, and have spent over a decade immersed in the tech world.",
+    jobTitle: "JavaScript Engineer",
+    knowsAbout: [
+      "React",
+      "Frontend Development",
+      "JavaScript",
+      "Web Development",
+    ],
   };
 
   return [
-    ...tags,
     {
       "script:ld+json": structuredData,
     },
@@ -40,6 +48,11 @@ export const loader = async () => {
 
 export default function Index({ loaderData }: Route.ComponentProps) {
   const { experiences } = loaderData;
+  const title = "About Me | TechAsHuman";
+  const description =
+    "Product-driven JavaScript engineer specializing in frontend technologies. Over a decade of experience in the tech world.";
+  const canonicalUrl = `${MAIN_URL}/about`;
+  const image = HOME_OG_IMAGE_URL;
   const topSkills = [
     "JavaScript",
     "TypeScript",
@@ -48,6 +61,30 @@ export default function Index({ loaderData }: Route.ComponentProps) {
   ];
   return (
     <article>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+
+      {/* Open Graph */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
+      <meta property="og:site_name" content="Tech as Human" />
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content={TWITTER_USER} />
+      <meta name="twitter:site" content={TWITTER_USER} />
+      <meta name="twitter:creator:id" content={TWITTER_ID} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
+
+      {/* Other */}
+      <meta name="author" content="Manuel Obregozo" />
+      <link rel="canonical" href={canonicalUrl} />
+
       <h1 className="mb-24 font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
         About
       </h1>

@@ -1,36 +1,27 @@
 import { FeaturedArticle } from "@/components/featured-articles";
 import { PopularArticles } from "@/components/popular-articles";
-import { MAIN_URL } from "@/utils/constants";
+import {
+  MAIN_URL,
+  SEO_DESCRIPTION,
+  TWITTER_USER,
+  TWITTER_ID,
+  HOME_OG_IMAGE_URL,
+} from "@/utils/constants";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router";
 import { Intro } from "../components/intro";
 import { PostPreview } from "../components/post-preview";
-import { generateTags } from "../utils/generate-tags";
+import { generateWebsiteStructuredData } from "../utils/generate-tags";
 import {
   getArticlesBySlugs,
   getLatestArticles,
 } from "../utils/read-posts.server";
-import type { PostProperties } from "../utils/read-posts.server";
 import type { Route } from "./+types/home";
 
 export const meta = () => {
-  const tags = generateTags({ title: "Home", siteUrl: `${MAIN_URL}` });
-
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Tech as Human",
-    url: MAIN_URL,
-    description:
-      "Tech as Human explores how technology and human life connect. Read articles about the tech world—all with a focus on people.",
-    publisher: {
-      "@type": "Person",
-      name: "Manuel Obregozo",
-    },
-  };
+  const structuredData = generateWebsiteStructuredData();
 
   return [
-    ...tags,
     {
       "script:ld+json": structuredData,
     },
@@ -73,6 +64,10 @@ export const loader = async () => {
 export default function Index({ loaderData }: Route.ComponentProps) {
   const { latestArticles, popularArticles, lastArticle } = loaderData;
 
+  const title = "Home | TechAsHuman";
+  const description = SEO_DESCRIPTION;
+  const image = HOME_OG_IMAGE_URL;
+
   const latestArticlesPreviews = latestArticles.map((post) => (
     <div key={post.slug} className="mb-16">
       <PostPreview post={post as PostProperties} />
@@ -81,6 +76,30 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+
+      {/* Open Graph */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={MAIN_URL} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
+      <meta property="og:site_name" content="Tech as Human" />
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content={TWITTER_USER} />
+      <meta name="twitter:site" content={TWITTER_USER} />
+      <meta name="twitter:creator:id" content={TWITTER_ID} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
+
+      {/* Other */}
+      <meta name="author" content="Manuel Obregozo" />
+      <link rel="canonical" href={MAIN_URL} />
+
       <Intro />
       <div className="mt-10 items-stretch justify-between lg:flex lg:gap-16">
         <FeaturedArticle article={lastArticle as PostProperties} />

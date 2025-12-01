@@ -1,8 +1,13 @@
 import { MarkdownContent } from "@/components/markdown-content";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 import { ArticlePhotoSection } from "@/components/article-photo-section";
-import { MAIN_URL, POST_PATH } from "@/utils/constants";
-import { generateTags } from "@/utils/generate-tags";
+import {
+  MAIN_URL,
+  POST_PATH,
+  TWITTER_USER,
+  TWITTER_ID,
+} from "@/utils/constants";
+import { generateArticleStructuredData } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
 import { getArticleContent } from "@/utils/read-posts.server";
 import { Route } from "./+types/article";
@@ -19,60 +24,87 @@ export const meta = ({ loaderData, params }: Route.MetaArgs) => {
   const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`;
   const post = loaderData?.post;
 
+  // Handle 404 case - still need meta export for structured data
   if (!post) {
-    return {
-      title: "Article Not Found - Tech as Human",
-      description:
-        "The article you are looking for does not exist. Explore more articles on Tech as Human.",
-      canonical: canonicalUrl,
-    };
+    return [];
   }
 
-  const tags = generateTags({
-    title: post?.title,
-    description: post?.subtitle,
-    image: post?.photo?.photoURL ?? undefined,
-    siteUrl: canonicalUrl,
-    canonicalUrl,
+  // Generate structured data
+  const structuredData = generateArticleStructuredData({
+    title: post.title,
+    description: post.subtitle,
+    image: post.photo?.photoURL,
+    url: canonicalUrl,
+    datePublished: post.formattedDate
+      ? new Date(post.formattedDate).toISOString()
+      : undefined,
   });
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post?.title || "Article",
-    description: post?.subtitle || "Blog article on Tech as Human",
-    image: post?.photo?.photoURL,
-    author: {
-      "@type": "Person",
-      name: "Manuel Obregozo",
-      url: "https://www.techashuman.com/about",
-    },
-    datePublished: post?.formattedDate
-      ? new Date(post.formattedDate).toISOString()
-      : null,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonicalUrl,
-    },
-  };
-
   return [
-    ...tags,
     {
       "script:ld+json": structuredData,
     },
   ];
 };
 
-export default function Index({ loaderData }: Route.ComponentProps) {
+export default function Index({ loaderData, params }: Route.ComponentProps) {
   const { post } = loaderData;
 
   if (!post) {
-    return <NotFound />;
+    return (
+      <>
+        <title>Article Not Found - Tech as Human</title>
+        <meta
+          name="description"
+          content="The article you are looking for does not exist. Explore more articles on Tech as Human."
+        />
+        <NotFound />
+      </>
+    );
   }
+
+  const title = `${post.title} | TechAsHuman`;
+  const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`;
+  const publishedTime = post.formattedDate
+    ? new Date(post.formattedDate).toISOString()
+    : undefined;
 
   return (
     <article>
+      <title>{title}</title>
+      <meta name="description" content={post.subtitle} />
+
+      {/* Open Graph */}
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={post.subtitle} />
+      {post.photo?.photoURL && (
+        <meta property="og:image" content={post.photo.photoURL} />
+      )}
+      <meta property="og:site_name" content="Tech as Human" />
+      {publishedTime && (
+        <>
+          <meta property="article:published_time" content={publishedTime} />
+          <meta property="article:author" content="Manuel Obregozo" />
+        </>
+      )}
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content={TWITTER_USER} />
+      <meta name="twitter:site" content={TWITTER_USER} />
+      <meta name="twitter:creator:id" content={TWITTER_ID} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={post.subtitle} />
+      {post.photo?.photoURL && (
+        <meta name="twitter:image" content={post.photo.photoURL} />
+      )}
+
+      {/* Other */}
+      <meta name="author" content="Manuel Obregozo" />
+      <link rel="canonical" href={canonicalUrl} />
+
       <h1
         className="mb-4 font-semibold text-5xl text-secondary-700 tracking-tighter md:mb-8 md:text-6xl dark:text-secondary-500"
         style={{ viewTransitionName: `${post.slug}-title` }}
