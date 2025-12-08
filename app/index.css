@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-display: "Satoshi", "sans-serif";
-
+  --font-display: "Geist", "sans-serif";
+  --default-font-family: "Geist", system-ui, sans-serif;
   --color-primary-100: #e6fffa;
   --color-primary-200: #b2f5ea;
   --color-primary-300: #81e6d9;
@@ -25,9 +25,13 @@
   --color-secondary-900: #7b341e;
 }
 
+body {
+  font-family: "Geist", system-ui, sans-serif;
+}
+
 .markdown-content {
   /* Base prose styles */
-  @apply prose md:prose-lg mx-0 w-full max-w-screen;
+  @apply prose md:prose-lg mx-0 w-full max-w-screen font-light;
 }
 
 /* Image styles */

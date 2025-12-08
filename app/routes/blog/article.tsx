@@ -106,7 +106,7 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
       <link rel="canonical" href={canonicalUrl} />
 
       <h1
-        className="mb-4 font-semibold text-5xl text-secondary-700 tracking-tighter md:mb-8 md:text-6xl dark:text-secondary-500"
+        className="mb-4 font-medium text-5xl text-secondary-700 tracking-tight md:mb-8 md:text-6xl dark:text-secondary-500"
         style={{ viewTransitionName: `${post.slug}-title` }}
       >
         {post.title}
