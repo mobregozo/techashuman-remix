@@ -1,6 +1,5 @@
 import { RssIcon } from "lucide-react";
 import { NavLink, href } from "react-router";
-import { Loader } from "./loader";
 
 export const Header = () => {
   const navLinks = [
@@ -11,7 +10,7 @@ export const Header = () => {
 
   return (
     <nav className="">
-      <div className="container mx-auto flex max-w-3xl justify-between px-5 py-3 text-sm lg:max-w-4xl">
+      <div className="container mx-auto flex max-w-3xl justify-between px-5 py-8 text-sm lg:max-w-4xl">
         <ul className="flex space-x-8 font-semibold text-white">
           {navLinks.map((link) => (
             <li key={link.name} className="relative">

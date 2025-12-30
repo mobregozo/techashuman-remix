@@ -6,16 +6,13 @@ import { OptimizedImage } from './ui/optimized-image'
 export const Intro = () => {
   return (
     <section>
-      <div className="mx-auto mb-20 grid max-w-screen-xl pt-8 text-center md:text-left lg:grid-cols-12 lg:gap-8 lg:py-20 xl:gap-0">
+      <div className="mx-auto my-20 grid max-w-screen-xl text-left md:mt-40 md:mb-48 lg:grid-cols-12 lg:gap-8 xl:gap-0">
         <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className="max-w-2xl font-extrabold text-4xl leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
+          <h1 className="max-w-2xl font-extrabold text-5xl leading-none tracking-tight md:text-5xl dark:text-white">
             Tech as Human
           </h1>
-          <p className="my-8 max-w-2xl font-light text-gray-500 md:text-lg lg:text-xl dark:text-gray-400">
-            Written by <span className="font-semibold tracking-wide">Manu</span>{' '}
-            <br />
-            Passionate about the intersection of technology and human
-            experience.
+          <p className="my-8 max-w-2xl font-light text-2xl text-gray-500 dark:text-gray-300">
+            The intersection of technology and human experience.
           </p>
           <Link
             to="/about"

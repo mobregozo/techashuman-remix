@@ -21,7 +21,6 @@
     "isbot": "^5",
     "lucide-react": "^0.461.0",
     "marked": "^16.0.0",
-    "motion": "^11.11.17",
     "notion-to-md": "^3.1.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
