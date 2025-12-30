@@ -111,7 +111,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           Working Experience
         </h2>
         <button
-          className="mt-4 inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-2 text-center font-medium text-sm text-zinc-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 md:mt-0 md:py-3 md:text-base dark:border-gray-700 dark:text-gray-900 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
+          className="mt-4 inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-2 text-center font-medium text-sm text-zinc-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 md:mt-0 md:py-3 md:text-base dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
           onClick={() => window.open("/assets/resume.pdf", "_blank")}
         >
           <DownloadIcon className="g-4 mr-2 w-4 md:h-6 md:w-6" />
