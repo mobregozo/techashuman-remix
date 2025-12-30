@@ -19,7 +19,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
     >
       <article
         key={post.slug}
-        className='group relative isolate flex max-w-2xl flex-col gap-8 md:flex-row'
+        className='group relative isolate flex flex-col gap-8 md:flex-row'
       >
         <div className="flex flex-col justify-between">
           <div className="flex items-center gap-x-4 text-sm">

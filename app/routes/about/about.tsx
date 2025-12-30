@@ -76,17 +76,15 @@ export default function Index({ loaderData }: Route.ComponentProps) {
       {/* Other */}
       <meta name="author" content="Manuel Obregozo" />
       <link rel="canonical" href={canonicalUrl} />
-
-      <h1 className="mb-24 font-medium text-4xl text-primary-700 tracking-tight md:text-6xl dark:text-white">
-        About
-      </h1>
-      <div className="mb-40">
+      <div className="mt-28 mb-36">
         <div className="mb-12">
-          <h1 className="font-bold text-4xl">Hola, I'm Manu 👋</h1>
-          <h2 className="mb-8 font-semibold text-2xl text-primary-600 tracking-tight md:text-2xl dark:text-primary-500">
-            Product-driven JavaScript engineer
-          </h2>
-          <div className='space-y-1'>
+          <div className="mb-8 ">
+            <h1 className="font-bold text-6xl">Hola, I'm Manu</h1>
+            <h2 className="font-semibold text-2xl text-primary-600 tracking-tight md:text-2xl dark:text-primary-500">
+              Product-driven JavaScript engineer
+            </h2>
+          </div>
+          <div className="space-y-1 text-gray-300">
             <p className="text-lg leading-relaxed">
               I specialize in frontend technologies, mostly React.
             </p>
@@ -113,7 +111,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           Download Resume
         </button>
       </div>
-      <div className='space-y-24'>
+      <div className="space-y-24">
         {experiences.map((job, index) => (
           <ExperienceItem key={index} job={job} index={index} />
         ))}

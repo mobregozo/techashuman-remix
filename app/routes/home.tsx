@@ -115,7 +115,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         <h2 className="mt-20 mb-10 font-semibold text-3xl text-primary-600 tracking-tight md:text-4xl lg:mt-28 lg:mb-12 dark:text-white">
           Previously shared
         </h2>
-        <div className="mb-20 md:mt-8 dark:divide-gray-800">
+        <div className='mb-20 max-w-2xl md:mt-8 dark:divide-gray-800'>
           {latestArticlesPreviews}
         </div>
       </div>
