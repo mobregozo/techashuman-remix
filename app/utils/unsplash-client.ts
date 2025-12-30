@@ -10,6 +10,7 @@ export type UnsplashPhotoResponse = ApiResponse<UnsplashPhoto> | null;
 
 // Cache the API instance to avoid recreating it
 let unsplashApi: ReturnType<typeof createApi> | null = null;
+const photoCache = new Map<string, UnsplashPhotoResponse>();
 
 function getUnsplashApi() {
   if (!unsplashApi) {
@@ -31,10 +32,17 @@ export async function fetchPhotoMetadata(
     return null;
   }
 
+  if (photoCache.has(photoId)) {
+    return photoCache.get(photoId) ?? null;
+  }
+
   try {
     const api = getUnsplashApi();
-    return await api.photos.get({ photoId });
+    const response = await api.photos.get({ photoId });
+    photoCache.set(photoId, response);
+    return response;
   } catch {
+    photoCache.set(photoId, null);
     return null;
   }
 }

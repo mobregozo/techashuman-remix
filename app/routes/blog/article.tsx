@@ -1,6 +1,5 @@
 import { MarkdownContent } from "@/components/markdown-content";
 import { NewsletterSignup } from "@/components/newsletter-signup";
-import { ArticlePhotoSection } from "@/components/article-photo-section";
 import {
   MAIN_URL,
   POST_PATH,
@@ -62,7 +61,7 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
     : undefined;
 
   return (
-    <article>
+    <article className="space-y-10">
       <title>{title}</title>
       <meta name="description" content={post.subtitle} />
 
@@ -97,23 +96,24 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
       <meta name="author" content="Manuel Obregozo" />
       <link rel="canonical" href={canonicalUrl} />
 
-      <h1
-        className="mb-4 font-medium text-5xl text-secondary-700 tracking-tight md:mb-8 md:text-6xl dark:text-secondary-500"
-        style={{ viewTransitionName: `${post.slug}-title` }}
-      >
-        {post.title}
-      </h1>
-      <div className="flex font-bold text-gray-700 dark:text-gray-300">
-        <span>{post.readingTime} min read</span>
-        <span className="px-2">&bull;</span>
-        <time
-          dateTime={post.formattedDate}
-          className="text-primary-700 uppercase dark:text-primary-500"
+      <header className="space-y-6 border-0 bg-white/70 py-6 shadow-none backdrop-blur dark:bg-zinc-900/60">
+        <h1
+          className="font-medium text-4xl text-secondary-700 tracking-tight md:text-6xl dark:text-secondary-500"
+          style={{ viewTransitionName: `${post.slug}-title` }}
         >
-          {post.formattedDate}
-        </time>
-      </div>
-      <div className="mt-1 mb-8 flex md:mt-4 md:mb-0 md:space-x-3">
+          {post.title}
+        </h1>
+        <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-gray-600 dark:text-gray-300">
+          <span>{post.readingTime} min read</span>
+          <span className="h-1 w-1 rounded-full bg-gray-400 dark:bg-gray-500" />
+          <time
+            dateTime={post.formattedDate}
+            className="tracking-wide text-primary-700 uppercase dark:text-primary-400"
+          >
+            {post.formattedDate}
+          </time>
+        </div>
+        <div className="flex flex-wrap gap-3">
         <a
           type="button"
           href={post.linkToShareTwitter}
@@ -170,14 +170,8 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
 
           <span className="ml-2 hidden md:inline-flex">Share on Bluesky</span>
         </a>
-      </div>
-      {post.photo && (
-        <ArticlePhotoSection
-          photo={post.photo}
-          slug={post.slug}
-          title={post.title}
-        />
-      )}
+        </div>
+      </header>
       <MarkdownContent content={post.content || ""} className="mb-24" />
       <NewsletterSignup />
     </article>

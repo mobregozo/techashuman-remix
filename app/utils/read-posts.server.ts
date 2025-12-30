@@ -76,13 +76,17 @@ setupNotionTransformers(n2m);
 /**
  * Fetches metadata for multiple articles and enriches with photo URLs
  */
-async function getArticlesMetaData(articles: PageObjectResponse[]) {
+async function getArticlesMetaData(
+  articles: PageObjectResponse[],
+  options?: { includePhotos?: boolean }
+) {
+  const includePhotos = options?.includePhotos !== false;
   const results = await Promise.all(
     articles.map(async (blog: PageObjectResponse) => {
       const photoId = getStringProperty(blog.properties, "photoId");
       let photo = null;
 
-      if (photoId) {
+      if (includePhotos && photoId) {
         photo = await fetchPhotoMetadata(photoId);
       }
 
@@ -239,7 +243,8 @@ export async function getArticlesBySlugs(slugs: string[]) {
  * Fetches all published articles with optional search query
  */
 export async function getAllArticles(
-  q?: string | null
+  q?: string | null,
+  options?: { includePhotos?: boolean }
 ): Promise<ArticleMetadata[]> {
   try {
     const response = await queryArticlesWithSearch(
@@ -252,7 +257,7 @@ export async function getAllArticles(
       (result): result is PageObjectResponse => result.object === "page"
     );
 
-    return getArticlesMetaData(pages);
+    return getArticlesMetaData(pages, options);
   } catch (error) {
     console.error("Error getting all articles:", error);
     return [];

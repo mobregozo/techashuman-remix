@@ -21,17 +21,6 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
         key={post.slug}
         className="group relative isolate flex flex-col gap-8 md:flex-row"
       >
-        {post.photoWebpSmall && (
-          <div className="relative hidden aspect-[16/9] h-48 md:block md:shrink-0">
-            <img
-              src={post.photoWebpSmall!}
-              alt=""
-              style={{ viewTransitionName: post.slug }}
-              className="absolute inset-0 h-full w-full rounded-2xl object-cover transition-transform duration-300 group-hover:rotate-1"
-            />
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-gray-900/10 ring-inset" />
-          </div>
-        )}
         <div className="flex flex-col justify-between">
           <div className="flex items-center gap-x-4 text-sm">
             <time
@@ -54,7 +43,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
               {post.subtitle}
             </p>
             <div className="mt-2 flex items-center tracking-tighter">
-              <div className="font-semibold text-primary-700 text-sm group-hover:underline dark:text-primary-500">
+              <div className="font-medium text-primary-700 text-sm group-hover:underline dark:text-primary-500">
                 Read full article
               </div>
               <svg
