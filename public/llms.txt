@@ -27,10 +27,6 @@ This website consists of:
    - Work experience with companies like Adevinta, Dynatrace, Frontmen, etc.
    - Professional interests and skills
 
-3. **Personal Interests** (/about/vinyls)
-   - Collection of vinyl records
-   - Personal interests beyond technology
-
 ## Technical Implementation
 - Built with React Router v7
 - Server-side rendered (SSR)
