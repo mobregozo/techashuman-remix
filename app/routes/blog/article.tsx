@@ -10,13 +10,18 @@ import {
 import { generateArticleStructuredData } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
 import { getArticleContent } from "@/utils/read-posts.server";
+import { isRouteErrorResponse, useRouteError } from "react-router";
 import { Route } from "./+types/article";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const result = await getArticleContent(params.articleId);
 
+  if (!result?.post) {
+    throw new Response("Not Found", { status: 404 });
+  }
+
   return {
-    post: result?.post,
+    post: result.post,
   };
 }
 
@@ -49,19 +54,6 @@ export const meta = ({ loaderData, params }: Route.MetaArgs) => {
 
 export default function Index({ loaderData, params }: Route.ComponentProps) {
   const { post } = loaderData;
-
-  if (!post) {
-    return (
-      <>
-        <title>Article Not Found - Tech as Human</title>
-        <meta
-          name="description"
-          content="The article you are looking for does not exist. Explore more articles on Tech as Human."
-        />
-        <NotFound />
-      </>
-    );
-  }
 
   const title = `${post.title} | TechAsHuman`;
   const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`;
@@ -190,4 +182,23 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
       <NewsletterSignup />
     </article>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    return (
+      <>
+        <title>Article Not Found - Tech as Human</title>
+        <meta
+          name="description"
+          content="The article you are looking for does not exist. Explore more articles on Tech as Human."
+        />
+        <NotFound />
+      </>
+    );
+  }
+
+  throw error;
 }
