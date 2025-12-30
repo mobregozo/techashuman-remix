@@ -35,7 +35,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <div className="mt-8">
             <Link
               to="/blog"
-              className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-base text-zinc-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-gray-900 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
+              className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-base text-zinc-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
             >
               View all articles
               <ChevronRight className="ml-2 h-6 w-6" />
