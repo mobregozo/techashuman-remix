@@ -1,9 +1,9 @@
-import { PostProperties } from "@/utils/read-posts.server";
+import type { ArticleMetadata } from "@/utils/read-posts.server";
 import { Clock, MousePointerClickIcon, TrendingUp } from "lucide-react";
 import { Link } from "react-router";
 
 interface PopularArticlesProps {
-  articles: PostProperties[];
+  articles: ArticleMetadata[];
 }
 
 export function PopularArticles({ articles }: PopularArticlesProps) {

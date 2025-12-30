@@ -1,11 +1,11 @@
 import { FeaturedArticle } from "@/components/featured-articles";
 import { PopularArticles } from "@/components/popular-articles";
 import {
+  HOME_OG_IMAGE_URL,
   MAIN_URL,
   SEO_DESCRIPTION,
-  TWITTER_USER,
   TWITTER_ID,
-  HOME_OG_IMAGE_URL,
+  TWITTER_USER,
 } from "@/utils/constants";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router";
@@ -15,6 +15,7 @@ import { generateWebsiteStructuredData } from "../utils/generate-tags";
 import {
   getArticlesBySlugs,
   getLatestArticles,
+  type ArticleMetadata,
 } from "../utils/read-posts.server";
 import type { Route } from "./+types/home";
 
@@ -33,25 +34,30 @@ type PopularArticlesSlug = {
 };
 
 export const loader = async () => {
-  const response = await fetch(
-    "https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=3&period=12mo&filters=event:page==/blog/*",
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.PLAUSIBLE_API_KEY}`,
-      },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch popular links");
-  }
   const latestArticles = await getLatestArticles();
+  let popularArticles: ArticleMetadata[] = [];
 
-  const popularArticlesSlug: PopularArticlesSlug = await response.json();
-  const slugs = popularArticlesSlug.results.map((item: { page: string }) =>
-    item.page.replace("/blog/", "")
-  );
-  const popularArticles = await getArticlesBySlugs(slugs);
+  try {
+    const response = await fetch(
+      "https://plausible.io/api/v1/stats/breakdown?site_id=techashuman.com&property=event:page&limit=3&period=12mo&filters=event:page==/blog/*",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.PLAUSIBLE_API_KEY}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const popularArticlesSlug: PopularArticlesSlug = await response.json();
+      const slugs = popularArticlesSlug.results.map((item: { page: string }) =>
+        item.page.replace("/blog/", "")
+      );
+      popularArticles = await getArticlesBySlugs(slugs);
+    }
+  } catch {
+    popularArticles = [];
+  }
+
   const lastArticle = latestArticles.shift();
 
   return {
@@ -70,7 +76,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   const latestArticlesPreviews = latestArticles.map((post) => (
     <div key={post.slug} className="mb-16">
-      <PostPreview post={post as PostProperties} />
+      <PostPreview post={post as ArticleMetadata} />
     </div>
   ));
 
@@ -102,8 +108,8 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
       <Intro />
       <div className="mt-10 items-stretch justify-between lg:flex lg:gap-16">
-        <FeaturedArticle article={lastArticle as PostProperties} />
-        <PopularArticles articles={popularArticles as PostProperties[]} />
+        <FeaturedArticle article={lastArticle as ArticleMetadata} />
+        <PopularArticles articles={popularArticles as ArticleMetadata[]} />
       </div>
       <div>
         <h2 className="mt-20 mb-10 font-semibold text-3xl text-primary-600 tracking-tight md:text-4xl lg:mt-28 lg:mb-12 dark:text-white">

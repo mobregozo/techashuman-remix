@@ -1,9 +1,9 @@
-import { PostProperties } from "@/utils/read-posts.server";
+import type { ArticleMetadata } from "@/utils/read-posts.server";
 import { Calendar, Clock } from "lucide-react";
 import { Link } from "react-router";
 
 type FeaturedArticleProps = {
-  article: PostProperties;
+  article: ArticleMetadata;
 };
 
 export function FeaturedArticle({ article }: FeaturedArticleProps) {

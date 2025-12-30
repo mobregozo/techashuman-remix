@@ -1,8 +1,8 @@
 import { MAIN_URL } from '@/utils/constants'
-import { PostProperties, getAllArticles } from '@/utils/read-posts.server'
+import { getAllArticles, type ArticleMetadata } from '@/utils/read-posts.server'
 import type { LoaderFunction } from 'react-router'
 
-const renderXML = (slugs: PostProperties[]) => {
+const renderXML = (slugs: ArticleMetadata[]) => {
   const url = `${MAIN_URL}/blog`
 
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>

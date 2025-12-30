@@ -1,6 +1,6 @@
 import type { LoaderFunction } from 'react-router'
 import { MAIN_URL } from '../utils/constants'
-import { PostProperties, getAllArticles } from '../utils/read-posts.server'
+import { getAllArticles, type ArticleMetadata } from '../utils/read-posts.server'
 
 export const loader: LoaderFunction = async () => {
   const slugs = await getAllArticles()
@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async () => {
   })
 }
 
-const renderXML = (articles: PostProperties[]) => {
+const renderXML = (articles: ArticleMetadata[]) => {
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>
   <rss version="2.0">
     <channel>
@@ -46,7 +46,7 @@ function escapeXml(unsafe: string): string {
   })
 }
 
-const renderItem = (article: PostProperties) => {
+const renderItem = (article: ArticleMetadata) => {
   const link = `${MAIN_URL}/blog/${article.slug}`
   return `
         <item>

@@ -1,8 +1,8 @@
 import { Link, href } from "react-router";
-import type { PostProperties } from "../utils/read-posts.server";
+import type { ArticleMetadata } from "../utils/read-posts.server";
 
 type PostPreviewProps = {
-  post: PostProperties;
+  post: ArticleMetadata;
 };
 
 export const PostPreview = ({ post }: PostPreviewProps) => {
