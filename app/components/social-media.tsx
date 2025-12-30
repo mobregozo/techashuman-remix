@@ -66,7 +66,7 @@ const socialLinks = [
 ]
 
 export const SocialMedia = () => (
-  <>
+  <div className="mb-8 flex space-x-4">
     {socialLinks.map((link) => (
       <a
         key={link.href}
@@ -77,5 +77,5 @@ export const SocialMedia = () => (
         {link.svg}
       </a>
     ))}
-  </>
+  </div>
 )

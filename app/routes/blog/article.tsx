@@ -3,8 +3,8 @@ import { NewsletterSignup } from "@/components/newsletter-signup";
 import {
   MAIN_URL,
   POST_PATH,
-  TWITTER_USER,
   TWITTER_ID,
+  TWITTER_USER,
 } from "@/utils/constants";
 import { generateArticleStructuredData } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
@@ -103,12 +103,12 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
         >
           {post.title}
         </h1>
-        <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-gray-600 dark:text-gray-300">
+        <div className='flex flex-wrap items-center gap-3 font-semibold text-gray-600 text-sm dark:text-gray-300'>
           <span>{post.readingTime} min read</span>
           <span className="h-1 w-1 rounded-full bg-gray-400 dark:bg-gray-500" />
           <time
             dateTime={post.formattedDate}
-            className="tracking-wide text-primary-700 uppercase dark:text-primary-400"
+            className='text-primary-700 uppercase tracking-wide dark:text-primary-400'
           >
             {post.formattedDate}
           </time>

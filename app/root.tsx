@@ -21,7 +21,7 @@ export default function App() {
       </head>
       <body
         suppressHydrationWarning={true}
-        className="flex h-full w-full flex-col bg-white dark:bg-zinc-900"
+        className=" bg-white dark:bg-zinc-900"
       >
         <main>
           <Header />

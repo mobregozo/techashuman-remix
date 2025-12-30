@@ -1,5 +1,5 @@
 import { RssIcon } from "lucide-react";
-import { href, NavLink } from "react-router";
+import { NavLink, href } from "react-router";
 import { Loader } from "./loader";
 
 export const Header = () => {
@@ -10,7 +10,7 @@ export const Header = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-primary-700 dark:bg-primary-900">
+    <nav className="">
       <div className="container mx-auto flex max-w-3xl justify-between px-5 py-3 text-sm lg:max-w-4xl">
         <ul className="flex space-x-8 font-semibold text-white">
           {navLinks.map((link) => (
@@ -39,7 +39,6 @@ export const Header = () => {
           </a>
         </button>
       </div>
-      <Loader />
     </nav>
   );
 };

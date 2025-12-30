@@ -19,7 +19,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
     >
       <article
         key={post.slug}
-        className="group relative isolate flex flex-col gap-8 md:flex-row"
+        className='group relative isolate flex max-w-2xl flex-col gap-8 md:flex-row'
       >
         <div className="flex flex-col justify-between">
           <div className="flex items-center gap-x-4 text-sm">
@@ -39,7 +39,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
               </span>
               {post.title}
             </h3>
-            <p className="mt-5 flex-1 text-gray-600 text-sm leading-6 dark:text-gray-400">
+            <p className="mt-5 flex-1 text-gray-600 leading-6 dark:text-gray-400">
               {post.subtitle}
             </p>
             <div className="mt-2 flex items-center tracking-tighter">

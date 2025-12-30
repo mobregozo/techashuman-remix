@@ -1,7 +1,7 @@
-import homeImage from "@/assets/mate.png?w=400;800;1200&format=webp;avif&as=picture";
-import { ChevronRight } from "lucide-react";
-import { Link } from "react-router";
-import { OptimizedImage } from "./ui/optimized-image";
+import homeImage from '@/assets/mate.png?w=400;800;1200&format=webp;avif&as=picture'
+import { ChevronRight } from 'lucide-react'
+import { Link } from 'react-router'
+import { OptimizedImage } from './ui/optimized-image'
 
 export const Intro = () => {
   return (
@@ -12,8 +12,9 @@ export const Intro = () => {
             Tech as Human
           </h1>
           <p className="my-8 max-w-2xl font-light text-gray-500 md:text-lg lg:text-xl dark:text-gray-400">
-            Written by <span className="font-semibold tracking-wide">Manu</span>{" "}
-            - Passionate about the intersection of technology and human
+            Written by <span className="font-semibold tracking-wide">Manu</span>{' '}
+            <br />
+            Passionate about the intersection of technology and human
             experience.
           </p>
           <Link
@@ -39,5 +40,5 @@ export const Intro = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

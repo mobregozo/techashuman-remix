@@ -1,9 +1,9 @@
-import type { ArticleMetadata } from "@/utils/read-posts.server";
-import { Clock, MousePointerClickIcon, TrendingUp } from "lucide-react";
-import { Link } from "react-router";
+import type { ArticleMetadata } from '@/utils/read-posts.server'
+import { Clock, TrendingUp } from 'lucide-react'
+import { Link } from 'react-router'
 
 interface PopularArticlesProps {
-  articles: ArticleMetadata[];
+  articles: ArticleMetadata[]
 }
 
 export function PopularArticles({ articles }: PopularArticlesProps) {
@@ -23,9 +23,6 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
                 key={article.slug}
                 className="relative flex gap-4 hover:opacity-80"
               >
-                <div className="absolute inset-0 z-40 hidden h-24 w-24 items-center justify-center lg:flex">
-                  <MousePointerClickIcon className="h-6 w-6 transform rounded-lg object-cover text-white opacity-0 transition-transform duration-300 ease-out group-hover:scale-200 group-hover:opacity-100 dark:text-gray-400" />
-                </div>
                 <div>
                   <h3
                     className="mb-1 line-clamp-2 font-semibold text-gray-500 text-xl lg:text-base dark:text-gray-300"
@@ -46,5 +43,5 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }

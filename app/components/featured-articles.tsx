@@ -14,7 +14,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
 
   return (
     <Link to={`/blog/${article.slug}`} viewTransition className="flex-1">
-      <article className="rounded-xl border border-gray-200 p-8 hover:opacity-80 dark:border-gray-700">
+      <article className='h-full rounded-xl border border-gray-200 p-8 hover:opacity-80 dark:border-gray-700'>
         <h2
           className="mb-3 font-bold text-2xl text-secondary-700 lg:text-2xl dark:text-secondary-500"
           style={{ viewTransitionName: `${article.slug}-title` }}
