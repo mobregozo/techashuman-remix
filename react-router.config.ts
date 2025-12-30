@@ -12,7 +12,6 @@ export default {
     return [
       '/',
       '/about',
-      '/about/blog',
       '/robots.txt',
       '/sitemap.xml',
       '/rss.xml',

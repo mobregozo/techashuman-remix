@@ -3,13 +3,11 @@ import { OptimizedImage } from "@/components/ui/optimized-image";
 import {
   HOME_OG_IMAGE_URL,
   MAIN_URL,
-  SEO_DESCRIPTION,
   TWITTER_ID,
   TWITTER_USER,
 } from "@/utils/constants";
 import { getJobExperiences } from "@/utils/work-experience.server";
 import { DownloadIcon, Music } from "lucide-react";
-import { Link } from "react-router";
 import { ExperienceItem } from "../../components/experience-item";
 import { SocialMedia } from "../../components/social-media";
 import { Route } from "./+types/about";
@@ -53,12 +51,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
     "Product-driven JavaScript engineer specializing in frontend technologies. Over a decade of experience in the tech world.";
   const canonicalUrl = `${MAIN_URL}/about`;
   const image = HOME_OG_IMAGE_URL;
-  const topSkills = [
-    "JavaScript",
-    "TypeScript",
-    "React, Remix & Next",
-    "Product Management",
-  ];
   return (
     <article>
       <title>{title}</title>
@@ -112,45 +104,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             From crafting code to navigating the complexities of management,
             I've worn many hats across diverse companies and personal projects.
           </p>
-          <p>
-            Curious about this blog? here's the{" "}
-            <a
-              href="/about/blog"
-              className="font-medium text-primary-700 hover:underline dark:text-primary-500"
-            >
-              {" "}
-              story behind it.{" "}
-            </a>
-          </p>
         </div>
-      </div>
-
-      <div className="relative z-10 flex gap-4 rounded-xl p-4 text-lg shadow-xs ring-2 dark:bg-slate-800 dark:shadow-xl dark:ring-slate-500">
-        <Music aria-hidden="true" className="size-12 text-secondary-500" />
-        <p className="text-zinc-500 dark:text-gray-300">
-          I believe our music taste says a lot about us. Explore my collection
-          and maybe get a glimpse of the soundtracks that have shaped my journey
-          &#8226;{" "}
-          <Link
-            to="/about/vinyls"
-            className="text-secondary-500 hover:underline"
-          >
-            Check out my vinyl collection.
-          </Link>
-        </p>
-      </div>
-      <h2 className="mt-30 mb-12 font-bold text-3xl text-primary-600 tracking-tighter md:text-4xl dark:text-secondary-500">
-        Top Skills
-      </h2>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {topSkills.map((skill) => (
-          <span
-            key={skill}
-            className="inline-block rounded-md bg-zinc-400 px-3.5 py-1.5 font-semibold text-sm text-white dark:bg-primary-800"
-          >
-            {skill}
-          </span>
-        ))}
       </div>
       <div className="mt-20 mb-12 items-center justify-between md:flex">
         <h2 className="font-bold text-3xl text-primary-600 tracking-tighter md:text-4xl dark:text-secondary-500">
