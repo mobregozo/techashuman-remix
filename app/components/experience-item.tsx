@@ -29,7 +29,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
             x2="5"
             y2="100%"
             stroke="currentColor"
-            strokeWidth="3"
+            strokeWidth="1"
             strokeLinecap="round"
           />
         </svg>

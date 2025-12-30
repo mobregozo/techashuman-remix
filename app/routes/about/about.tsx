@@ -84,11 +84,11 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               Product-driven JavaScript engineer
             </h2>
           </div>
-          <div className="space-y-1 text-gray-300">
-            <p className="text-lg leading-relaxed">
-              I specialize in frontend technologies, mostly React.
+          <div className='max-w-2xl space-y-1 text-gray-300 text-lg leading-relaxed'>
+            <p className="">
+              I specialize in frontend technologies, mostly React, and I have
+              spent over a decade immersed in the tech world.
             </p>
-            <p>I have spent over a decade immersed in the tech world.</p>
             <p>
               From crafting code to navigating the complexities of management,
               I've worn many hats across diverse companies and personal
