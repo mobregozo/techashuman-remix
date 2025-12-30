@@ -1,70 +1,94 @@
-import { PostPreview } from '@/components/post-preview'
-import { generateTags } from '@/utils/generate-tags'
-import { getAllArticles } from '@/utils/read-posts.server'
-import { ChevronDown, LoaderCircle, Search } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Form, href, useNavigation, useSubmit } from 'react-router'
-import type { Route } from './+types/articles'
+import { PostPreview } from "@/components/post-preview";
+import {
+  MAIN_URL,
+  SEO_DESCRIPTION,
+  TWITTER_USER,
+  TWITTER_ID,
+  HOME_OG_IMAGE_URL,
+} from "@/utils/constants";
+import { getAllArticles } from "@/utils/read-posts.server";
+import { ChevronDown, LoaderCircle, Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Form, href, useNavigation, useSubmit } from "react-router";
+import type { Route } from "./+types/articles";
 
-const POSTS_PER_PAGE = 10
+const POSTS_PER_PAGE = 10;
 
 export async function loader({ request }: { request: Request }) {
-  const url = new URL(request.url)
-  const q = url.searchParams.get('q')
-  const posts = await getAllArticles(q)
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+  const posts = await getAllArticles(q);
 
-  return { posts, q }
+  return { posts, q };
 }
 
 export const meta = () => {
-  const tags = generateTags({
-    title: 'Articles',
-    siteUrl: href('/blog'),
-  })
+  const canonicalUrl = `${MAIN_URL}/blog`;
 
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: 'Articles',
-    url: href('/blog'),
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Articles - Tech as Human",
+    url: canonicalUrl,
     description:
-      'A collection of articles on Tech as Human, exploring the intersection of technology and human life.',
-  }
+      "A collection of articles exploring the intersection of technology and human life.",
+  };
 
   return [
-    ...tags,
     {
-      'script:ld+json': structuredData,
+      "script:ld+json": structuredData,
     },
-  ]
-}
+  ];
+};
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { posts, q } = loaderData
-  const navigation = useNavigation()
-  const submit = useSubmit()
+  const { posts, q } = loaderData;
+  const navigation = useNavigation();
+  const submit = useSubmit();
+
+  const title = "Articles | TechAsHuman";
+  const description =
+    "Explore articles on Tech as Human, covering technology, software engineering, and human perspectives.";
+  const canonicalUrl = `${MAIN_URL}/blog`;
+  const image = HOME_OG_IMAGE_URL;
 
   const searching =
     navigation.location &&
-    new URLSearchParams(navigation.location.search).has('q')
+    new URLSearchParams(navigation.location.search).has("q");
 
   useEffect(() => {
-    const searchField = document.getElementById('q')
+    const searchField = document.getElementById("q");
     if (searchField instanceof HTMLInputElement) {
-      searchField.value = q || ''
+      searchField.value = q || "";
     }
-  }, [q])
+  }, [q]);
 
-  const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE)
+  const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + POSTS_PER_PAGE)
-  }
+    setVisibleCount((prevCount) => prevCount + POSTS_PER_PAGE);
+  };
 
-  const visiblePosts = posts.slice(0, visibleCount)
+  const visiblePosts = posts.slice(0, visibleCount);
 
   return (
     <>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:image" content={image} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={TWITTER_USER} />
+      <meta name="twitter:creator" content={TWITTER_USER} />
+      <meta name="twitter:creator:id" content={TWITTER_ID} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
+      <link rel="canonical" href={canonicalUrl} />
+
       <h2 className="mb-10 font-medium text-4xl text-primary-700 tracking-tight md:mb-24 md:text-6xl dark:text-white">
         Articles
       </h2>
@@ -75,10 +99,10 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             role="search"
             className="relative flex-1"
             onChange={(event) => {
-              const isFirstSearch = q === null
+              const isFirstSearch = q === null;
               submit(event.currentTarget, {
                 replace: !isFirstSearch,
-              })
+              });
             }}
           >
             <input
@@ -87,10 +111,10 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               placeholder="Search articles by title or content"
               type="search"
               name="q"
-              defaultValue={q || ''}
+              defaultValue={q || ""}
               className={
                 `relative h-12 w-full rounded-lg border border-gray-300 px-4 py-2 pl-10 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:ring-primary-400` +
-                (searching ? ' bg-none' : 'apearance-none')
+                (searching ? " bg-none" : "apearance-none")
               }
             />
             {!searching && (
@@ -125,5 +149,5 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         )}
       </div>
     </>
-  )
+  );
 }

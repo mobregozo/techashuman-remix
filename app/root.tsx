@@ -1,6 +1,6 @@
-import './index.css'
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
-import { Header } from './components/header'
+import "./index.css";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { Header } from "./components/header";
 
 export default function App() {
   return (
@@ -8,6 +8,9 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;700&display=swap" rel="stylesheet" />
         <Meta />
         <Links />
         <script
@@ -22,7 +25,7 @@ export default function App() {
       >
         <main>
           <Header />
-          <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
+          <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 text-zinc-600 md:py-16 lg:max-w-4xl dark:text-white">
             <Outlet />
           </div>
         </main>
@@ -31,7 +34,7 @@ export default function App() {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
 
 export function ErrorBoundary() {
@@ -63,5 +66,5 @@ export function ErrorBoundary() {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
