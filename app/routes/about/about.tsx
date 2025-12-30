@@ -75,16 +75,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
             From crafting code to navigating the complexities of management,
             I've worn many hats across diverse companies and personal projects.
           </p>
-          <p>
-            Curious about this blog? here's the{' '}
-            <a
-              href="/about/blog"
-              className="font-medium text-primary-700 hover:underline dark:text-primary-500"
-            >
-              {' '}
-              story behind it.{' '}
-            </a>
-          </p>
         </div>
       </div>
 
