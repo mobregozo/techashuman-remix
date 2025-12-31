@@ -31,7 +31,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
             </time>
           </div>
           <div className="relative flex flex-1 flex-col justify-between">
-            <h3 className="mt-3 font-semibold text-2xl text-secondary-700 leading-6 group-hover:opacity-70 dark:text-secondary-500">
+            <h3 className="mt-3 font-medium text-2xl text-secondary-700 leading-6 group-hover:opacity-70 dark:text-secondary-500">
               <span className="absolute inset-0" />
               <span className="tracking-tighter">#{post.number}&nbsp;</span>
               <span style={{ viewTransitionName: `${post.slug}-title` }}>

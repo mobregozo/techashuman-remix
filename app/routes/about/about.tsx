@@ -84,20 +84,20 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               Product-driven JavaScript engineer
             </h2>
           </div>
-          <div className='max-w-2xl space-y-1 text-gray-300 text-lg leading-relaxed'>
+          <div className="max-w-2xl space-y-1 text-gray-300 text-lg leading-relaxed">
             <p className="">
-              I specialize in frontend technologies, mostly React, and I have
-              spent over a decade immersed in the tech world.
+              I build frontend platforms and I've spent a decade shipping on
+              the web.
             </p>
             <p>
-              From crafting code to navigating the complexities of management,
-              I've worn many hats across diverse companies and personal
-              projects.
+              From hands-on coding to product leadership, I've worn many hats
+              across teams and projects.
             </p>
           </div>
         </div>
         <SocialMedia />
       </div>
+      <div className="mt-12 border-gray-700/50 border-t" />
 
       <div className="mt-20 mb-12 items-center justify-between md:flex">
         <h2 className="font-bold text-3xl text-primary-600 tracking-tighter md:text-4xl dark:text-secondary-500">

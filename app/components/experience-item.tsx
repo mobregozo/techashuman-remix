@@ -8,6 +8,12 @@ type ExperienceItemProps = {
 }
 
 export const ExperienceItem = ({ job }: ExperienceItemProps) => {
+  const technologies = job.technologies
+    ? job.technologies.split(',').map((tech) => tech.trim())
+    : []
+  const visibleTechnologies = technologies.slice(0, 6)
+  const remainingTechnologies = technologies.length - visibleTechnologies.length
+
   return (
     <div
       key={job.period}
@@ -34,19 +40,19 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
           />
         </svg>
         <div className="flex-1">
-          <div className="flex items-stretch justify-start align-top">
+          <div className="flex items-start justify-start align-top">
             <div className="flex flex-1 flex-col">
-              <h2 className="mb-1.5 font-bold text-gray-700 text-xl leading-none dark:text-white">
-                {job.company}
-              </h2>
-              <div className="mb-1 w-full font-medium text-lg text-secondary-600 dark:text-primary-500">
+              <div className='mb-2 w-full font-semibold text-secondary-500 text-xl leading-none dark:text-primary-500'>
                 {job.role}
               </div>
+              <h2 className="mb-2 font-medium text-gray-400 text-lg leading-none dark:text-zinc-300">
+                {job.company}
+              </h2>
               <div className="text-gray-600 text-sm dark:text-zinc-400">
                 {job.location}
               </div>
             </div>
-            <div className="hidden gap-3 whitespace-nowrap text-primary-700 text-sm md:flex dark:text-white">
+            <div className="mt-1 hidden items-center gap-3 whitespace-nowrap text-primary-700 text-sm md:flex dark:text-white">
               <Calendar className="size-4" />
               {job.period}
             </div>
@@ -56,19 +62,24 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
           </div>
           <div>
             <div key={job.role} className="mt-5">
-              <div className="my-2 text-zinc-600 dark:text-zinc-400">
+              <div className="my-2 text-sm text-zinc-500 dark:text-zinc-400">
                 <RichText block={job.projects} />
               </div>
-              {job.technologies ? (
-                <div className="mt-3 flex flex-wrap text-gray-700 text-sm dark:text-white">
-                  {job.technologies.split(',').map((tech) => (
+              {technologies.length ? (
+                <div className="mt-3 flex flex-wrap text-gray-600 text-xs dark:text-zinc-300">
+                  {visibleTechnologies.map((tech) => (
                     <span
                       key={tech}
-                      className="my-1 me-2 rounded-full bg-gray-100 px-2.5 py-0.5 font-medium text-gray-800 text-xs dark:bg-gray-700 dark:text-gray-300"
+                      className="my-1 me-2 rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700 text-[11px] dark:bg-gray-700 dark:text-gray-300"
                     >
                       {tech}
                     </span>
                   ))}
+                  {remainingTechnologies > 0 ? (
+                    <span className="my-1 me-2 rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700 text-[11px] dark:bg-gray-700 dark:text-gray-300">
+                      +{remainingTechnologies} more
+                    </span>
+                  ) : null}
                 </div>
               ) : null}
             </div>

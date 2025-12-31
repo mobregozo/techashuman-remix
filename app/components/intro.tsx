@@ -6,7 +6,7 @@ import { OptimizedImage } from './ui/optimized-image'
 export const Intro = () => {
   return (
     <section>
-      <div className="mx-auto my-20 grid max-w-screen-xl text-left md:mt-40 md:mb-48 lg:grid-cols-12 lg:gap-8 xl:gap-0">
+      <div className="mx-auto mt-16 mb-48 grid max-w-screen-xl text-left lg:grid-cols-12 lg:gap-8 xl:gap-0">
         <div className="mr-auto place-self-center lg:col-span-7">
           <h1 className="max-w-2xl font-extrabold text-5xl leading-none tracking-tight md:text-5xl dark:text-white">
             Tech as Human
