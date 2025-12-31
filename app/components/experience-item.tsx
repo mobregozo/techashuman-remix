@@ -31,12 +31,20 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
         >
           <line
             x1="5"
-            y1="0"
+            y1="22"
             x2="5"
             y2="100%"
             stroke="currentColor"
-            strokeWidth="1"
+            strokeWidth="2"
             strokeLinecap="round"
+          />
+          <circle
+            cx="5"
+            cy="10"
+            r="4"
+            fill="transparent"
+            stroke="currentColor"
+            strokeWidth="2"
           />
         </svg>
         <div className="flex-1">
@@ -45,10 +53,10 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
               <div className='mb-2 w-full font-semibold text-secondary-500 text-xl leading-none dark:text-primary-500'>
                 {job.role}
               </div>
-              <h2 className="mb-2 font-medium text-gray-400 text-lg leading-none dark:text-zinc-300">
+              <h2 className="mb-2 font-medium text-gray-400 text-lg leading-none dark:text-zinc-200">
                 {job.company}
               </h2>
-              <div className="text-gray-600 text-sm dark:text-zinc-400">
+              <div className=' text-gray-600 text-sm tracking-tight dark:text-zinc-300'>
                 {job.location}
               </div>
             </div>
@@ -62,7 +70,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
           </div>
           <div>
             <div key={job.role} className="mt-5">
-              <div className="my-2 text-sm text-zinc-500 dark:text-zinc-400">
+              <div className="my-2 text-zinc-500 dark:text-zinc-400">
                 <RichText block={job.projects} />
               </div>
               {technologies.length ? (
@@ -70,7 +78,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
                   {visibleTechnologies.map((tech) => (
                     <span
                       key={tech}
-                      className="my-1 me-2 rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700 text-[11px] dark:bg-gray-700 dark:text-gray-300"
+                      className='my-1 me-2 rounded-full bg-gray-100 px-2 py-0.5 font-medium text-[11px] text-gray-700 dark:bg-gray-700 dark:text-gray-300'
                     >
                       {tech}
                     </span>
