@@ -84,7 +84,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               Product-driven JavaScript engineer
             </h2>
           </div>
-          <div className="max-w-2xl space-y-1 text-gray-300 text-lg leading-relaxed">
+          <div className='max-w-2xl space-y-1 text-gray-500 text-lg leading-relaxed dark:text-gray-300'>
             <p className="">
               I build frontend platforms and I've spent a decade shipping on
               the web.

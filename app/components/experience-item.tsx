@@ -21,7 +21,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
     >
       <div className="mr-auto flex w-full items-stretch space-x-4">
         <svg
-          className="text-primary-600 dark:text-secondary-500"
+          className=" text-secondary-500"
           style={{
             position: 'sticky',
             top: '20px',
@@ -31,7 +31,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
         >
           <line
             x1="5"
-            y1="22"
+            y1="31"
             x2="5"
             y2="100%"
             stroke="currentColor"
@@ -41,26 +41,26 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
           <circle
             cx="5"
             cy="10"
-            r="4"
-            fill="transparent"
+            r="2"
+            fill="currentColor"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1"
           />
         </svg>
         <div className="flex-1">
           <div className="flex items-start justify-start align-top">
             <div className="flex flex-1 flex-col">
-              <div className='mb-2 w-full font-semibold text-secondary-500 text-xl leading-none dark:text-primary-500'>
+              <div className='mb-2 w-full font-semibold text-primary-600 text-xl leading-none'>
                 {job.role}
               </div>
-              <h2 className="mb-2 font-medium text-gray-400 text-lg leading-none dark:text-zinc-200">
+              <h2 className='mb-2 font-medium text-lg text-zinc-500 leading-none dark:text-zinc-200'>
                 {job.company}
               </h2>
               <div className=' text-gray-600 text-sm tracking-tight dark:text-zinc-300'>
                 {job.location}
               </div>
             </div>
-            <div className="mt-1 hidden items-center gap-3 whitespace-nowrap text-primary-700 text-sm md:flex dark:text-white">
+            <div className='mt-1 hidden items-center gap-3 whitespace-nowrap text-sm text-zinc-700 md:flex dark:text-white'>
               <Calendar className="size-4" />
               {job.period}
             </div>
@@ -70,7 +70,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
           </div>
           <div>
             <div key={job.role} className="mt-5">
-              <div className="my-2 text-zinc-500 dark:text-zinc-400">
+              <div className="my-2 text-zinc-600 dark:text-zinc-400">
                 <RichText block={job.projects} />
               </div>
               {technologies.length ? (
