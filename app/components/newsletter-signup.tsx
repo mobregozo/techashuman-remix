@@ -3,8 +3,8 @@ import React from "react";
 export function NewsletterSignup() {
   return (
     <div className="rounded-lg bg-primary-50 bg-primary-700/10 p-6 dark:bg-primary-900/20">
-      <h3 className="mb-2 font-semibold text-lg">Get posts in your inbox</h3>
-      <p className="mb-4 text-gray-600 text-sm dark:text-gray-400">
+      <h3 className="mb-2 font-medium text-xl">Get posts in your inbox</h3>
+      <p className="mb-4 text-gray-600 dark:text-gray-400">
         Subscribe to my Substack newsletter for the latest posts and updates.
       </p>
       <a

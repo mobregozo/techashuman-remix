@@ -79,8 +79,8 @@ export default function Index({ loaderData }: Route.ComponentProps) {
       <div className="mt-28 mb-36">
         <div className="mb-12">
           <div className="mb-8 ">
-            <h1 className="font-bold text-6xl">Hola, I'm Manu</h1>
-            <h2 className="font-semibold text-2xl text-primary-600 tracking-tight md:text-2xl dark:text-primary-500">
+            <h1 className="font-medium text-6xl">Hola, I'm Manu</h1>
+            <h2 className="mt-1 text-2xl text-primary-600 tracking-tight md:text-2xl dark:text-primary-500">
               Product-driven JavaScript engineer
             </h2>
           </div>
@@ -100,7 +100,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
       <div className="mt-12 border-gray-700/50 border-t" />
 
       <div className="mt-20 mb-12 items-center justify-between md:flex">
-        <h2 className="font-bold text-3xl text-primary-600 tracking-tighter md:text-4xl dark:text-secondary-500">
+        <h2 className="font-medium text-3xl text-primary-600 tracking-tighter md:text-5xl dark:text-secondary-500">
           Working Experience
         </h2>
         <button

@@ -25,25 +25,24 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
           <div className="flex items-center gap-x-4 text-sm">
             <time
               dateTime={formattedDate}
-              className="text-gray-700 dark:text-gray-400"
+              className="text-gray-700 dark:text-gray-300"
             >
               {formattedDate}
             </time>
           </div>
           <div className="relative flex flex-1 flex-col justify-between">
-            <h3 className="mt-3 font-medium text-2xl text-secondary-700 leading-6 group-hover:opacity-70 dark:text-secondary-500">
-              <span className="absolute inset-0" />
-              <span className="tracking-tighter">#{post.number}&nbsp;</span>
+            <h3 className='mt-3 font-medium text-2xl text-secondary-700 leading-8 group-hover:opacity-70 md:text-3xl dark:text-secondary-500'>
+              <span className="tracking-tight">#{post.number}&nbsp;</span>
               <span style={{ viewTransitionName: `${post.slug}-title` }}>
                 {" "}
               </span>
               {post.title}
             </h3>
-            <p className="mt-5 flex-1 text-gray-600 leading-6 dark:text-gray-400">
+            <p className='mt-5 flex-1 text-gray-600 text-md leading-6 dark:text-gray-400'>
               {post.subtitle}
             </p>
-            <div className="mt-2 flex items-center tracking-tighter">
-              <div className="font-medium text-primary-700 text-sm group-hover:underline dark:text-primary-500">
+            <div className="mt-2 flex items-center">
+              <div className='font-medium text-primary-700 dark:font-normal dark:text-primary-500'>
                 Read full article
               </div>
               <svg

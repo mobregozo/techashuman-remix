@@ -1,5 +1,5 @@
 import type { ArticleMetadata } from '@/utils/read-posts.server'
-import { Clock, TrendingUp } from 'lucide-react'
+import { TrendingUp } from 'lucide-react'
 import { Link } from 'react-router'
 
 interface PopularArticlesProps {
@@ -10,8 +10,8 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
   return (
     <div className="mt-20 lg:mt-0 lg:w-[288px]">
       <div className="mb-10 flex items-center lg:mb-6">
-        <TrendingUp className="mr-2 h-8 w-8 text-gray-500 dark:text-white" />
-        <h2 className="font-bold text-3xl text-gray-500 lg:text-2xl dark:text-gray-200">
+        <TrendingUp className="mr-2 h-8 w-8 text-gray-600 dark:text-gray-200" />
+        <h2 className='font-medium text-3xl text-gray-600 dark:text-gray-200'>
           Popular Articles
         </h2>
       </div>
@@ -25,15 +25,14 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
               >
                 <div>
                   <h3
-                    className="mb-1 line-clamp-2 font-semibold text-gray-500 text-xl lg:text-base dark:text-gray-300"
+                    className="mb-1 line-clamp-2 font-medium text-gray-600 text-xl lg:text-base dark:text-gray-200"
                     style={{
                       viewTransitionName: `popular-${article.slug}-title`,
                     }}
                   >
                     {article.title}
                   </h3>
-                  <div className="flex items-center text-gray-400 text-sm">
-                    <Clock className="mr-1 h-4 w-4" />
+                  <div className='flex items-center text-gray-500 text-sm dark:text-gray-400'>
                     {article.readingTime} min read
                   </div>
                 </div>

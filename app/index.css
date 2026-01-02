@@ -90,11 +90,11 @@ body {
 }
 
 .markdown-content h2 {
-  @apply text-4xl text-primary-600 dark:text-primary-500 tracking-tight;
+  @apply text-4xl text-primary-600 dark:text-primary-500 tracking-tight font-medium;
 }
 
 .markdown-content h2 strong {
-  @apply text-4xl text-primary-600 dark:text-primary-500;
+  @apply text-4xl text-primary-600 dark:text-primary-500 font-medium;
 }
 
 .markdown-content h3 {

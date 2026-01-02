@@ -48,7 +48,7 @@ export function ErrorBoundary() {
       <body className="flex h-full w-full flex-col bg-white dark:bg-zinc-900">
         <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="mb-4 font-bold text-4xl text-primary-600 dark:text-white">
+            <h1 className="mb-4 font-medium text-4xl text-primary-600 dark:text-white">
               Oops! Something went wrong
             </h1>
             <p className="mb-8 text-gray-600 dark:text-gray-300">

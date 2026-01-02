@@ -1,10 +1,10 @@
 import { PostPreview } from "@/components/post-preview";
 import {
+  HOME_OG_IMAGE_URL,
   MAIN_URL,
   SEO_DESCRIPTION,
-  TWITTER_USER,
   TWITTER_ID,
-  HOME_OG_IMAGE_URL,
+  TWITTER_USER,
 } from "@/utils/constants";
 import { getAllArticles } from "@/utils/read-posts.server";
 import { ChevronDown, LoaderCircle, Search } from "lucide-react";
@@ -93,7 +93,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         Articles
       </h2>
       <div>
-        <div className="flex items-center gap-2 py-4">
+        <div className='flex max-w-xl items-center gap-2 py-4'>
           <Form
             id="search-form"
             role="search"
@@ -126,7 +126,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           </Form>
         </div>
       </div>
-      <div className="mt-10 md:mt-16">
+      <div className='mt-10 max-w-3xl md:mt-16'>
         {visiblePosts.length ? (
           visiblePosts.map((post) => (
             <div key={post.slug} className="mb-20">

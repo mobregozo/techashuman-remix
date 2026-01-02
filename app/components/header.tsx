@@ -11,7 +11,7 @@ export const Header = () => {
   return (
     <nav className="">
       <div className="container mx-auto flex max-w-3xl justify-between px-5 py-8 text-sm lg:max-w-4xl">
-        <ul className='flex space-x-8 font-semibold text-zinc-600 dark:text-white'>
+        <ul className="flex space-x-8 font-medium text-zinc-600 tracking-wider dark:text-white">
           {navLinks.map((link) => (
             <li key={link.name} className="relative overflow-hidden">
               <NavLink
@@ -24,7 +24,7 @@ export const Header = () => {
                       {link.name}
                     </span>
                     {isActive && (
-                      <span className='absolute bottom-0 left-0 mt-2 h-0.5 w-full bg-zinc-600 dark:bg-gray-200' />
+                      <span className="absolute bottom-0 left-0 mt-2 h-0.5 w-full bg-zinc-600 dark:bg-gray-200" />
                     )}
                   </>
                 )}
@@ -35,7 +35,7 @@ export const Header = () => {
         <button className="hover:opacity-60">
           <a href="/rss.xml">
             <RssIcon
-              className="size-6 text-white"
+              className="size-6 text-zinc-600 dark:text-white "
               aria-label="get the rss xml file of the website"
             />
           </a>
