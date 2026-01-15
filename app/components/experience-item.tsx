@@ -14,7 +14,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
   return (
     <div
       key={job.period}
-      className="flex flex-col flex-nowrap py-2 md:flex-row"
+      className="group flex flex-col flex-nowrap py-2 md:flex-row"
     >
       <div className="mr-auto flex w-full items-stretch space-x-4">
         <svg
@@ -44,7 +44,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
             strokeWidth="1"
           />
         </svg>
-        <div className="flex-1">
+        <div className="flex-1 pb-16 group-last:pb-0">
           <div className="flex items-start justify-start align-top">
             <div className="flex flex-1 flex-col">
               <div className="mb-2 w-full font-medium text-primary-600 text-xl leading-none dark:text-primary-500">

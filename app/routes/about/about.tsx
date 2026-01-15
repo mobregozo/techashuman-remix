@@ -1,56 +1,56 @@
-import AboutImage from '@/assets/about.jpeg?w=80;200;400&format=webp;avif&as=picture'
-import { OptimizedImage } from '@/components/ui/optimized-image'
+import AboutImage from "@/assets/about.jpeg?w=80;200;400&format=webp;avif&as=picture";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import {
   HOME_OG_IMAGE_URL,
   MAIN_URL,
   TWITTER_ID,
   TWITTER_USER,
-} from '@/utils/constants'
-import { getJobExperiences } from '@/utils/work-experience.server'
-import { DownloadIcon } from 'lucide-react'
-import { ExperienceItem } from '../../components/experience-item'
-import { SocialMedia } from '../../components/social-media'
-import { Route } from './+types/about'
+} from "@/utils/constants";
+import { getJobExperiences } from "@/utils/work-experience.server";
+import { DownloadIcon } from "lucide-react";
+import { ExperienceItem } from "../../components/experience-item";
+import { SocialMedia } from "../../components/social-media";
+import { Route } from "./+types/about";
 
 export const meta = () => {
-  const canonicalUrl = `${MAIN_URL}/about`
+  const canonicalUrl = `${MAIN_URL}/about`;
 
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Manuel Obregozo',
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Manuel Obregozo",
     url: canonicalUrl,
     description:
-      'Product-driven JavaScript engineer. I specialize in frontend technologies, mostly React, and have spent over a decade immersed in the tech world.',
-    jobTitle: 'JavaScript Engineer',
+      "Product-driven JavaScript engineer. I specialize in frontend technologies, mostly React, and have spent over a decade immersed in the tech world.",
+    jobTitle: "JavaScript Engineer",
     knowsAbout: [
-      'React',
-      'Frontend Development',
-      'JavaScript',
-      'Web Development',
+      "React",
+      "Frontend Development",
+      "JavaScript",
+      "Web Development",
     ],
-  }
+  };
 
   return [
     {
-      'script:ld+json': structuredData,
+      "script:ld+json": structuredData,
     },
-  ]
-}
+  ];
+};
 
 export const loader = async () => {
-  const experiences = await getJobExperiences()
+  const experiences = await getJobExperiences();
 
-  return { experiences }
-}
+  return { experiences };
+};
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { experiences } = loaderData
-  const title = 'About Me | TechAsHuman'
+  const { experiences } = loaderData;
+  const title = "About Me | TechAsHuman";
   const description =
-    'Product-driven JavaScript engineer specializing in frontend technologies. Over a decade of experience in the tech world.'
-  const canonicalUrl = `${MAIN_URL}/about`
-  const image = HOME_OG_IMAGE_URL
+    "Product-driven JavaScript engineer specializing in frontend technologies. Over a decade of experience in the tech world.";
+  const canonicalUrl = `${MAIN_URL}/about`;
+  const image = HOME_OG_IMAGE_URL;
   return (
     <article>
       <title>{title}</title>
@@ -84,10 +84,10 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               Product-driven JavaScript engineer
             </h2>
           </div>
-          <div className='max-w-2xl space-y-1 text-gray-500 text-lg leading-relaxed dark:text-gray-300'>
+          <div className="max-w-2xl space-y-1 text-gray-500 text-lg leading-relaxed dark:text-gray-300">
             <p className="">
-              I build frontend platforms and I've spent a decade shipping on
-              the web.
+              I build frontend platforms and I've spent a decade shipping on the
+              web.
             </p>
             <p>
               From hands-on coding to product leadership, I've worn many hats
@@ -105,17 +105,17 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </h2>
         <button
           className="mt-4 inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-2 text-center font-medium text-sm text-zinc-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 md:mt-0 md:py-3 md:text-base dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
-          onClick={() => window.open('/assets/resume.pdf', '_blank')}
+          onClick={() => window.open("/assets/resume.pdf", "_blank")}
         >
           <DownloadIcon className="g-4 mr-2 w-4 md:h-6 md:w-6" />
           Download Resume
         </button>
       </div>
-      <div className="space-y-24">
+      <div>
         {experiences.map((job, index) => (
           <ExperienceItem key={index} job={job} index={index} />
         ))}
       </div>
     </article>
-  )
+  );
 }
