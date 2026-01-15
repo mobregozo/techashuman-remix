@@ -1,101 +1,95 @@
-import { MarkdownContent } from '@/components/markdown-content'
-import { NewsletterSignup } from '@/components/newsletter-signup'
+import { MarkdownContent } from "@/components/markdown-content";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 import {
+  HOME_OG_IMAGE_URL,
   MAIN_URL,
   POST_PATH,
   TWITTER_ID,
   TWITTER_USER,
-} from '@/utils/constants'
-import { generateArticleStructuredData } from '@/utils/generate-tags'
-import NotFound from '@/utils/not-found'
-import { getArticleContent } from '@/utils/read-posts.server'
-import { isRouteErrorResponse, useRouteError } from 'react-router'
-import { Route } from './+types/article'
+} from "@/utils/constants";
+import { generateArticleStructuredData } from "@/utils/generate-tags";
+import NotFound from "@/utils/not-found";
+import { getArticleContent } from "@/utils/read-posts.server";
+import { isRouteErrorResponse, useRouteError } from "react-router";
+import { Route } from "./+types/article";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const result = await getArticleContent(params.articleId)
+  const result = await getArticleContent(params.articleId);
 
   if (!result?.post) {
-    throw new Response('Not Found', { status: 404 })
+    throw new Response("Not Found", { status: 404 });
   }
 
   return {
     post: result.post,
-  }
+  };
 }
 
 export const meta = ({ loaderData, params }: Route.MetaArgs) => {
-  const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`
-  const post = loaderData?.post
+  const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`;
+  const post = loaderData?.post;
 
   // Handle 404 case - still need meta export for structured data
   if (!post) {
-    return []
+    return [];
   }
+
+  const title = `${post.title} | TechAsHuman`;
+  const publishedTime = post.formattedDate
+    ? new Date(post.formattedDate).toISOString()
+    : undefined;
 
   // Generate structured data
   const structuredData = generateArticleStructuredData({
     title: post.title,
     description: post.subtitle,
-    image: post.photo?.photoURL,
+    image: HOME_OG_IMAGE_URL,
     url: canonicalUrl,
-    datePublished: post.formattedDate
-      ? new Date(post.formattedDate).toISOString()
-      : undefined,
-  })
+    datePublished: publishedTime,
+  });
 
   return [
+    { title },
+    { name: "description", content: post.subtitle },
+
+    // Open Graph
+    { property: "og:type", content: "article" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:title", content: title },
+    { property: "og:description", content: post.subtitle },
+    { property: "og:image", content: HOME_OG_IMAGE_URL },
+    { property: "og:site_name", content: "Tech as Human" },
+    ...(publishedTime
+      ? [
+          { property: "article:published_time", content: publishedTime },
+          { property: "article:author", content: "Manuel Obregozo" },
+        ]
+      : []),
+
+    // Twitter
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:creator", content: TWITTER_USER },
+    { name: "twitter:site", content: TWITTER_USER },
+    { name: "twitter:creator:id", content: TWITTER_ID },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: post.subtitle },
+    { name: "twitter:image", content: HOME_OG_IMAGE_URL },
+
+    // Other
+    { name: "author", content: "Manuel Obregozo" },
+    { tagName: "link", rel: "canonical", href: canonicalUrl },
+
     {
-      'script:ld+json': structuredData,
+      "script:ld+json": structuredData,
     },
-  ]
-}
+  ];
+};
 
-export default function Index({ loaderData, params }: Route.ComponentProps) {
-  const { post } = loaderData
-
-  const title = `${post.title} | TechAsHuman`
-  const canonicalUrl = `${MAIN_URL}/${POST_PATH}/${params.articleId}`
-  const publishedTime = post.formattedDate
-    ? new Date(post.formattedDate).toISOString()
-    : undefined
+export default function Index({ loaderData }: Route.ComponentProps) {
+  const { post } = loaderData;
 
   return (
     <article className="space-y-10">
-      <title>{title}</title>
-      <meta name="description" content={post.subtitle} />
-
-      {/* Open Graph */}
-      <meta property="og:type" content="article" />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={post.subtitle} />
-      {post.photo?.photoURL && (
-        <meta property="og:image" content={post.photo.photoURL} />
-      )}
-      <meta property="og:site_name" content="Tech as Human" />
-      {publishedTime && (
-        <>
-          <meta property="article:published_time" content={publishedTime} />
-          <meta property="article:author" content="Manuel Obregozo" />
-        </>
-      )}
-
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content={TWITTER_USER} />
-      <meta name="twitter:site" content={TWITTER_USER} />
-      <meta name="twitter:creator:id" content={TWITTER_ID} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={post.subtitle} />
-      {post.photo?.photoURL && (
-        <meta name="twitter:image" content={post.photo.photoURL} />
-      )}
-
-      {/* Other */}
-      <meta name="author" content="Manuel Obregozo" />
-      <link rel="canonical" href={canonicalUrl} />
-
       <header className="space-y-6 border-0 bg-white/70 py-6 shadow-none backdrop-blur dark:bg-zinc-900/60">
         <h1
           className="font-medium text-4xl text-secondary-700 tracking-tight md:text-6xl dark:text-secondary-500"
@@ -118,12 +112,12 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
             type="button"
             href={post.linkToShareTwitter}
             aria-label="Share on X"
-            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
+            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="#000000"
-              className='size-6 fill-current md:size-3'
+              className="size-6 fill-current md:size-3"
               viewBox="0 0 16 16"
             >
               <path
@@ -137,7 +131,7 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
             type="button"
             href={post.linkToShareLinkedin}
             aria-label="Share on Linkedin"
-            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
+            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
           >
             <svg
               viewBox="0 0 24 24"
@@ -155,7 +149,7 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
             type="button"
             href={post.linkToShareBluesky}
             aria-label="Share on Bluesky"
-            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center font-medium text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
+            className="inline-flex items-center justify-center rounded-lg border-0 border-gray-200 px-3 py-2.5 text-center text-sm text-zinc-500 hover:opacity-80 focus:outline-none focus:ring-4 md:border md:px-5 dark:text-white"
           >
             <svg
               width="24"
@@ -172,14 +166,14 @@ export default function Index({ loaderData, params }: Route.ComponentProps) {
           </a>
         </div>
       </header>
-      <MarkdownContent content={post.content || ''} className="mb-24" />
+      <MarkdownContent content={post.content || ""} className="mb-24" />
       <NewsletterSignup />
     </article>
-  )
+  );
 }
 
 export function ErrorBoundary() {
-  const error = useRouteError()
+  const error = useRouteError();
 
   if (isRouteErrorResponse(error) && error.status === 404) {
     return (
@@ -191,8 +185,8 @@ export function ErrorBoundary() {
         />
         <NotFound />
       </>
-    )
+    );
   }
 
-  throw error
+  throw error;
 }

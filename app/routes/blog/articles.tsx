@@ -23,7 +23,11 @@ export async function loader({ request }: { request: Request }) {
 }
 
 export const meta = () => {
+  const title = "Articles | TechAsHuman";
+  const description =
+    "Explore articles on Tech as Human, covering technology, software engineering, and human perspectives.";
   const canonicalUrl = `${MAIN_URL}/blog`;
+  const image = HOME_OG_IMAGE_URL;
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -35,6 +39,21 @@ export const meta = () => {
   };
 
   return [
+    { title },
+    { name: "description", content: description },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:image", content: image },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: TWITTER_USER },
+    { name: "twitter:creator", content: TWITTER_USER },
+    { name: "twitter:creator:id", content: TWITTER_ID },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
+    { tagName: "link", rel: "canonical", href: canonicalUrl },
     {
       "script:ld+json": structuredData,
     },
@@ -45,12 +64,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
   const { posts, q } = loaderData;
   const navigation = useNavigation();
   const submit = useSubmit();
-
-  const title = "Articles | TechAsHuman";
-  const description =
-    "Explore articles on Tech as Human, covering technology, software engineering, and human perspectives.";
-  const canonicalUrl = `${MAIN_URL}/blog`;
-  const image = HOME_OG_IMAGE_URL;
 
   const searching =
     navigation.location &&
@@ -73,27 +86,11 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:image" content={image} />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content={TWITTER_USER} />
-      <meta name="twitter:creator" content={TWITTER_USER} />
-      <meta name="twitter:creator:id" content={TWITTER_ID} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-      <link rel="canonical" href={canonicalUrl} />
-
       <h2 className="mb-10 font-medium text-4xl text-primary-700 tracking-tight md:mb-24 md:text-6xl dark:text-white">
         Articles
       </h2>
       <div>
-        <div className='flex max-w-xl items-center gap-2 py-4'>
+        <div className="flex max-w-xl items-center gap-2 py-4">
           <Form
             id="search-form"
             role="search"
@@ -126,7 +123,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           </Form>
         </div>
       </div>
-      <div className='mt-10 max-w-3xl md:mt-16'>
+      <div className="mt-10 max-w-3xl md:mt-16">
         {visiblePosts.length ? (
           visiblePosts.map((post) => (
             <div key={post.slug} className="mb-20">

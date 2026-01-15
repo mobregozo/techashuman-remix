@@ -28,7 +28,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           <div className="my-10">
             <Footer />
           </div>
-          <h2 className="mt-16 mb-8 font-semibold text-4xl text-primary-600 tracking-tighter md:mt-24 md:mb-18 md:text-5xl dark:text-white">
+          <h2 className="mt-16 mb-8 font-medium text-4xl text-primary-600 tracking-tight md:mt-24 md:mb-18 md:text-5xl dark:text-white">
             Other articles
           </h2>
           <div className="md:mt-12">{postPreviews}</div>

@@ -1,18 +1,15 @@
-import { JobExperience } from '@/utils/work-experience.server'
-import { Calendar } from 'lucide-react'
-import { RichText } from './post-rich-text'
+import { JobExperience } from "@/utils/work-experience.server";
+import { RichText } from "./post-rich-text";
 
 type ExperienceItemProps = {
-  job: JobExperience
-  index: number
-}
+  job: JobExperience;
+  index: number;
+};
 
 export const ExperienceItem = ({ job }: ExperienceItemProps) => {
   const technologies = job.technologies
-    ? job.technologies.split(',').map((tech) => tech.trim())
-    : []
-  const visibleTechnologies = technologies.slice(0, 6)
-  const remainingTechnologies = technologies.length - visibleTechnologies.length
+    ? job.technologies.split(",").map((tech) => tech.trim())
+    : [];
 
   return (
     <div
@@ -23,10 +20,10 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
         <svg
           className=" text-secondary-500"
           style={{
-            position: 'sticky',
-            top: '20px',
-            width: '10px',
-            overflow: 'visible',
+            position: "sticky",
+            top: "20px",
+            width: "10px",
+            overflow: "visible",
           }}
         >
           <line
@@ -50,7 +47,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
         <div className="flex-1">
           <div className="flex items-start justify-start align-top">
             <div className="flex flex-1 flex-col">
-              <div className='mb-2 w-full font-medium text-primary-600 text-xl leading-none dark:text-primary-500'>
+              <div className="mb-2 w-full font-medium text-primary-600 text-xl leading-none dark:text-primary-500">
                 {job.role}
               </div>
               <h2 className="mb-2 font-medium text-lg text-zinc-500 leading-none dark:text-zinc-200">
@@ -61,7 +58,6 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
               </div>
             </div>
             <div className="hidden items-center gap-3 whitespace-nowrap text-sm text-zinc-700 md:flex dark:text-white">
-              <Calendar className="size-4" />
               {job.period}
             </div>
           </div>
@@ -75,19 +71,14 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
               </div>
               {technologies.length ? (
                 <div className="mt-3 flex flex-wrap text-gray-600 text-xs dark:text-zinc-300">
-                  {visibleTechnologies.map((tech) => (
+                  {technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="my-1 me-2 rounded-full bg-gray-100 px-2 py-0.5 font-medium text-[11px] text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                      className="my-1 me-2 rounded-full bg-gray-100 px-2 py-0.5 font-light text-gray-700 text-xs tracking-wider dark:bg-gray-700 dark:text-gray-300"
                     >
                       {tech}
                     </span>
                   ))}
-                  {remainingTechnologies > 0 ? (
-                    <span className="my-1 me-2 rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700 text-[11px] dark:bg-gray-700 dark:text-gray-300">
-                      +{remainingTechnologies} more
-                    </span>
-                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -95,5 +86,5 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
