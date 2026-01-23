@@ -44,7 +44,7 @@ export const ExperienceItem = ({ job }: ExperienceItemProps) => {
             strokeWidth="1"
           />
         </svg>
-        <div className="flex-1 pb-16 group-last:pb-0">
+        <div className="flex-1 pb-20 group-last:pb-0">
           <div className="flex items-start justify-start align-top">
             <div className="flex flex-1 flex-col">
               <div className="mb-2 w-full font-medium text-primary-600 text-xl leading-none dark:text-primary-500">
