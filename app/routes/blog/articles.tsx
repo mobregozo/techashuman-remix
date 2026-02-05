@@ -14,10 +14,10 @@ import type { Route } from "./+types/articles";
 
 const POSTS_PER_PAGE = 10;
 
-export async function loader({ request }: { request: Request }) {
+export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
-  const posts = await getAllArticles(q);
+  const posts = await getAllArticles(q, { includePhotos: false });
 
   return { posts, q };
 }

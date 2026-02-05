@@ -80,7 +80,7 @@ async function getArticlesMetaData(
   articles: PageObjectResponse[],
   options?: { includePhotos?: boolean }
 ) {
-  const includePhotos = options?.includePhotos !== false;
+  const includePhotos = options?.includePhotos === true;
   const results = await Promise.all(
     articles.map(async (blog: PageObjectResponse) => {
       const photoId = getStringProperty(blog.properties, "photoId");
