@@ -5,10 +5,7 @@ import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoint
 import { marked } from "marked";
 import { NotionToMarkdown } from "notion-to-md";
 import { setupNotionTransformers } from "./notion-transformers";
-import {
-  fetchPhotoMetadata,
-  type UnsplashPhotoResponse,
-} from "./unsplash-client";
+
 import { generateShareUrls } from "./social-share-urls";
 import {
   getStringProperty,
@@ -22,20 +19,20 @@ import {
   queryArticlesBySlugs,
   queryArticlesWithSearch,
 } from "./notion-queries";
-import { extractPhotoUrls } from "./photo-utils";
-
-export type { UnsplashPhotoResponse };
 
 export type ArticleMetadata = {
-  photoWebp: string | null;
-  photoWebpSmall: string | null;
-  photoWebpThumb: string | null;
   title: string;
   slug: string;
   date: string;
   subtitle: string;
   number: number;
   readingTime: number;
+};
+
+export type ArticlesPage = {
+  articles: ArticleMetadata[];
+  nextCursor: string | null;
+  hasMore: boolean;
 };
 
 export type PostGeneratedProps = {
@@ -45,16 +42,10 @@ export type PostGeneratedProps = {
   subtitle: string;
   readingTime: string;
   formattedDate: string;
-  photoWebp?: string | null;
-  photoWebpSmall?: string | null;
-  photoWebpThumb?: string | null;
-  authorProfileURL: string;
   content: string;
   linkToShareTwitter: string;
   linkToShareLinkedin: string;
   linkToShareBluesky: string;
-  photoAuthor: string;
-  blueskyId: string | undefined;
 };
 
 export type PostContent = {
@@ -76,35 +67,17 @@ setupNotionTransformers(n2m);
 /**
  * Fetches metadata for multiple articles and enriches with photo URLs
  */
-async function getArticlesMetaData(
-  articles: PageObjectResponse[],
-  options?: { includePhotos?: boolean }
-) {
-  const includePhotos = options?.includePhotos === true;
-  const results = await Promise.all(
-    articles.map(async (blog: PageObjectResponse) => {
-      const photoId = getStringProperty(blog.properties, "photoId");
-      let photo = null;
-
-      if (includePhotos && photoId) {
-        photo = await fetchPhotoMetadata(photoId);
-      }
-
-      const photoUrls = extractPhotoUrls(photo);
-
-      return {
-        photoWebp: photoUrls?.photoWebp ?? null,
-        photoWebpSmall: photoUrls?.photoWebp?.replace("w=800", "w=200") ?? null,
-        photoWebpThumb: photoUrls?.photoWebp?.replace("w=800", "w=100") ?? null,
-        title: getStringProperty(blog.properties, "title") ?? "",
-        slug: getStringProperty(blog.properties, "slug") ?? "",
-        date: getDateProperty(blog.properties, "date") ?? "",
-        subtitle: getStringProperty(blog.properties, "subtitle") ?? "",
-        number: getNumberProperty(blog.properties, "number") ?? 0,
-        readingTime: getNumberProperty(blog.properties, "readingTime") ?? 0,
-      };
-    })
-  );
+function getArticlesMetaData(articles: PageObjectResponse[]) {
+  const results = articles.map((blog: PageObjectResponse) => {
+    return {
+      title: getStringProperty(blog.properties, "title") ?? "",
+      slug: getStringProperty(blog.properties, "slug") ?? "",
+      date: getDateProperty(blog.properties, "date") ?? "",
+      subtitle: getStringProperty(blog.properties, "subtitle") ?? "",
+      number: getNumberProperty(blog.properties, "number") ?? 0,
+      readingTime: getNumberProperty(blog.properties, "readingTime") ?? 0,
+    };
+  });
 
   return results;
 }
@@ -117,11 +90,11 @@ export async function getArticleMetaData(slug: string) {
     const response = await queryArticleBySlug(
       notion,
       process.env.NOTION_DATABASE as string,
-      slug
+      slug,
     );
 
     const page = response.results.find(
-      (result): result is PageObjectResponse => result.object === "page"
+      (result): result is PageObjectResponse => result.object === "page",
     );
 
     if (!page) {
@@ -135,7 +108,6 @@ export async function getArticleMetaData(slug: string) {
       id: page.id,
       readingTime: getNumberProperty(pageData, "readingTime"),
       formattedDate: dateString ? formatDate(dateString) : null,
-      photoId: getStringProperty(pageData, "photoId"),
       title: getStringProperty(pageData, "title"),
       slug: getStringProperty(pageData, "slug"),
       subtitle: getStringProperty(pageData, "subtitle"),
@@ -162,11 +134,7 @@ export async function getArticleContent(slug: string) {
     const title = metaData.title ?? "";
     const pageSlug = metaData.slug ?? "";
 
-    // Fetch markdown and photo metadata in PARALLEL at build time
-    const [mdblocks, photoMetadata] = await Promise.all([
-      n2m.pageToMarkdown(metaData.id),
-      fetchPhotoMetadata(metaData.photoId),
-    ]);
+    const mdblocks = await n2m.pageToMarkdown(metaData.id);
 
     const mdString = n2m.toMarkdownString(mdblocks);
     const htmlContent = marked(mdString.parent) as string;
@@ -186,7 +154,6 @@ export async function getArticleContent(slug: string) {
         linkToShareBluesky: shareUrls.bluesky,
         linkToShareLinkedin: shareUrls.linkedin,
         linkToShareTwitter: shareUrls.twitter,
-        photo: extractPhotoUrls(photoMetadata),
       },
     };
   } catch (error) {
@@ -203,11 +170,11 @@ export async function getLatestArticles(slug?: string) {
     const response = await queryPublishedArticles(
       notion,
       process.env.NOTION_DATABASE as string,
-      { excludeSlug: slug, pageSize: 5 }
+      { excludeSlug: slug, pageSize: 5 },
     );
 
     const pages = response.results.filter(
-      (result): result is PageObjectResponse => result.object === "page"
+      (result): result is PageObjectResponse => result.object === "page",
     );
 
     return getArticlesMetaData(pages);
@@ -225,11 +192,11 @@ export async function getArticlesBySlugs(slugs: string[]) {
     const response = await queryArticlesBySlugs(
       notion,
       process.env.NOTION_DATABASE as string,
-      slugs
+      slugs,
     );
 
     const pages = response.results.filter(
-      (result): result is PageObjectResponse => result.object === "page"
+      (result): result is PageObjectResponse => result.object === "page",
     );
 
     return getArticlesMetaData(pages);
@@ -244,22 +211,56 @@ export async function getArticlesBySlugs(slugs: string[]) {
  */
 export async function getAllArticles(
   q?: string | null,
-  options?: { includePhotos?: boolean }
+  options?: { includePhotos?: boolean },
 ): Promise<ArticleMetadata[]> {
   try {
     const response = await queryArticlesWithSearch(
       notion,
       process.env.NOTION_DATABASE as string,
-      q
+      q,
+      undefined,
     );
 
     const pages = response.results.filter(
-      (result): result is PageObjectResponse => result.object === "page"
+      (result): result is PageObjectResponse => result.object === "page",
     );
 
-    return getArticlesMetaData(pages, options);
+    return getArticlesMetaData(pages);
   } catch (error) {
     console.error("Error getting all articles:", error);
     return [];
+  }
+}
+
+/**
+ * Fetches a single page of articles using Notion cursor pagination
+ */
+export async function getArticlesPage(
+  q?: string | null,
+  options?: { startCursor?: string | null; pageSize?: number },
+): Promise<ArticlesPage> {
+  try {
+    const response = await queryArticlesWithSearch(
+      notion,
+      process.env.NOTION_DATABASE as string,
+      q,
+      {
+        startCursor: options?.startCursor ?? null,
+        pageSize: options?.pageSize,
+      },
+    );
+
+    const pages = response.results.filter(
+      (result): result is PageObjectResponse => result.object === "page",
+    );
+
+    return {
+      articles: getArticlesMetaData(pages),
+      nextCursor: response.next_cursor ?? null,
+      hasMore: response.has_more,
+    };
+  } catch (error) {
+    console.error("Error getting paged articles:", error);
+    return { articles: [], nextCursor: null, hasMore: false };
   }
 }

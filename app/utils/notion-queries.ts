@@ -7,7 +7,7 @@ import type { Client } from "@notionhq/client";
 export async function queryArticleBySlug(
   client: Client,
   databaseId: string,
-  slug: string
+  slug: string,
 ) {
   return client.databases.query({
     database_id: databaseId,
@@ -26,7 +26,7 @@ export async function queryPublishedArticles(
   options?: {
     excludeSlug?: string;
     pageSize?: number;
-  }
+  },
 ) {
   return client.databases.query({
     database_id: databaseId,
@@ -69,7 +69,7 @@ export async function queryPublishedArticles(
 export async function queryArticlesBySlugs(
   client: Client,
   databaseId: string,
-  slugs: string[]
+  slugs: string[],
 ) {
   const orSlugs = slugs.map((slug) => ({
     property: "slug",
@@ -105,10 +105,17 @@ export async function queryArticlesBySlugs(
 export async function queryArticlesWithSearch(
   client: Client,
   databaseId: string,
-  query?: string | null
+  query?: string | null,
+  options?: {
+    startCursor?: string | null;
+    pageSize?: number;
+  },
 ) {
   return client.databases.query({
     database_id: databaseId,
+    ...(options?.startCursor ? { start_cursor: options.startCursor } : {}),
+    ...(options?.pageSize ? { page_size: options.pageSize } : {}),
+
     filter: {
       and: [
         {
