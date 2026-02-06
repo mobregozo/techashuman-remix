@@ -1,5 +1,3 @@
-import AboutImage from "@/assets/about.jpeg?w=80;200;400&format=webp;avif&as=picture";
-import { OptimizedImage } from "@/components/ui/optimized-image";
 import {
   HOME_OG_IMAGE_URL,
   MAIN_URL,
@@ -10,7 +8,7 @@ import { getJobExperiences } from "@/utils/work-experience.server";
 import { DownloadIcon } from "lucide-react";
 import { ExperienceItem } from "../../components/experience-item";
 import { SocialMedia } from "../../components/social-media";
-import { Route } from "./+types/about";
+import type { Route } from "./+types/about";
 
 export const meta = () => {
   const canonicalUrl = `${MAIN_URL}/about`;
