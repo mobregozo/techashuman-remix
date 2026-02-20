@@ -2,7 +2,6 @@ import { PostPreview } from "@/components/post-preview";
 import {
   HOME_OG_IMAGE_URL,
   MAIN_URL,
-  SEO_DESCRIPTION,
   TWITTER_ID,
   TWITTER_USER,
 } from "@/utils/constants";
@@ -140,7 +139,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
               to={
                 query
                   ? `/blog?q=${encodeURIComponent(query)}&cursor=${encodeURIComponent(
-                      nextCursor
+                      nextCursor,
                     )}`
                   : `/blog?cursor=${encodeURIComponent(nextCursor)}`
               }
