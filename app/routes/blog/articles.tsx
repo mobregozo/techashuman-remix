@@ -7,9 +7,25 @@ import {
 } from "@/utils/constants";
 import { getArticlesPage } from "@/utils/read-posts.server";
 import { ChevronDown, LoaderCircle, Search } from "lucide-react";
-import { useRef } from "react";
 import { Form, Link, useNavigation, useSearchParams } from "react-router";
+import type { ShouldRevalidateFunctionArgs } from "react-router";
 import type { Route } from "./+types/articles";
+
+export function headers() {
+  return { "Cache-Control": "public, max-age=300, s-maxage=3600" };
+}
+
+export function shouldRevalidate({
+  currentUrl,
+  nextUrl,
+  defaultShouldRevalidate,
+}: ShouldRevalidateFunctionArgs) {
+  // Skip revalidation if search params haven't changed
+  if (currentUrl.search === nextUrl.search) {
+    return false;
+  }
+  return defaultShouldRevalidate;
+}
 
 const POSTS_PER_PAGE = 10;
 

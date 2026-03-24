@@ -1,7 +1,15 @@
-import type { EntryContext } from "react-router";
+import type { EntryContext, HandleErrorFunction } from "react-router";
 import { ServerRouter } from "react-router";
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
+
+export const streamTimeout = 10_000;
+
+export const handleError: HandleErrorFunction = (error, { request }) => {
+  if (!request.signal.aborted) {
+    console.error(error);
+  }
+};
 
 export default async function handleRequest(
   request: Request,
@@ -10,8 +18,6 @@ export default async function handleRequest(
   entryContext: EntryContext
 ) {
   const userAgent = request.headers.get("user-agent");
-
-  // Detect if the request is from a bot/crawler
   const isBot = userAgent ? isbot(userAgent) : false;
 
   const body = await renderToReadableStream(

@@ -1,5 +1,6 @@
 import { MarkdownContent } from "@/components/markdown-content";
 import { NewsletterSignup } from "@/components/newsletter-signup";
+import { PostPreview } from "@/components/post-preview";
 import {
   HOME_OG_IMAGE_URL,
   MAIN_URL,
@@ -9,12 +10,17 @@ import {
 } from "@/utils/constants";
 import { generateArticleStructuredData } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
-import { getArticleContent } from "@/utils/read-posts.server";
+import { getArticleContent, getLatestArticles } from "@/utils/read-posts.server";
+import { ChevronRight } from "lucide-react";
 import { isRouteErrorResponse, useRouteError } from "react-router";
+import { Link } from "react-router";
 import { Route } from "./+types/article";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const result = await getArticleContent(params.articleId);
+  const [result, latestPosts] = await Promise.all([
+    getArticleContent(params.articleId),
+    getLatestArticles(params.articleId),
+  ]);
 
   if (!result?.post) {
     throw new Response("Not Found", { status: 404 });
@@ -22,6 +28,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 
   return {
     post: result.post,
+    latestPosts,
   };
 }
 
@@ -86,7 +93,7 @@ export const meta = ({ loaderData, params }: Route.MetaArgs) => {
 };
 
 export default function Index({ loaderData }: Route.ComponentProps) {
-  const { post } = loaderData;
+  const { post, latestPosts } = loaderData;
 
   return (
     <article className="space-y-10">
@@ -168,6 +175,27 @@ export default function Index({ loaderData }: Route.ComponentProps) {
       </header>
       <MarkdownContent content={post.content || ""} className="mb-24" />
       <NewsletterSignup />
+      {latestPosts.length > 0 && (
+        <section>
+          <h2 className="mt-16 mb-8 font-medium text-4xl text-primary-600 tracking-tight md:mt-24 md:text-5xl dark:text-white">
+            Other articles
+          </h2>
+          <div className="md:mt-12">
+            {latestPosts.map((p) => (
+              <div key={p.slug} className="mb-12 pb-4">
+                <PostPreview post={p} />
+              </div>
+            ))}
+          </div>
+          <Link
+            to="/blog"
+            className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-base text-zinc-600 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 dark:hover:bg-gray-700"
+          >
+            View all articles
+            <ChevronRight className="ml-2 h-6 w-6" />
+          </Link>
+        </section>
+      )}
     </article>
   );
 }

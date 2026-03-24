@@ -15,6 +15,7 @@ export const PostPreview = ({ post }: PostPreviewProps) => {
       to={href("/blog/:articleId", {
         articleId: post.slug,
       })}
+      prefetch="intent"
       viewTransition
     >
       <article

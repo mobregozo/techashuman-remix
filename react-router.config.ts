@@ -13,8 +13,6 @@ export default {
       "/",
       "/about",
       "/robots.txt",
-      "/sitemap.xml",
-
       "/llms.txt",
       ...allArticlesPages,
     ];

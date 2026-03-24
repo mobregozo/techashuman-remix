@@ -9,6 +9,7 @@ export const loader: LoaderFunction = async () => {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
       'x-content-type-options': 'nosniff',
+      'Cache-Control': 'public, max-age=600, s-maxage=86400',
     },
   })
 }
@@ -61,12 +62,5 @@ const renderItem = (article: ArticleMetadata) => {
                 day: '2-digit',
               }).format(new Date(article.date)),
             ).toISOString()}</pubDate>
-            ${
-              article.photoWebpThumb
-                ? `<enclosure url="${escapeXml(
-                    article.photoWebpThumb,
-                  )}" type="image/jpeg" />`
-                : ''
-            }
         </item>`
 }

@@ -11,6 +11,7 @@ export function generateArticleStructuredData({
   image,
   url,
   datePublished,
+  dateModified,
   author = "Manuel Obregozo",
 }: {
   title: string;
@@ -18,6 +19,7 @@ export function generateArticleStructuredData({
   image?: string;
   url: string;
   datePublished?: string;
+  dateModified?: string;
   author?: string;
 }) {
   return {
@@ -32,10 +34,16 @@ export function generateArticleStructuredData({
       url: "https://www.techashuman.com/about",
     },
     publisher: {
-      "@type": "Person",
-      name: author,
+      "@type": "Organization",
+      name: "Tech as Human",
+      url: "https://www.techashuman.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.techashuman.com/assets/og-image.png",
+      },
     },
     datePublished,
+    dateModified: dateModified ?? datePublished,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": url,

@@ -19,13 +19,33 @@ import {
 } from "../utils/read-posts.server";
 import type { Route } from "./+types/home";
 
+export function headers() {
+  return { "Cache-Control": "public, max-age=300, s-maxage=3600" };
+}
+
 export const meta = () => {
-  const structuredData = generateWebsiteStructuredData();
+  const title = "Home | TechAsHuman";
+  const canonicalUrl = MAIN_URL;
 
   return [
-    {
-      "script:ld+json": structuredData,
-    },
+    { title },
+    { name: "description", content: SEO_DESCRIPTION },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: canonicalUrl },
+    { property: "og:title", content: title },
+    { property: "og:description", content: SEO_DESCRIPTION },
+    { property: "og:image", content: HOME_OG_IMAGE_URL },
+    { property: "og:site_name", content: "Tech as Human" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:creator", content: TWITTER_USER },
+    { name: "twitter:site", content: TWITTER_USER },
+    { name: "twitter:creator:id", content: TWITTER_ID },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: SEO_DESCRIPTION },
+    { name: "twitter:image", content: HOME_OG_IMAGE_URL },
+    { name: "author", content: "Manuel Obregozo" },
+    { tagName: "link", rel: "canonical", href: canonicalUrl },
+    { "script:ld+json": generateWebsiteStructuredData() },
   ];
 };
 
@@ -70,11 +90,7 @@ export const loader = async () => {
 export default function Index({ loaderData }: Route.ComponentProps) {
   const { latestArticles, popularArticles, lastArticle } = loaderData;
 
-  const title = "Home | TechAsHuman";
-  const description = SEO_DESCRIPTION;
-  const image = HOME_OG_IMAGE_URL;
-
-  const latestArticlesPreviews = latestArticles.map((post) => (
+  const latestArticlesPreviews = latestArticles.map((post: ArticleMetadata) => (
     <div key={post.slug} className="mb-16">
       <PostPreview post={post as ArticleMetadata} />
     </div>
@@ -82,29 +98,6 @@ export default function Index({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-
-      {/* Open Graph */}
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={MAIN_URL} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
-      <meta property="og:site_name" content="Tech as Human" />
-
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content={TWITTER_USER} />
-      <meta name="twitter:site" content={TWITTER_USER} />
-      <meta name="twitter:creator:id" content={TWITTER_ID} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-
-      {/* Other */}
-      <meta name="author" content="Manuel Obregozo" />
-      <link rel="canonical" href={MAIN_URL} />
 
       <Intro />
       <div className="mt-10 items-stretch justify-between lg:flex lg:gap-16">
