@@ -10,7 +10,7 @@ export const Header = () => {
 
   return (
     <nav className="">
-      <div className="container mx-auto flex max-w-3xl justify-between px-5 py-8 text-sm lg:max-w-4xl">
+      <div className="container mx-auto flex max-w-3xl justify-between px-5 py-8 text-sm lg:max-w-5xl">
         <ul className="flex space-x-8 font-medium text-zinc-600 tracking-wider dark:text-white">
           {navLinks.map((link) => (
             <li key={link.name} className="relative overflow-hidden">

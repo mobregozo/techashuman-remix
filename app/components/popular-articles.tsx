@@ -1,23 +1,23 @@
-import type { ArticleMetadata } from '@/utils/read-posts.server'
-import { TrendingUp } from 'lucide-react'
-import { Link } from 'react-router'
+import type { ArticleMetadata } from "@/utils/read-posts.server";
+import { TrendingUp } from "lucide-react";
+import { Link } from "react-router";
 
 interface PopularArticlesProps {
-  articles: ArticleMetadata[]
+  articles: ArticleMetadata[];
 }
 
 export function PopularArticles({ articles }: PopularArticlesProps) {
   return (
-    <div className="mt-20 lg:mt-0 lg:w-[288px]">
+    <div className="lg:mt-0 lg:w-[288px]">
       <div className="mb-10 flex items-center lg:mb-6">
         <TrendingUp className="mr-2 h-8 w-8 text-gray-600 dark:text-gray-200" />
-        <h2 className='font-medium text-3xl text-gray-600 dark:text-gray-200'>
+        <h2 className="font-medium text-3xl text-gray-600 dark:text-gray-200">
           Popular Articles
         </h2>
       </div>
-      <div className="space-y-10 lg:space-y-6">
+      <ul className="space-y-8 lg:space-y-6">
         {articles.map((article) => (
-          <div key={article.slug}>
+          <li key={article.slug} className="mb-5">
             <Link to={`/blog/${article.slug}`} viewTransition className="group">
               <article
                 key={article.slug}
@@ -25,22 +25,23 @@ export function PopularArticles({ articles }: PopularArticlesProps) {
               >
                 <div>
                   <h3
-                    className="mb-1 line-clamp-2 font-medium text-gray-600 text-xl lg:text-base dark:text-gray-200"
+                    className="mb-1 line-clamp-2 text-gray-600 text-xl lg:font-medium lg:text-xl dark:text-zinc-400"
                     style={{
                       viewTransitionName: `popular-${article.slug}-title`,
                     }}
                   >
+                    <span className="inline pr-4 lg:hidden">&bull;</span>
                     {article.title}
                   </h3>
-                  <div className='flex items-center text-gray-500 text-sm dark:text-gray-400'>
+                  <div className="hidden items-center text-gray-500 text-sm lg:flex dark:text-gray-300">
                     {article.readingTime} min read
                   </div>
                 </div>
               </article>
             </Link>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
-  )
+  );
 }

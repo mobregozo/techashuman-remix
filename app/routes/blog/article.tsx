@@ -10,7 +10,10 @@ import {
 } from "@/utils/constants";
 import { generateArticleStructuredData } from "@/utils/generate-tags";
 import NotFound from "@/utils/not-found";
-import { getArticleContent, getLatestArticles } from "@/utils/read-posts.server";
+import {
+  getArticleContent,
+  getLatestArticles,
+} from "@/utils/read-posts.server";
 import { ChevronRight } from "lucide-react";
 import { isRouteErrorResponse, useRouteError } from "react-router";
 import { Link } from "react-router";
@@ -91,6 +94,12 @@ export const meta = ({ loaderData, params }: Route.MetaArgs) => {
     },
   ];
 };
+
+export function headers() {
+  return {
+    "Cache-Control": "public, max-age=3600, s-maxage=86400",
+  };
+}
 
 export default function Index({ loaderData }: Route.ComponentProps) {
   const { post, latestPosts } = loaderData;
@@ -173,7 +182,27 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           </a>
         </div>
       </header>
-      <MarkdownContent content={post.content || ""} className="mb-24" />
+      <div className="flex">
+        <MarkdownContent content={post.content || ""} className="mb-24" />
+        <div className="hidden w-64 shrink-0 pl-8 lg:block">
+          <div className="sticky top-24">
+            <p className="mb-3 font-medium text-xs text-zinc-400 uppercase tracking-[0.2em] dark:text-zinc-500">
+              Table of content
+            </p>
+            <nav className="toc relative space-y-1 border-zinc-200 border-l [scroll-target-group:auto] after:absolute after:left-[-1px] after:h-7 after:w-px after:bg-primary-600 after:content-[''] dark:border-zinc-800">
+              {post.headings.map((heading) => (
+                <a
+                  key={heading.id}
+                  href={`#${heading.id}`}
+                  className="block py-1 pl-4 text-sm text-zinc-500 transition-colors hover:text-zinc-900 focus:text-primary-600 dark:text-zinc-400 dark:focus:text-primary-400 dark:hover:text-zinc-100"
+                >
+                  {heading.text}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      </div>
       <NewsletterSignup />
       {latestPosts.length > 0 && (
         <section>

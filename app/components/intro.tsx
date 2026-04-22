@@ -33,6 +33,7 @@ export const Intro = () => {
             image={homeImage}
             alt="Homepage illustration"
             className="mt-6 h-auto w-28 md:mt-0 md:w-72"
+            loading="eager"
           />
         </div>
       </div>

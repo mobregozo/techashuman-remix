@@ -8,6 +8,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preload" href="/assets/Geist-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//plausible.io" />
+        <link rel="dns-prefetch" href="//techashuman.substack.com" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <link rel="alternate" type="application/rss+xml" title="Tech as Human" href="/rss.xml" />
         <Meta />
         <Links />
         <script
@@ -38,7 +43,7 @@ export default function App() {
         <div className="fixed top-0 left-0 z-50 h-1 w-full animate-pulse bg-primary-500" />
       )}
       <Header />
-      <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 text-zinc-600 md:py-16 lg:max-w-4xl dark:text-white">
+      <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 text-zinc-600 md:py-16 lg:max-w-5xl dark:text-white">
         <Outlet />
       </div>
     </main>
@@ -48,7 +53,7 @@ export default function App() {
 export function ErrorBoundary() {
   return (
     <div className="flex h-full w-full flex-col bg-white dark:bg-zinc-900">
-      <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-4xl dark:text-white">
+      <div className="container relative z-40 mx-auto max-w-3xl px-5 py-8 md:py-16 lg:max-w-5xl dark:text-white">
         <div className="flex flex-col items-center justify-center text-center">
           <h1 className="mb-4 font-medium text-4xl text-primary-600 dark:text-white">
             Oops! Something went wrong

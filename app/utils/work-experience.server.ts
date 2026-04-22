@@ -1,5 +1,5 @@
 import { Client } from '@notionhq/client'
-import { RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints'
+import type { RichTextItemResponse } from '@notionhq/client'
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -17,8 +17,8 @@ export type JobExperience = {
 
 // Function to get job experiences from Notion
 export async function getJobExperiences(): Promise<JobExperience[]> {
-  const response = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_EXPERIENCE as string,
+  const response = await notion.dataSources.query({
+    data_source_id: process.env.NOTION_DATABASE_EXPERIENCE as string,
     sorts: [
       {
         property: 'number',

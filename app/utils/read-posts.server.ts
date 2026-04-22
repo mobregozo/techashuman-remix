@@ -1,10 +1,9 @@
 "use server";
 
-import { Client } from "@notionhq/client";
-import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { marked } from "marked";
-import { NotionToMarkdown } from "notion-to-md";
-import { setupNotionTransformers } from "./notion-transformers";
+import { Marked, type Tokens } from "marked";
+import { codeToHtml } from "shiki";
+import { Client, isFullPage } from "@notionhq/client";
+import type { PageObjectResponse } from "@notionhq/client";
 
 import { generateShareUrls } from "./social-share-urls";
 import {
@@ -35,6 +34,8 @@ export type ArticlesPage = {
   hasMore: boolean;
 };
 
+export type Heading = { id: string; text: string };
+
 export type PostGeneratedProps = {
   number: number;
   slug: string;
@@ -43,6 +44,7 @@ export type PostGeneratedProps = {
   readingTime: string;
   formattedDate: string;
   content: string;
+  headings: Heading[];
   linkToShareTwitter: string;
   linkToShareLinkedin: string;
   linkToShareBluesky: string;
@@ -52,17 +54,9 @@ export type PostContent = {
   content: PostGeneratedProps;
 };
 
-marked.setOptions({
-  breaks: true,
-  gfm: true,
-});
-
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
-
-const n2m = new NotionToMarkdown({ notionClient: notion });
-setupNotionTransformers(n2m);
 
 /**
  * Fetches metadata for multiple articles and enriches with photo URLs
@@ -93,9 +87,7 @@ export async function getArticleMetaData(slug: string) {
       slug,
     );
 
-    const page = response.results.find(
-      (result): result is PageObjectResponse => result.object === "page",
-    );
+    const page = response.results.find(isFullPage);
 
     if (!page) {
       return null;
@@ -134,10 +126,61 @@ export async function getArticleContent(slug: string) {
     const title = metaData.title ?? "";
     const pageSlug = metaData.slug ?? "";
 
-    const mdblocks = await n2m.pageToMarkdown(metaData.id);
+    const mdResponse = await notion.pages.retrieveMarkdown({
+      page_id: metaData.id,
+    });
 
-    const mdString = n2m.toMarkdownString(mdblocks);
-    const htmlContent = marked(mdString.parent) as string;
+    const cleanMarkdown = mdResponse.markdown
+      .replace(/<empty-block\/>/g, "")
+      .split(/(```[\s\S]*?```)/g)
+      .map((part, i) => (i % 2 === 0 ? part.replace(/(?<!\n)\n(?!\n)/g, "\n\n") : part))
+      .join("");
+
+    const codeCache = new Map<string, string>();
+    const headings: Heading[] = [];
+
+    const instance = new Marked({
+      async: true,
+      walkTokens: async (token) => {
+        if (token.type === "code") {
+          const codeToken = token as Tokens.Code;
+          codeCache.set(
+            codeToken.text,
+            await codeToHtml(codeToken.text, {
+              lang: codeToken.lang || "text",
+              theme: "github-dark",
+            }),
+          );
+        }
+        if (token.type === "heading" && (token as Tokens.Heading).depth === 2) {
+          const text = (token as Tokens.Heading).text.replace(/<[^>]*>/g, "");
+          const id = text
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/^-+|-+$/g, "");
+          headings.push({ id, text });
+        }
+      },
+      renderer: {
+        heading({ text, depth }: Tokens.Heading) {
+          if (depth === 2) {
+            const cleanText = text.replace(/<[^>]*>/g, "");
+            const id = cleanText
+              .toLowerCase()
+              .replace(/[^\w\s-]/g, "")
+              .replace(/\s+/g, "-")
+              .replace(/^-+|-+$/g, "");
+            return `<h2 id="${id}">${text}</h2>`;
+          }
+          return false;
+        },
+        code({ text }: Tokens.Code) {
+          return codeCache.get(text) ?? `<pre><code>${text}</code></pre>`;
+        },
+      },
+    });
+    const htmlContent = await instance.parse(cleanMarkdown);
 
     const shareUrls = generateShareUrls(title, pageSlug);
 
@@ -151,6 +194,7 @@ export async function getArticleContent(slug: string) {
         number: metaData.number ?? 0,
         blueskyId: metaData.blueskyId,
         content: htmlContent,
+        headings,
         linkToShareBluesky: shareUrls.bluesky,
         linkToShareLinkedin: shareUrls.linkedin,
         linkToShareTwitter: shareUrls.twitter,
@@ -173,9 +217,7 @@ export async function getLatestArticles(slug?: string) {
       { excludeSlug: slug, pageSize: 5 },
     );
 
-    const pages = response.results.filter(
-      (result): result is PageObjectResponse => result.object === "page",
-    );
+    const pages = response.results.filter(isFullPage);
 
     return getArticlesMetaData(pages);
   } catch (error) {
@@ -195,9 +237,7 @@ export async function getArticlesBySlugs(slugs: string[]) {
       slugs,
     );
 
-    const pages = response.results.filter(
-      (result): result is PageObjectResponse => result.object === "page",
-    );
+    const pages = response.results.filter(isFullPage);
 
     return getArticlesMetaData(pages);
   } catch (error) {
@@ -211,7 +251,6 @@ export async function getArticlesBySlugs(slugs: string[]) {
  */
 export async function getAllArticles(
   q?: string | null,
-  options?: { includePhotos?: boolean },
 ): Promise<ArticleMetadata[]> {
   try {
     const response = await queryArticlesWithSearch(
@@ -221,9 +260,7 @@ export async function getAllArticles(
       undefined,
     );
 
-    const pages = response.results.filter(
-      (result): result is PageObjectResponse => result.object === "page",
-    );
+    const pages = response.results.filter(isFullPage);
 
     return getArticlesMetaData(pages);
   } catch (error) {
@@ -250,9 +287,7 @@ export async function getArticlesPage(
       },
     );
 
-    const pages = response.results.filter(
-      (result): result is PageObjectResponse => result.object === "page",
-    );
+    const pages = response.results.filter(isFullPage);
 
     return {
       articles: getArticlesMetaData(pages),

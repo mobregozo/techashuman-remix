@@ -9,12 +9,14 @@ export type OptimizedImageProps = {
   }
   alt: string
   className?: string
+  loading?: "lazy" | "eager"
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   image,
   alt,
   className,
+  loading = "lazy",
 }) => {
   const sourcesArray = Object.entries(image.sources).map(
     ([format, srcset]) => ({
@@ -34,7 +36,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         width={image.img.width}
         height={image.img.height}
         className={className}
-        loading="lazy"
+        loading={loading}
       />
     </picture>
   )

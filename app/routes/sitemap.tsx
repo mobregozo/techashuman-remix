@@ -28,7 +28,7 @@ const renderXML = (slugs: ArticleMetadata[]) => {
 }
 
 export const loader: LoaderFunction = async () => {
-  const slugs = await getAllArticles(null, { includePhotos: false })
+  const slugs = await getAllArticles(null)
 
   return new Response(renderXML(slugs), {
     headers: {

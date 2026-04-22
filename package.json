@@ -15,24 +15,15 @@
     "check:fix": "biome check --write ."
   },
   "dependencies": {
-    "@notionhq/client": "^4.0.1",
+    "@notionhq/client": "^5.15.0",
     "@react-router/node": "^7.8.0",
-    "@types/marked": "^5.0.2",
-    "geist": "^1.7.0",
     "isbot": "^5",
     "lucide-react": "^0.461.0",
-    "marked": "^16.0.0",
-    "notion-to-md": "^3.1.9",
+    "marked": "^18.0.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.8.0",
-    "rehype-pretty-code": "^0.14.1",
-    "rehype-stringify": "^10.0.1",
-    "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.1.2",
-    "shiki": "^3.7.0",
-    "unified": "^11.0.5",
-    "unsplash-js": "^7.0.18"
+    "shiki": "^4.0.2"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

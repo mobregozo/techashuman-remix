@@ -9,8 +9,8 @@ export async function queryArticleBySlug(
   databaseId: string,
   slug: string,
 ) {
-  return client.databases.query({
-    database_id: databaseId,
+  return client.dataSources.query({
+    data_source_id: databaseId,
     filter: {
       property: "slug",
       rich_text: {
@@ -28,8 +28,8 @@ export async function queryPublishedArticles(
     pageSize?: number;
   },
 ) {
-  return client.databases.query({
-    database_id: databaseId,
+  return client.dataSources.query({
+    data_source_id: databaseId,
     page_size: options?.pageSize ?? 5,
     filter: {
       and: [
@@ -78,8 +78,8 @@ export async function queryArticlesBySlugs(
     },
   }));
 
-  return client.databases.query({
-    database_id: databaseId,
+  return client.dataSources.query({
+    data_source_id: databaseId,
     filter: {
       and: [
         {
@@ -111,8 +111,8 @@ export async function queryArticlesWithSearch(
     pageSize?: number;
   },
 ) {
-  return client.databases.query({
-    database_id: databaseId,
+  return client.dataSources.query({
+    data_source_id: databaseId,
     ...(options?.startCursor ? { start_cursor: options.startCursor } : {}),
     ...(options?.pageSize ? { page_size: options.pageSize } : {}),
 
