@@ -58,6 +58,21 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+function normalizeCodeLanguage(language?: string) {
+  const normalizedLanguage = language?.trim().toLowerCase();
+
+  if (
+    !normalizedLanguage ||
+    normalizedLanguage === "plain text" ||
+    normalizedLanguage === "plaintext" ||
+    normalizedLanguage === "plain"
+  ) {
+    return "text";
+  }
+
+  return normalizedLanguage;
+}
+
 /**
  * Fetches metadata for multiple articles and enriches with photo URLs
  */
@@ -147,7 +162,7 @@ export async function getArticleContent(slug: string) {
           codeCache.set(
             codeToken.text,
             await codeToHtml(codeToken.text, {
-              lang: codeToken.lang || "text",
+              lang: normalizeCodeLanguage(codeToken.lang),
               theme: "github-dark",
             }),
           );
