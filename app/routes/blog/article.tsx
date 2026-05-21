@@ -18,6 +18,7 @@ import { ChevronRight } from "lucide-react";
 import { isRouteErrorResponse, useRouteError } from "react-router";
 import { Link } from "react-router";
 import { Route } from "./+types/article";
+import { Footer } from "@/components/footer";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const [result, latestPosts] = await Promise.all([
@@ -204,6 +205,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
       <NewsletterSignup />
+      <Footer />
       {latestPosts.length > 0 && (
         <section>
           <h2 className="mt-16 mb-8 font-medium text-4xl text-primary-600 tracking-tight md:mt-24 md:text-5xl dark:text-white">
