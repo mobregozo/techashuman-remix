@@ -101,7 +101,9 @@ export default function Index({ loaderData }: Route.ComponentProps) {
       <Intro />
       <div className="mt-10 grid gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
         <div className="lg:col-start-1 lg:row-start-1">
-          <FeaturedArticle article={lastArticle as ArticleMetadata} />
+          {lastArticle ? (
+            <FeaturedArticle article={lastArticle as ArticleMetadata} />
+          ) : null}
         </div>
         <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
           <PopularArticles articles={popularArticles as ArticleMetadata[]} />
