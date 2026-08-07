@@ -56,19 +56,21 @@ html {
 }
 
 .scroll-transform-prose {
-  --scroll-paragraph-color: var(--color-body-copy);
+  --scroll-paragraph-color: rgb(82 82 91);
   --scroll-paragraph-active-color: var(--color-secondary-500);
   --scroll-paragraph-from-opacity: 0.94;
   --scroll-paragraph-mid-opacity: 0.99;
   --scroll-paragraph-to-opacity: 0.96;
 }
 
-.dark .scroll-transform-prose {
-  --scroll-paragraph-color: var(--color-body-copy-dark);
-  --scroll-paragraph-active-color: var(--color-secondary-400);
-  --scroll-paragraph-from-opacity: 0.94;
-  --scroll-paragraph-mid-opacity: 1;
-  --scroll-paragraph-to-opacity: 0.96;
+@media (prefers-color-scheme: dark) {
+  .scroll-transform-prose {
+    --scroll-paragraph-color: var(--color-body-copy-dark);
+    --scroll-paragraph-active-color: var(--color-secondary-400);
+    --scroll-paragraph-from-opacity: 1;
+    --scroll-paragraph-mid-opacity: 1;
+    --scroll-paragraph-to-opacity: 1;
+  }
 }
 
 @supports (animation-timeline: view()) {
@@ -101,12 +103,43 @@ html {
     }
   }
 
+  @keyframes paragraph-scroll-transform-dark {
+    from {
+      opacity: var(--scroll-paragraph-from-opacity);
+      transform: translateY(0.75rem) scale(0.985);
+    }
+    42% {
+      opacity: var(--scroll-paragraph-mid-opacity);
+      transform: translateY(0.08rem) scale(0.999);
+    }
+    50%,
+    58% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    66% {
+      opacity: var(--scroll-paragraph-mid-opacity);
+      transform: translateY(-0.08rem) scale(0.999);
+    }
+    to {
+      opacity: var(--scroll-paragraph-to-opacity);
+      transform: translateY(-0.45rem) scale(0.992);
+    }
+  }
+
   .scroll-transform-prose p {
     transform-origin: center left;
     will-change: transform, opacity, color;
     animation: paragraph-scroll-transform linear both;
     animation-timeline: view();
     animation-range: entry 100% exit 100%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .scroll-transform-prose p {
+      animation-name: paragraph-scroll-transform-dark;
+      color: var(--color-body-copy-dark);
+    }
   }
 }
 
